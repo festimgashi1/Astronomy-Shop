@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shop.css">
+    <style>
+        .social-icons a {
+        display: inline;
+    }
+    .social-icons a img {
+        width: 60px;
+        height: 60px;
+        margin-right: 5px;
+    }
+    .social-icons a:hover {
+        color: #4a90e2;
+    }
+    </style>
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <img src="./photos/logo.png" alt="">
+            </div>
+            <div class="main-nav">
+                <ul>
+                    <li><a href="/Home/index.html">Home</a></li>
+                    <li><a href="/events/events.html">Events</a></li>
+                    <li><a href="/news/news.html">News</a></li>
+                    <li><a href="/Shop/shop.html">Shop</a></li>
+                    <li><a href="/aboutus/aboutus.html">About Us</a></li>
+                    <li><a href="/game/game.html">Play</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+<header>
+        <div class="header">
+            <h1><b>Space Shop </b></h1>
+            <button class="gomain" onclick="document.getElementById('main').scrollIntoView({behavior: 'smooth'})">
+                Explore </button>
+        </div>
+    </header>
+    <main id="main">
+        <nav>
+            <h3 class="category-btn1">Categories: </h3>
+            <button class="category-btn active" data-category="all">All</button>
+            <button class="category-btn" data-category="models">Models</button>
+            <button class="category-btn" data-category="books">Books</button>
+            <button class="category-btn" data-category="clothing">Clothing</button>
+            <button id="cart-btn"><img src="https://pngimg.com/d/shopping_cart_PNG4.png"
+                    style="width: 35px; height: 35px;"></button>
+        </nav>
+        <br>
+        <div id="product-grid">
+        </div>
+
+        <div id="popup">
+            <span id="closeButton">&times;</span>
+            <div>
+                <br>
+                <fieldset id="emailFieldset">
+                    <legend>Email:</legend>
+                    <input type="email" id="email" style="width: 350px;" placeholder="example@blla.com" required>
+                </fieldset>
+                <p id="message2" class="message2"></p>
+                <br>
+                <fieldset id="phoneFieldset">
+                    <legend>Phone number:</legend>
+                    <input type="tel" id="phone" style="width: 350px;" placeholder="+383 4x xxx xxx" required>
+                </fieldset>
+                <p id="message1" class="message1"></p>
+                <br>
+                <fieldset id="addressFieldset">
+                    <legend>Address:</legend>
+                    <input type="text" id="address" style="width: 350px;" placeholder="country-city" required>
+                </fieldset>
+                <p id="message3" style=" color: red;" class="message3"></p>                
+                <br>
+                <fieldset id="paymentFieldset">
+                    <legend>Payment method:</legend>
+                    <label>
+                        <input type="radio" checked="checked" name="radio">
+                        Cash
+                    </label>
+                    <label>
+                        <input type="radio" name="radio">
+                        VISA card
+                    </label>
+                    <label>
+                        <input type="radio" name="radio">
+                        PayPal
+                    </label> 
+                    <label>
+                        <input type="radio" name="radio">
+                        Mastercard
+                    </label>
+                </fieldset>
+                <button type="button" id="submitButton" onclick="handleButtonClick()" class="done-btn">Submit</button>
+                <p id="message" style="font-weight: bold;" class="message"></p>
+            </div>
+        </div>         
+    </main>
+
+    <aside id="cart">
+        <button id="close-cart" aria-label="Close cart">&times;</button>
+        <h2>Cart:</h2>
+        <div id="cart-items"></div>
+        <div id="cart-total">Total: $0.00</div>
+        <button id="checkout-btn">Checkout</button>
+    </aside>
+
+    <footer class="main-footer">
+        <div class="container-foot">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>
+                        We are dedicated to advancing humanity's understanding of the universe through innovation, 
+                        research, and exploration. Join us on this incredible journey!
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/events/events.html">Events</a></li>
+                        <li><a href="/aboutus/aboutus.html">About Us</a></li>
+                        <li><a href="/news/news.html">News</a></li>
+                        <li><a href="/Shop/shop.html">Shop</a></li>
+                        <li><a href="https://www.instagram.com/" target="_blank">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>+1 (555) 123-4567</p>
+                    <p>info@spaceagency.com</p>
+                    <p>123 Space Exploration Blvd, Houston, TX</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/" target="_blank"><img src="https://static.vecteezy.com/system/resources/previews/038/447/961/non_2x/ai-generated-instagram-logo-free-png.png" alt=""></a>
+                        <a href="https://www.facebook.com/" target="_blank"><img src="https://cdn.pixabay.com/photo/2021/06/15/12/51/facebook-6338508_960_720.png" alt="" style="width: 45px; height: 52px; padding-bottom: 7px;"></a>
+                        <a href="https://x.com/?lang=en" target="_blank"><img src="https://static.vecteezy.com/system/resources/previews/023/986/680/non_2x/twitter-logo-twitter-logo-transparent-twitter-icon-transparent-free-free-png.png" alt="" style="margin-right: 1px;"></a>
+                        <a href="https://www.youtube.com/?app=desktop" target="_blank"><img src="https://static.vecteezy.com/system/resources/thumbnails/023/986/480/small_2x/youtube-logo-youtube-logo-transparent-youtube-icon-transparent-free-free-png.png" alt=""></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Space Exploration Agency. All rights reserved.</p>
+                <ul>
+                    <li><a href="https://www.nasa.gov/privacy/#privacy-policy" target="_blank">Privacy Policy</a></li>
+                    <li><a href="https://science.nasa.gov/learn/basics-of-space-flight/glossary/" target="_blank">Terms of Use</a></li>
+                    <li><a href="https://www.nasa.gov/sitemap/" target="_blank">Sitemap</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+       const openButton = document.getElementById('checkout-btn');
+const popup = document.getElementById('popup');
+const closeButton = document.getElementById('closeButton');
+
+openButton.addEventListener('click', () => {
+    resetForm(); 
+    popup.style.display = 'block';
+});
+
+closeButton.addEventListener('click', () => {
+    popup.style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
+    if (event.target === popup) {
+        popup.style.display = 'none';
+    }
+});
+
+document.getElementById('email').addEventListener('input', () => clearError('message2'));
+document.getElementById('phone').addEventListener('input', () => clearError('message1'));
+document.getElementById('address').addEventListener('input', () => clearError('message3'));
+
+function validateEmail() {
+    const email = document.getElementById('email').value;
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailPattern.test(email);
+}
+
+function validatePhoneNumber() {
+    const phoneNumber = document.getElementById('phone').value;
+    const phonePattern = /^\+383 4\d \d{3} \d{3}$/;
+    return phonePattern.test(phoneNumber);
+}
+
+function validateAddress() {
+    const address = document.getElementById('address').value.trim();
+    return address.length > 0;
+}
+
+function clearError(messageId) {
+    const message = document.getElementById(messageId);
+    message.textContent = '';
+}
+
+function handleButtonClick() {
+    const emailValid = validateEmail();
+    const phoneValid = validatePhoneNumber();
+    const addressValid = validateAddress();
+
+    const message = document.getElementById('message');
+    const emailMessage = document.getElementById('message2');
+    const phoneMessage = document.getElementById('message1');
+    const addressMessage = document.getElementById('message3');
+
+    let allValid = true;
+
+    emailMessage.textContent = '';
+    phoneMessage.textContent = '';
+    addressMessage.textContent = '';
+
+    if (!emailValid) {
+        emailMessage.textContent = "Email is not valid!";
+        emailMessage.style.color = "red";
+        allValid = false;
+    }
+
+    if (!phoneValid) {
+        phoneMessage.textContent = "Phone number is not valid!";
+        phoneMessage.style.color = "red";
+        allValid = false;
+    }
+
+    if (!addressValid) {
+        addressMessage.textContent = "Address is required!";
+        addressMessage.style.color = "red";
+        allValid = false;
+    }
+
+    if (allValid) {
+        message.textContent = "Order is on the way";
+        message.style.color = "green";
+
+        popup.style.width = '600px';
+        popup.style.height = '400px';
+
+        document.querySelectorAll('#emailFieldset, #phoneFieldset, #addressFieldset, #paymentFieldset, #submitButton').forEach(function(element) {
+            element.style.display = 'none';
+        });
+
+        setTimeout(function() {
+            popup.style.display = 'none';  
+            resetForm(); 
+        }, 5000);
+    } else {
+        message.textContent = '';
+    }
+}
+function resetForm() {
+    document.querySelector('#email').value = '';
+    document.querySelector('#phone').value = '';
+    document.querySelector('#address').value = '';
+
+    document.querySelectorAll('#emailFieldset, #phoneFieldset, #addressFieldset, #paymentFieldset, #submitButton').forEach(function(element) {
+        element.style.display = 'block';
+    });
+
+    const message = document.getElementById('message');
+    message.textContent = '';
+}
+
+    </script>
+    <script src="shop.js"></script>
+</body>
+</html>
