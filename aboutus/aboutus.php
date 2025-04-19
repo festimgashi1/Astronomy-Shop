@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     
+    <title><?php echo $page_title; ?> | <?php echo $site_name; ?></title>
     
-    <title>About our Page</title>
+
+ 
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="aboutus.css">
     <style>
@@ -126,6 +129,18 @@ $page_descriptions = [
 $current_page= "About Us";
 ?>
 
+<?php
+$site_name = "NASA Explorers";
+$current_page = basename($_SERVER['PHP_SELF']); 
+
+switch ($current_page) {
+    case "aboutus.php":
+        $page_title = "About Us";
+        break;
+    default:
+        $page_title = "NASA Explorers";
+}
+?>
 
 
 
