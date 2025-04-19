@@ -191,6 +191,8 @@ $page_description = $page_descriptions[$page_title] ?? "";
                     <li><a href="/Shop/shop.html" >Shop</a></li>
                     <li><a href="/aboutus/aboutus.html" >About Us</a></li>
                     <li><a href="/game/game.html">Play</a></li>
+                    <li><a href="/login/login.html"><img src="/login/login.png"
+                    style="width: 35px; height: 35px;"></a></li>
                 </ul>
             </nav>
         </div>
