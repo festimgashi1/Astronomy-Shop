@@ -368,7 +368,7 @@
         ['text' => 'Shop', 'link' => '/Shop/shop.html'],
         ['text' => 'About Us', 'link' => '/aboutus/aboutus.html'],
         ['text' => 'Play', 'link' => '/game/game.html']
-        ['login'=> 'Login', 'link' => '/login/login.html']
+        
        
     ];
     $header = new Header('./logo.png', $navItems);
