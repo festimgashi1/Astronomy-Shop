@@ -80,6 +80,11 @@ class SpecialEvent extends Event {
     public function setSpecialNote($note) {
         $this->specialNote = $note;
     }
+
+    public function displayCard() {
+        parent::displayCard();
+        echo "<p class='special-note'>{$this->specialNote}</p>";
+    }
 }
 ?>
 
