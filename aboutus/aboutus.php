@@ -113,6 +113,23 @@
 </head>
 <body>
 
+<?php
+$page_descriptions = [
+    "Home" => "Explore our home page",
+    "Events" => "See upcoming space events",
+    "News" => "Read space-related news",
+    "Shop" => "Browse NASA merchandise",
+    "About Us" => "Everything about space",
+    "Play" => "Play and explore space"
+];
+
+$current_page= "About Us";
+?>
+
+
+
+
+
     <header class="main-header">
         <div class="container">
             <div class="logo">
@@ -120,9 +137,9 @@
             </div>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="/Home/index.html" ">Home</a></li>
-                    <li><a href="/events/events.html" ">Events</a></li>
-                    <li><a href="/news/news.html" ">News</a></li>
+                    <li><a href="/Home/index.html" >Home</a></li>
+                    <li><a href="/events/events.html" >Events</a></li>
+                    <li><a href="/news/news.html" >News</a></li>
                     <li><a href="/Shop/shop.html" >Shop</a></li>
                     <li><a href="/aboutus/aboutus.html" >About Us</a></li>
                     <li><a href="/game/game.html">Play</a></li>
@@ -138,7 +155,9 @@
         <div id="about-gradient-banner">
             <div id="about-banner-content">
                 <h1 style="font-size: 70px;"><abbr title="Information about our company and team">About Us</abbr></h1>
-                <h2 style="font-size: 30px; font-family: Georgia, 'Times New Roman', Times, serif;font-style: italic;">Everything about space</h2>
+                <h2 style="font-size: 30px; font-family: Georgia, 'Times New Roman', Times, serif;font-style: italic;">
+                    <?php echo $page_descriptions[$current_page]; ?>
+                </h2>
             </div>
         </div>
 
