@@ -113,6 +113,8 @@
 </head>
 <body>
 
+
+
     <header class="main-header">
         <div class="container">
             <div class="logo">
@@ -120,9 +122,9 @@
             </div>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="/Home/index.html" ">Home</a></li>
-                    <li><a href="/events/events.html" ">Events</a></li>
-                    <li><a href="/news/news.html" ">News</a></li>
+                    <li><a href="/Home/index.html" >Home</a></li>
+                    <li><a href="/events/events.html" >Events</a></li>
+                    <li><a href="/news/news.html" >News</a></li>
                     <li><a href="/Shop/shop.html" >Shop</a></li>
                     <li><a href="/aboutus/aboutus.html" >About Us</a></li>
                     <li><a href="/game/game.html">Play</a></li>
