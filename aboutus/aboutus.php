@@ -124,6 +124,24 @@ function useGlobalsSilently() {
 }
 
 useGlobalsSilently();
+
+define('DEBUG_MODE', true);
+
+function debugGlobals() {
+    global $site_name, $page_title, $page_description;
+
+    if (DEBUG_MODE) {
+        echo "<pre>";
+        var_dump(
+            isset($site_name) ? $site_name : 'site_name nuk është caktuar',
+            isset($page_title) ? $page_title : 'page_title nuk është caktuar',
+            isset($page_description) ? $page_description : 'page_description nuk është caktuar'
+        );
+        echo "</pre>";
+    }
+}
+
+
 ?>
 
 <?php
