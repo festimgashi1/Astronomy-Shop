@@ -326,7 +326,7 @@
                                 <li><a href="#shop">Shop</a></li>
                                 <li><a href="https://www.instagram.com/" target="_blank">Contact</a></li>
                               <li><a href="/login/login.html"><img src="/login/login.png"
-                        style="width: 35px; height: 35px;"></a></li>
+                        <style="width: 35px; height: 35px;"></a></li>
                             </ul>
                         </div>
                         <div class="footer-section">
