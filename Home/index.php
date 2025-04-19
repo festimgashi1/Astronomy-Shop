@@ -129,7 +129,7 @@
             $this->buttonText = $buttonText;
         }
 
-        // Get dhe Set metoda
+        
         public function getTitle() {
             return $this->title;
         }
@@ -643,6 +643,6 @@
         });
     </script>
 
-    <script src="nasa.js"></script>
+    
 </body>
 </html>
