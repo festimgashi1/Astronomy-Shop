@@ -207,27 +207,21 @@ switch ($current_page) {
 Join us on this journey as we explore the unknown, share knowledge, and spark the imaginations of future explorers. Together, we'll discover what lies beyond the stars!🚀
                 </p>
                 <ul class="feature-list">
-                    <li class="feature-item">
-                        <span class="feature-icon">🌠</span>
-                        <div>
-                            <h3>Events</h3>
-                            <p style="color: black;">Host and promote space-related events, from live talks to stargazing sessions.</p>
-                        </div>
-                    </li>
-                    <li class="feature-item">
-                        <span class="feature-icon">📰</span>
-                        <div>
-                            <h3>News</h3>
-                            <p style="color: black;">Stay updated with the latest news from NASA and space missions.</p>
-                        </div>
-                    </li>
-                    <li class="feature-item">
-                        <span class="feature-icon">🛒</span>
-                        <div>
-                            <h3 >Shop</h3>
-                            <p style="color: black;">Explore our store for exclusive NASA merchandise and educational materials.</p>
-                        </div>
-                    </li>
+                <?php
+    $features = [
+        ["title" => "Events", "desc" => "Host and promote space-related events, from live talks to stargazing sessions.", "icon" => "🌠"],
+        ["title" => "News", "desc" => "Stay updated with the latest news from NASA and space missions.", "icon" => "📰"],
+        ["title" => "Shop", "desc" => "Explore our store for exclusive NASA merchandise and educational materials.", "icon" => "🛒"]
+    ];
+ foreach ($features as $feature): ?>
+        <li class="feature-item">
+            <span class="feature-icon"><?php echo $feature['icon']; ?></span>
+            <div>
+                <h3><?php echo $feature['title']; ?></h3>
+                <p><?php echo $feature['desc']; ?></p>
+            </div>
+        </li>
+    <?php endforeach; ?>
                 </ul>
             </div>
             <div id="about-section2-image">
