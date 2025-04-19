@@ -115,6 +115,17 @@
     </style>
 </head>
 <body>
+
+<?php
+function useGlobalsSilently() {
+    global $site_name, $page_title, $page_description;
+   
+    $temp = "$page_title - $site_name - $page_description";
+}
+
+useGlobalsSilently();
+?>
+
 <?php
 $site_name = "NASA Explorers";
 
