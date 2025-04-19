@@ -115,8 +115,22 @@
     </style>
 </head>
 <body>
-
 <?php
+$site_name = "NASA Explorers";
+
+
+$current_file = basename($_SERVER['PHP_SELF']);
+
+
+$filename_to_title = [
+    "index.php" => "Home",
+    "events.php" => "Events",
+    "news.php" => "News",
+    "shop.php" => "Shop",
+    "aboutus.php" => "About Us",
+    "game.php" => "Play"
+];
+
 $page_descriptions = [
     "Home" => "Explore our home page",
     "Events" => "See upcoming space events",
@@ -126,20 +140,10 @@ $page_descriptions = [
     "Play" => "Play and explore space"
 ];
 
-$current_page= "About Us";
-?>
 
-<?php
-$site_name = "NASA Explorers";
-$current_page = basename($_SERVER['PHP_SELF']); 
-
-switch ($current_page) {
-    case "aboutus.php":
-        $page_title = "About Us";
-        break;
-    default:
-        $page_title = "NASA Explorers";
-}
+$current_page = $filename_to_title[$current_file] ?? "Home";
+$page_title = $current_page;
+$page_description = $page_descriptions[$page_title] ?? "";
 ?>
 
 
@@ -171,7 +175,7 @@ switch ($current_page) {
             <div id="about-banner-content">
                 <h1 style="font-size: 70px;"><abbr title="Information about our company and team">About Us</abbr></h1>
                 <h2 style="font-size: 30px; font-family: Georgia, 'Times New Roman', Times, serif;font-style: italic;">
-                    <?php echo $page_descriptions[$current_page]; ?>
+                <?php echo $page_descriptions[$current_page]; ?>
                 </h2>
             </div>
         </div>
