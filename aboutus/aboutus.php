@@ -233,67 +233,80 @@ Join us on this journey as we explore the unknown, share knowledge, and spark th
             </div>
         </div>
 
-        <div id="about-section3">
-            <h1 class="about-section-heading">🚀Our Founders</h1>
-            <h2 style="color: white;">Meet our Team</h2>
-            <div id="about-founders-container">
-                <div class="about-founders-box"data-founder="festim">
-                    <div class="about-founders-shape">
-                        <img src="https://images.squarespace-cdn.com/content/v1/5f61676ab765cc4f9c9ecc02/68b67fc4-3e76-4238-b545-f6b844fe3d9c/AlvinDrew.jpg" width="100%" height="100%">
-                    </div>
-                    <div class="about-founders-text">
-                        <p class="about-founders-name"><mark>Festim Gashi</mark></p>
-                        <p class="about-founders-position">Aerospace Engineering</p>
-                    </div>
+        <?php
+$founders = [
+    [
+        "id" => "festim",
+        "name" => "Festim Gashi",
+        "position" => "Aerospace Engineering",
+        "image" => "https://images.squarespace-cdn.com/content/v1/5f61676ab765cc4f9c9ecc02/68b67fc4-3e76-4238-b545-f6b844fe3d9c/AlvinDrew.jpg",
+        "bio" => "Festim Gashi is a seasoned aerospace engineer specializing in space technologies.With years of experience working on high-profile NASA projects, he is passionate about advancing human capabilities in space exploration."
+    ],
+    [
+        "id" => "getoar",
+        "name" => "Getoar Hoxha",
+        "position" => "Director of Research at Quilty Analytics",
+        "image" => "https://images.squarespace-cdn.com/content/v1/5f61676ab765cc4f9c9ecc02/44ff8118-0b16-4007-85db-e56620de2fa4/CalebHenry.jpg?format=500w",
+        "bio" => "Getoar Hoxha is an expert in satellite communications and research analysis.As the Director of Research at Quilty Analytics, he has pioneered numerous studies focusing on improving global connectivity through advanced satellite networks."
+    ],
+    [
+        "id" => "grese",
+        "name" => "Grese Ferataj",
+        "position" => "Computer Engineering",
+        "image" => "https://t3.ftcdn.net/jpg/05/68/84/94/360_F_568849416_oxmxa6E2NrlRWLXxBFRJtrwEYettyhdH.jpg",
+        "bio" => "Grese Ferataj is a visionary computer engineer with expertise in AI and software.She has contributed to creating cutting-edge applications in healthcare and education, leveraging AI to solve complex real-world problems."
+    ],
+    [
+        "id" => "jon",
+        "name" => "Jon Jashari",
+        "position" => "Manager",
+        "image" => "https://pbs.twimg.com/media/GcsrV9VWkAAaTq_?format=jpg&name=4096x4096",
+        "bio" => "Jon Jashari is a dynamic leader with experience in team and project management.With a strong background in operations and logistics, Jon ensures seamless execution of initiatives."
+    ],
+    [
+        "id" => "gresa",
+        "name" => "Gresa Thaci",
+        "position" => "The Leader",
+        "image" => "https://cdn.azeusconvene.com/wp-content/uploads/Women-CEOs-and-Business-Leaders_banner.jpg",
+        "bio" => "Gresa Thaci is a charismatic and results-driven leader who inspires her team.As the driving force behind the organization, she excels in strategic planning, team building, and innovation."
+    ]
+];
+?>
+
+<div id="about-section3">
+    <h1 class="about-section-heading">🚀Our Founders</h1>
+    <h2 style="color: white;">Meet our Team</h2>
+    <div id="about-founders-container">
+        <?php foreach ($founders as $founder): ?>
+            <div class="about-founders-box"
+                data-founder="<?php echo $founder['id']; ?>"
+                data-name="<?php echo htmlspecialchars($founder['name']); ?>"
+                data-position="<?php echo htmlspecialchars($founder['position']); ?>"
+                data-image="<?php echo htmlspecialchars($founder['image']); ?>"
+                data-bio="<?php echo htmlspecialchars($founder['bio']); ?>">
+                <div class="about-founders-shape">
+                    <img src="<?php echo $founder['image']; ?>" width="100%" height="100%">
                 </div>
-                <div class="about-founders-box"data-founder="getoar">
-                    <div class="about-founders-shape">
-                        <img src="https://images.squarespace-cdn.com/content/v1/5f61676ab765cc4f9c9ecc02/44ff8118-0b16-4007-85db-e56620de2fa4/CalebHenry.jpg?format=500w" width="100%" height="100%">
-                    </div>
-                    <div class="about-founders-text">
-                        <p class="about-founders-name"><mark>Getoar Hoxha</mark></p>
-                        <p class="about-founders-position">Director of Research at Quilty Analytics</p>
-                    </div>
-                </div>
-                <div class="about-founders-box"data-founder="grese">
-                    <div class="about-founders-shape">
-                        <img src="https://t3.ftcdn.net/jpg/05/68/84/94/360_F_568849416_oxmxa6E2NrlRWLXxBFRJtrwEYettyhdH.jpg" width="100%" height="100%">
-                    </div>
-                    <div class="about-founders-text">
-                        <p class="about-founders-name"><mark>Grese Ferataj</mark></p>
-                        <p class="about-founders-position">Computer Engineering</p>
-                    </div>
-                </div>
-                <div class="about-founders-box"data-founder="jon">
-                    <div class="about-founders-shape">
-                        <img src="https://pbs.twimg.com/media/GcsrV9VWkAAaTq_?format=jpg&name=4096x4096" width="100%" height="100%">
-                    </div>
-                    <div class="about-founders-text">
-                        <p class="about-founders-name"><mark>Jon Jashari</mark></p>
-                        <p class="about-founders-position">Manager</p>
-                    </div>
-                </div>
-                <div class="about-founders-box"data-founder="gresa">
-                    <div class="about-founders-shape">
-                        <img src="https://cdn.azeusconvene.com/wp-content/uploads/Women-CEOs-and-Business-Leaders_banner.jpg" width="100%" height="100%">
-                    </div>
-                    <div class="about-founders-text">
-                        <p class="about-founders-name"><mark>Gresa Thaci</mark></p>
-                        <p class="about-founders-position">The Leader</p>
-                    </div>
+                <div class="about-founders-text">
+                    <p class="about-founders-name"><mark><?php echo $founder['name']; ?></mark></p>
+                    <p class="about-founders-position"><?php echo $founder['position']; ?></p>
                 </div>
             </div>
-        </div>
-        <div id="founder-modal" style="display: none;">
-            <div id="modal-content">
-                <span id="modal-close">&times;</span>
-                <img id="modal-image" alt="Founder">
-                <h2 id="modal-name"></h2>
-                <p id="modal-position"></p>
-                <p id="modal-bio"></p>
-            </div>
-        </div>
-      
+        <?php endforeach; ?>
+    </div>
+
+    <div id="founder-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.8); z-index:9999;">
+    <div style="background:white; padding:20px; max-width:500px; margin:100px auto; border-radius:10px; text-align:center; position:relative;">
+        <span onclick="document.getElementById('founder-modal').style.display='none'"
+              style="position:absolute; top:10px; right:20px; cursor:pointer; font-size:20px;">&times;</span>
+
+        <img id="modal-image" src="" alt="Founder Image" style="width:100%; max-height:300px; object-fit: contain; border-radius:10px;">
+        <h2 id="modal-name" style="margin-top:15px;"></h2>
+        <h4 id="modal-position" style="color:gray;"></h4>
+        <p id="modal-bio" style="margin-top:15px;"></p>
+    </div>
+</div>
+</div>
          
         <section id="timeline">
             <div class="container">
@@ -473,50 +486,7 @@ window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/l
     }
 });
 
-function showFounderDetails(founderId) {
-    
-    var founderData = {
-        festim: {
-            name: "Festim Gashi",
-            position: "Aerospace Engineering",
-            image: "https://images.squarespace-cdn.com/content/v1/5f61676ab765cc4f9c9ecc02/68b67fc4-3e76-4238-b545-f6b844fe3d9c/AlvinDrew.jpg",
-            bio : " Festim Gashi is a seasoned aerospace engineer specializing in designing and implementing innovative space technologies. With years of experience working on high-profile NASA projects, he is passionate about advancing human capabilities in space exploration."
-        },
-        getoar: {
-            name: "Getoar Hoxha",
-            position: "Director of Research at Quilty Analytics",
-            image: "https://images.squarespace-cdn.com/content/v1/5f61676ab765cc4f9c9ecc02/44ff8118-0b16-4007-85db-e56620de2fa4/CalebHenry.jpg",
-            bio: "Getoar Hoxha is an expert in satellite communications and research analysis. As the Director of Research at Quilty Analytics, he has pioneered numerous studies focusing on improving global connectivity through advanced satellite networks."
-        },
-        grese: {
-            name: "Grese Ferataj",
-            position: "Computer Engineering",
-            image: "https://t3.ftcdn.net/jpg/05/68/84/94/360_F_568849416_oxmxa6E2NrlRWLXxBFRJtrwEYettyhdH.jpg",
-            bio: "Grese Ferataj is a visionary computer engineer with expertise in software development and artificial intelligence. She has contributed to creating cutting-edge applications in healthcare and education, leveraging AI to solve complex real-world problems."
-        },
-        jon: {
-            name: "Jon Jashari",
-            position: "Manager",
-            image: "https://pbs.twimg.com/media/GcsrV9VWkAAaTq_?format=jpg&name=4096x4096",
-            bio: "Jon Jashari is a dynamic leader with exceptional skills in managing large teams and projects. With a strong background in operations and logistics, Jon ensures seamless execution of initiatives."
-        },
-        gresa: {
-            name: "Gresa Thaci",
-            position: "The Leader",
-            image: "https://cdn.azeusconvene.com/wp-content/uploads/Women-CEOs-and-Business-Leaders_banner.jpg",
-            bio: "Gresa Thaci is a charismatic and results-driven leader who inspires her team with vision and determination. As the driving force behind the organization, she excels in strategic planning, team building, and innovation."
-        }
-    };
 
-    var founder = founderData[founderId];
-    if (founder) {
-        $('#modal-image').attr('src', founder.image);
-        $('#modal-name').text(founder.name);
-        $('#modal-position').text(founder.position);
-        $('#modal-bio').text(founder.bio);
-        $('#founder-modal').fadeIn();
-    }
-}
      
      ////
 
