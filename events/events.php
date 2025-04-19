@@ -14,6 +14,45 @@ class Event {
         $this->time = $time;
     }
 
+    public function getTitle() {
+        return $this->title;
+    }
+
+    public function setTitle($title) {
+        $this->title = $title;
+    }
+
+    public function getDescription() {
+        return $this->description;
+    }
+
+    public function setDescription($description) {
+        $this->description = $description;
+    }
+
+    public function getRegion() {
+        return $this->region;
+    }
+
+    public function setRegion($region) {
+        $this->region = $region;
+    }
+
+    public function getDate() {
+        return $this->date;
+    }
+
+    public function setDate($date) {
+        $this->date = $date;
+    }
+
+    public function getTime() {
+        return $this->time;
+    }
+
+    public function setTime($time) {
+        $this->time = $time;
+    }
 }
 ?>
 
