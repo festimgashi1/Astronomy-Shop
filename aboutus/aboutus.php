@@ -486,7 +486,21 @@ window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/l
     }
 });
 
+document.querySelectorAll(".about-founders-box").forEach(function(box) {
+    box.addEventListener("click", function() {
+        const name = box.getAttribute("data-name");
+        const position = box.getAttribute("data-position");
+        const image = box.getAttribute("data-image");
+        const bio = box.getAttribute("data-bio");
 
+        document.getElementById("modal-name").textContent = name;
+        document.getElementById("modal-position").textContent = position;
+        document.getElementById("modal-image").src = image;
+        document.getElementById("modal-bio").textContent = bio;
+
+        document.getElementById("founder-modal").style.display = "block";
+    });
+});
      
      ////
 
