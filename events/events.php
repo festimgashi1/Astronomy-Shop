@@ -1,3 +1,22 @@
+<?php 
+class Event {
+    protected $title;
+    protected $description;
+    protected $region;
+    protected $date;
+    protected $time;
+
+    public function __construct($title, $description, $region, $date, $time) {
+        $this->title = $title;
+        $this->description = $description;
+        $this->region = $region;
+        $this->date = $date;
+        $this->time = $time;
+    }
+
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
