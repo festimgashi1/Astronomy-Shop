@@ -63,6 +63,24 @@ class Event {
         echo "</div>";
     }
 }
+
+
+class SpecialEvent extends Event {
+    private $specialNote;
+
+    public function __construct($title, $description, $region, $date, $time, $specialNote) {
+        parent::__construct($title, $description, $region, $date, $time);
+        $this->specialNote = $specialNote;
+    }
+
+    public function getSpecialNote() {
+        return $this->specialNote;
+    }
+
+    public function setSpecialNote($note) {
+        $this->specialNote = $note;
+    }
+}
 ?>
 
 <!DOCTYPE html>
