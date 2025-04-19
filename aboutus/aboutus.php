@@ -113,6 +113,19 @@
 </head>
 <body>
 
+<?php
+$page_descriptions = [
+    "Home" => "Explore our home page",
+    "Events" => "See upcoming space events",
+    "News" => "Read space-related news",
+    "Shop" => "Browse NASA merchandise",
+    "About Us" => "Everything about space",
+    "Play" => "Play and explore space"
+];
+
+$current_page= "About Us";
+?>
+
 
 
 
@@ -142,7 +155,9 @@
         <div id="about-gradient-banner">
             <div id="about-banner-content">
                 <h1 style="font-size: 70px;"><abbr title="Information about our company and team">About Us</abbr></h1>
-                <h2 style="font-size: 30px; font-family: Georgia, 'Times New Roman', Times, serif;font-style: italic;">Everything about space</h2>
+                <h2 style="font-size: 30px; font-family: Georgia, 'Times New Roman', Times, serif;font-style: italic;">
+                    <?php echo $page_descriptions[$current_page]; ?>
+                </h2>
             </div>
         </div>
 
