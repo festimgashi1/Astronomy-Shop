@@ -53,6 +53,15 @@ class Event {
     public function setTime($time) {
         $this->time = $time;
     }
+
+    public function displayCard() {
+        echo "<div class='event-card' data-region='{$this->region}' data-time='{$this->time}' data-description='{$this->description}'>";
+        echo "<img src='images/space.jpg' alt='Event Image'>";
+        echo "<h3>{$this->title}</h3>";
+        echo "<div class='event-time'>{$this->date}</div>";
+        echo "<div class='event-time'>{$this->time}</div>";
+        echo "</div>";
+    }
 }
 ?>
 
