@@ -383,7 +383,7 @@
         ['text' => 'Home', 'link' => '/WEB2_2025_GR12/Home/index.php'],
         ['text' => 'Events', 'link' => '/WEB2_2025_GR12/events/events.php'],
         ['text' => 'News', 'link' => '/WEB2_2025_GR12/news/news.php'],
-        ['text' => 'Shop', 'link' => '/WEB2_2025_GR12/Shop/shop.html'],
+        ['text' => 'Shop', 'link' => '/WEB2_2025_GR12/Shop/shop.php'],
         ['text' => 'About Us', 'link' => '/WEB2_2025_GR12/aboutus/aboutus.php'],
         ['text' => 'Play', 'link' => '/WEB2_2025_GR12/game/game.php'],
        
