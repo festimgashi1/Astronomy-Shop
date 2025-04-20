@@ -114,13 +114,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="logo"><img src="logo.png" alt="Logo"></div>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="/Home/index.php">Home</a></li>
-                    <li><a href="/events/events.php">Events</a></li>
-                    <li><a href="/news/news.php">News</a></li>
-                    <li><a href="/Shop/shop.php">Shop</a></li>
-                    <li><a href="/aboutus/aboutus.php">About Us</a></li>
-                    <li><a href="/game/game.php">Play</a></li>
-                    <li><a href="/login/login.php"><img src="/WEB2_2025_GR12/login/login.png" style="width: 35px;"></a></li>
+                <li><a href='/WEB2_2025_GR12/Home/index.php' >Home</a></li>
+                    <li><a href="/WEB2_2025_GR12/events/events.php" >Events</a></li>
+                    <li><a href="/WEB2_2025_GR12/news/news.html" >News</a></li>
+                    <li><a href="/WEB2_2025_GR12/Shop/shop.html" >Shop</a></li>
+                    <li><a href="/WEB2_2025_GR12/aboutus/aboutus.html" >About Us</a></li>
+                    <li><a href="/WEB2_2025_GR12/game/game.php">Play</a></li>
+                    <li><a href="/login/login.php"><img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;"></a></li>
                 </ul>
             </nav>
         </div>
