@@ -92,103 +92,88 @@
         </thead>
         <tbody>
             <?php
-            // Të dhënat për lajmet hapësinore
-            $newsData = [
-                [
-                    'date' => '2025-04-18',
-                    'image' => 'images/news1.jpg',
-                    'title' => 'Lunar Base Announced',
-                    'description' => 'NASA and ESA reveal plans for a permanent lunar base.',
-                    'category' => 'Moon',
-                    'source' => '<a href="https://nasa.gov" target="_blank">NASA</a>'
-                ],
-                [
-                    'date' => '2025-04-10',
-                    'image' => 'images/news2.jpg',
-                    'title' => 'Asteroid Flyby Recorded',
-                    'description' => 'A near-Earth asteroid passed safely by Earth.',
-                    'category' => 'Asteroid',
-                    'source' => '<a href="https://esa.int" target="_blank">ESA</a>'
-                ],
-                [
-                        'date' => '2025-03-25',
-                    'image' => 'images/news3.jpg',
-                    'title' => 'Starship Test Successful',
-                    'description' => 'SpaceX completes a high-altitude flight with full recovery.',
-                    'category' => 'SpaceX',
-                    'source' => '<a href="https://spacex.com" target="_blank">SpaceX</a>'
-                ],
-                [
-                      'date'=> '2021-02-18',
-                    'title'=>"NASA's Perseverance Rover Discovers Ancient Delta on Mars",
-                    'image'=>"https://cdn.mos.cms.futurecdn.net/5boWV7QPgeCo4LaCNZHeDc.jpg",
-            'description'=> "The rover has found evidence of an ancient river delta in Jezero Crater, supporting the theory that Mars once had flowing water.",
-            'category'=> "Exploration",
-           'source'=> "https://www.nasa.gov/missions/mars-2020-perseverance/perseverance-rover/nasas-perseverance-rover-deciphers-ancient-history-of-martian-lake/",
             
-                ],
-
+            $spaceNews = [
                 [
-     'date' => '2025-03-25',
-                    'image' => 'images/news3.jpg',
-                    'title' => 'Starship Test Successful',
-                    'description' => 'SpaceX completes a high-altitude flight with full recovery.',
-                    'category' => 'SpaceX',
-                    'source' => '<a href="https://spacex.com" target="_blank">SpaceX</a>'
-                ],
-                [
-                    'date' => '2025-03-25',
-                    'image' => 'images/news3.jpg',
-                    'title' => 'Starship Test Successful',
-                    'description' => 'SpaceX completes a high-altitude flight with full recovery.',
-                    'category' => 'SpaceX',
-                    'source' => '<a href="https://spacex.com" target="_blank">SpaceX</a>'
+                    "title" => "SpaceX Starship Completes High-Altitude Test",
+                    "description" => "Elon Musk's spacecraft prototype achieves major milestone",
+                    "category1" => "Technology",
+                    "image" => "https://i.ytimg.com/vi/GwC0aLsG7Rc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAWTxxoPUSy6SlT9POCmGsuozo3AA",
+                    "sourceUrl" => "https://www.aljazeera.com/news/2024/6/7/spacex-rocket-completes-first-full-test-flight-after-surviving-re-entry",
+                    "date" => "2023-06-07"
                 ],
                 [
-'date' => '2025-03-25',
-                    'image' => 'images/news3.jpg',
-                    'title' => 'Starship Test Successful',
-                    'description' => 'SpaceX completes a high-altitude flight with full recovery.',
-                    'category' => 'SpaceX',
-                    'source' => '<a href="https://spacex.com" target="_blank">SpaceX</a>'
+                    "title" => "New Exoplanet Discovered in Habitable Zone",
+                    "description" => "Astronomers find Earth-like planet orbiting nearby star",
+                    "category1" => "Astronomy",
+                    "image" => "https://i.abcnewsfe.com/a/c04d41c8-a24f-422e-be1e-2a7aacc26285/Super-Earth-ht-er-240205_1707153488302_hpMain_16x9.jpg",
+                    "sourceUrl" => "https://science.nasa.gov/universe/exoplanets/discovery-alert-a-super-earth-in-the-habitable-zone/",
+                    "date" => "2024-02-05"
                 ],
                 [
-'date' => '2025-03-25',
-                    'image' => 'images/news3.jpg',
-                    'title' => 'Starship Test Successful',
-                    'description' => 'SpaceX completes a high-altitude flight with full recovery.',
-                    'category' => 'SpaceX',
-                    'source' => '<a href="https://spacex.com" target="_blank">SpaceX</a>'
+                    "title" => "James Webb Space Telescope Reveals Cosmic Secrets",
+                    "description" => "Revolutionary observatory provides unprecedented views of the universe",
+                    "category1" => "Science",
+                    "image" => "https://cdn.abcotvs.com/dip/images/12347150_101922-wls-pillars-of-creation-img.jpg",
+                    "sourceUrl" => "https://scitechdaily.com/webb-telescope-uncovers-bright-ancient-galaxies-that-challenge-cosmic-theories/",
+                    "date" => "2022-07-11"
                 ],
                 [
-'date' => '2025-03-25',
-                    'image' => 'images/news3.jpg',
-                    'title' => 'Starship Test Successful',
-                    'description' => 'SpaceX completes a high-altitude flight with full recovery.',
-                    'category' => 'SpaceX',
-                    'source' => '<a href="https://spacex.com" target="_blank">SpaceX</a>'
+                    "title" => "NASA's Perseverance Rover Discovers Ancient Delta on Mars",
+                    "description" => "The rover has found evidence of an ancient river delta in Jezero Crater, supporting the theory that Mars once had flowing water.",
+                    "category1" => "Exploration",
+                    "image" => "https://cdn.mos.cms.futurecdn.net/5boWV7QPgeCo4LaCNZHeDc.jpg",
+                    "sourceUrl" => "https://www.nasa.gov/missions/mars-2020-perseverance/perseverance-rover/nasas-perseverance-rover-deciphers-ancient-history-of-martian-lake/",
+                    "date" => "2021-02-18"
                 ],
                 [
-
+                    "title" => "SpaceX Successfully Launches Starlink Satellites",
+                    "description" => "SpaceX has launched another batch of Starlink satellites, expanding its global internet coverage network.",
+                    "category1" => "Technology",
+                    "image" => "https://satelliteprome.com/wp-content/uploads/2020/01/SpaceX.jpg",
+                    "sourceUrl" => "https://spaceflightnow.com/2024/12/03/live-coverage-spacex-to-launch-starlink-satellites-on-falcon-9-rocket-from-cape-canaveral-6/",
+                    "date" => "2024-12-03"
                 ],
-
-
+                [
+                    "title" => "China Announces Plans for Lunar Research Station",
+                    "description" => "China has revealed plans to build a permanent research station on the Moon's south pole by 2030.",
+                    "category1" => "Space Policy",
+                    "image" => "https://cdn.i-scmp.com/sites/default/files/styles/og_image_scmp_generic/public/d8/images/canvas/2024/09/09/f1fe71b8-95dc-44ec-909e-48fc6089aa90_cd9d588c.jpg?itok=vkb_rd9N&v=1725861205",
+                    "sourceUrl" => "https://english.www.gov.cn/news/202409/07/content_WS66dbeb9dc6d0868f4e8eab63.html",
+                    "date" => "2023-09-07"
+                ],
+                [
+                    "title" => "Astronomers Detect Mysterious Radio Signal from Distant Galaxy",
+                    "description" => "Scientists have picked up an unusual radio signal from a galaxy billions of light-years away, sparking curiosity about its origin.",
+                    "category1" => "Astrophysics",
+                    "image" => "https://static.techno-science.net/illustration/Source/PO/2024/11/11/russian-astronomers-di-1.jpg",
+                    "sourceUrl" => "https://www.space.com/radio-signal-ancient-galaxy-record-breaking-distance",
+                    "date" => "2024-11-11"
+                ],
+                [
+                    "title" => "NASA and ESA Collaborate on Mars Sample Return Mission",
+                    "description" => "The space agencies are working together to bring the first samples from Mars back to Earth for detailed study.",
+                    "category1" => "Exploration",
+                    "image" => "https://science.nasa.gov/wp-content/uploads/2023/06/msr-family-final-7-27-slidetorightforbetanasasite-2000px-cropped.jpg?w=4096&format=jpeg",
+                    "sourceUrl" => "https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/Exploration/Mars_sample_return",
+                    "date" => "2024-11-13"
+                ],
+                
             ];
 
-            // Sortimi i lajmeve sipas datës (më e reja e para)
-            usort($newsData, function($a, $b) {
+            
+            usort($spaceNews, function($a, $b) {
                 return strtotime($b['date']) - strtotime($a['date']);
             });
-
-            // Shfaqja e të dhënave në tabelë
-            foreach ($newsData as $news) {
+            
+            foreach ($spaceNews as $news) {
                 echo "<tr>";
                 echo "<td>{$news['date']}</td>";
                 echo "<td><img src='{$news['image']}' alt='news image' style='width: 100px; height: auto;'></td>";
                 echo "<td>{$news['title']}</td>";
                 echo "<td>{$news['description']}</td>";
-                echo "<td>{$news['category']}</td>";
-                echo "<td>{$news['source']}</td>";
+                echo "<td>{$news['category1']}</td>";
+                echo "<td><a href='{$news['sourceUrl']}' target='_blank'>Source</a></td>";
                 echo "</tr>";
             }
             ?>
