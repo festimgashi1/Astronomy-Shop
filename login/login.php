@@ -19,7 +19,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $isValid = false;
         }
 
-        
+        if (empty($_POST["login_password"])) {
+            $allErrors[] = "Password is required.";
+            $isValid = false;
+        } else {
+            $loginPassword = test_input($_POST["login_password"]);
+            if (strlen($loginPassword) < 8) {
+                $allErrors[] = "Password must be at least 8 characters.";
+                $isValid = false;
+            }
+        }
 
         if ($isValid) {
             $validationMessage = "<div class='success'>Login successful! Your information is valid.</div>";
@@ -50,7 +59,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
- 
+        if (empty($_POST["signup_phone"])) {
+            $allErrors[] = "Phone number is required.";
+            $isValid = false;
+        } else {
+            $signupPhone = $_POST["signup_phone"];
+            if (!preg_match("/^\+383\d{8}$/", $signupPhone)) {
+                $allErrors[] = "Invalid phone number format. Please use +383 followed by 8 digits.";
+                $isValid = false;
+            }
+        }
+
+        if (empty($_POST["signup_password"])) {
+            $allErrors[] = "Password is required.";
+            $isValid = false;
+        } else {
+            $signupPassword = test_input($_POST["signup_password"]);
+            if (strlen($signupPassword) < 8) {
+                $allErrors[] = "Password must be at least 8 characters.";
+                $isValid = false;
+            }
+        }
+
+        if (empty($_POST["signup_confirmPassword"])) {
+            $allErrors[] = "Please confirm your password.";
+            $isValid = false;
+        } else {
+            $signupConfirmPassword = test_input($_POST["signup_confirmPassword"]);
+            if ($signupPassword !== $signupConfirmPassword) {
+                $allErrors[] = "Passwords do not match.";
+                $isValid = false;
+            }
+        }
 
         if ($isValid) {
             $validationMessage = "<div class='success'>Registration successful! Your account has been created.</div>";
