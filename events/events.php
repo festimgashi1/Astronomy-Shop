@@ -108,14 +108,13 @@ class SpecialEvent extends Event {
             </div>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="/Home/index.html" >Home</a></li>
-                    <li><a href="/events/events.html" >Events</a></li>
-                    <li><a href="/news/news.html" >News</a></li>
+                    <li><a href="/Home/index.php" >Home</a></li>
+                    <li><a href="/events/events.php" >Events</a></li>
+                    <li><a href="/news/news.php" >News</a></li>
                     <li><a href="/Shop/shop.html" >Shop</a></li>
-                    <li><a href="/aboutus/aboutus.html" >About Us</a></li>
+                    <li><a href="/aboutus/aboutus.php" >About Us</a></li>
                     <li><a href="/game/game.html">Play</a></li>
-                    <li><a href="/login/login.html"><img src="/login/login.png"
-                    style="width: 35px; height: 35px;"></a></li>
+                    <li><a href="/login/login.html"><img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;"></a></li>
                 </ul>
             </nav>
             
