@@ -122,7 +122,7 @@
             
             
             if ($this->loginIcon) {
-                echo '<li class="login-item"><a href="/login/login.html"><img src="/login/login.png'.$this->loginIcon.'" class="login-icon"></a></li>';
+                echo '  <li><a href="/login/login.html"><img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;"></a></li>';
             }
             
             echo '</ul>
