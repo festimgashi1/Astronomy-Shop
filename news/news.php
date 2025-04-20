@@ -44,7 +44,7 @@
             <div class="image-container">
                 <img src="https://www.nasa.gov/wp-content/uploads/2024/10/54050312989-7f2d600d29-o.jpg" alt="image" class="active">
                 <img src="https://www.nasa.gov/wp-content/uploads/2024/11/as12-46-6728orig.jpg" alt="image">
-                <img src="https://smd-cms.nasa.gov/wp-content/uploads/2023/12/nasa-mars-desktop-8k.jpg" alt="">
+                <img src="https://science.nasa.gov/wp-content/uploads/2023/12/nasa-mars-desktop-8k.jpg" alt="">
                 <img src="https://science.nasa.gov/wp-content/uploads/2023/06/solar-system-illustration-16x9-1.jpg" alt="">
                 <img src="https://www.nasa.gov/wp-content/uploads/2024/12/iss072e189028orig.jpg" alt="image">
                 <img src="https://www.nasa.gov/wp-content/uploads/2024/11/pia22081orig.jpg" alt="image">
@@ -170,7 +170,7 @@
                     "title" => "Hubble Telescope Observes Interstellar Comet 2I/Borisov",
                     "description" => "The Hubble Space Telescope captures detailed images of 2I/Borisov, the second known interstellar object to visit our solar system.",
                     "category1" => "Astronomy",
-                    "image" => "https://www.universetoday.com/wp-content/uploads/2019/10/Halleys_Comet_1910.jpg",
+                    "image" => "https://science.nasa.gov/wp-content/uploads/2019/10/stsci-h-p1953a-f-1106x1106-1.png",
                     "sourceUrl" => "https://science.nasa.gov/missions/hubble/hubble-observes-1st-confirmed-interstellar-comet/",
                     "date" => "2019-10-16"
                 ],
