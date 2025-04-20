@@ -76,31 +76,125 @@
             </audio>
         </article>
 
-        <hr color="#ffd700" style="margin-top: 20px;">
-        <section id="latest-news">
-            <h2 style="padding: 10px 10px 10px 0px; font-size: 36px; color: #4197ff; text-align: center;">Latest Space News</h2>
-            <div id="news-grid"></div>
-        </section>
-    </main>
-    <hr color="#ffd700" style="margin-top: 10px;">
-    <div class="container">
-        <h1>Detailed Space News Timeline</h1>
-        <table id="spaceNewsTable">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Image</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>Source</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Rreshtat e tabelës do ti paraqes këtu me JavaScript -->
-            </tbody>
-        </table>
-    </div>
+        <hr color="#ffd700" style="margin-top: 10px;">
+<div class="container">
+    <h1>Detailed Space News Timeline</h1>
+    <table id="spaceNewsTable">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Source</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            // Të dhënat për lajmet hapësinore
+            $newsData = [
+                [
+                    'date' => '2025-04-18',
+                    'image' => 'images/news1.jpg',
+                    'title' => 'Lunar Base Announced',
+                    'description' => 'NASA and ESA reveal plans for a permanent lunar base.',
+                    'category' => 'Moon',
+                    'source' => '<a href="https://nasa.gov" target="_blank">NASA</a>'
+                ],
+                [
+                    'date' => '2025-04-10',
+                    'image' => 'images/news2.jpg',
+                    'title' => 'Asteroid Flyby Recorded',
+                    'description' => 'A near-Earth asteroid passed safely by Earth.',
+                    'category' => 'Asteroid',
+                    'source' => '<a href="https://esa.int" target="_blank">ESA</a>'
+                ],
+                [
+                        'date' => '2025-03-25',
+                    'image' => 'images/news3.jpg',
+                    'title' => 'Starship Test Successful',
+                    'description' => 'SpaceX completes a high-altitude flight with full recovery.',
+                    'category' => 'SpaceX',
+                    'source' => '<a href="https://spacex.com" target="_blank">SpaceX</a>'
+                ],
+                [
+                      'date'=> '2021-02-18',
+                    'title'=>"NASA's Perseverance Rover Discovers Ancient Delta on Mars",
+                    'image'=>"https://cdn.mos.cms.futurecdn.net/5boWV7QPgeCo4LaCNZHeDc.jpg",
+            'description'=> "The rover has found evidence of an ancient river delta in Jezero Crater, supporting the theory that Mars once had flowing water.",
+            'category'=> "Exploration",
+           'source'=> "https://www.nasa.gov/missions/mars-2020-perseverance/perseverance-rover/nasas-perseverance-rover-deciphers-ancient-history-of-martian-lake/",
+            
+                ],
+
+                [
+     'date' => '2025-03-25',
+                    'image' => 'images/news3.jpg',
+                    'title' => 'Starship Test Successful',
+                    'description' => 'SpaceX completes a high-altitude flight with full recovery.',
+                    'category' => 'SpaceX',
+                    'source' => '<a href="https://spacex.com" target="_blank">SpaceX</a>'
+                ],
+                [
+                    'date' => '2025-03-25',
+                    'image' => 'images/news3.jpg',
+                    'title' => 'Starship Test Successful',
+                    'description' => 'SpaceX completes a high-altitude flight with full recovery.',
+                    'category' => 'SpaceX',
+                    'source' => '<a href="https://spacex.com" target="_blank">SpaceX</a>'
+                ],
+                [
+'date' => '2025-03-25',
+                    'image' => 'images/news3.jpg',
+                    'title' => 'Starship Test Successful',
+                    'description' => 'SpaceX completes a high-altitude flight with full recovery.',
+                    'category' => 'SpaceX',
+                    'source' => '<a href="https://spacex.com" target="_blank">SpaceX</a>'
+                ],
+                [
+'date' => '2025-03-25',
+                    'image' => 'images/news3.jpg',
+                    'title' => 'Starship Test Successful',
+                    'description' => 'SpaceX completes a high-altitude flight with full recovery.',
+                    'category' => 'SpaceX',
+                    'source' => '<a href="https://spacex.com" target="_blank">SpaceX</a>'
+                ],
+                [
+'date' => '2025-03-25',
+                    'image' => 'images/news3.jpg',
+                    'title' => 'Starship Test Successful',
+                    'description' => 'SpaceX completes a high-altitude flight with full recovery.',
+                    'category' => 'SpaceX',
+                    'source' => '<a href="https://spacex.com" target="_blank">SpaceX</a>'
+                ],
+                [
+
+                ],
+
+
+            ];
+
+            // Sortimi i lajmeve sipas datës (më e reja e para)
+            usort($newsData, function($a, $b) {
+                return strtotime($b['date']) - strtotime($a['date']);
+            });
+
+            // Shfaqja e të dhënave në tabelë
+            foreach ($newsData as $news) {
+                echo "<tr>";
+                echo "<td>{$news['date']}</td>";
+                echo "<td><img src='{$news['image']}' alt='news image' style='width: 100px; height: auto;'></td>";
+                echo "<td>{$news['title']}</td>";
+                echo "<td>{$news['description']}</td>";
+                echo "<td>{$news['category']}</td>";
+                echo "<td>{$news['source']}</td>";
+                echo "</tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
 
     <footer class="main-footer">
         <div class="container">
