@@ -76,14 +76,31 @@
             </audio>
         </article>
 
-        
-        
-
-
-
-
-
-
+        <hr color="#ffd700" style="margin-top: 20px;">
+        <section id="latest-news">
+            <h2 style="padding: 10px 10px 10px 0px; font-size: 36px; color: #4197ff; text-align: center;">Latest Space News</h2>
+            <div id="news-grid"></div>
+        </section>
+    </main>
+    <hr color="#ffd700" style="margin-top: 10px;">
+    <div class="container">
+        <h1>Detailed Space News Timeline</h1>
+        <table id="spaceNewsTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Source</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rreshtat e tabelës do ti paraqes këtu me JavaScript -->
+            </tbody>
+        </table>
+    </div>
 
     <footer class="main-footer">
         <div class="container">
