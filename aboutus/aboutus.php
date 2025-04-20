@@ -338,62 +338,38 @@ $founders = [
 </div>
 </div>
          
-        <section id="timeline">
-            <div class="container">
-                <h2 class="about-section-heading">NASA Timeline</h2>
-                <div class="border-line" style="margin-top: 27px; margin-bottom: 27px";></div>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="content">
-                            <div class="year">1958</div>
-                            <div class="event">NASA is established</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="content">
-                            <div class="year">1961</div>
-                            <div class="event">First American in space: Alan Shepard</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="content">
-                            <div class="year">1969</div>
-                            <div class="event">Apollo 11 moon landing</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="content">
-                            <div class="year">1981</div>
-                            <div class="event">First Space Shuttle launch</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="content">
-                            <div class="year">1990</div>
-                            <div class="event">Hubble Space Telescope launched</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="content">
-                            <div class="year">1998</div>
-                            <div class="event">International Space Station construction begins</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="content">
-                            <div class="year">2012</div>
-                            <div class="event">Curiosity rover lands on Mars</div>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="content">
-                            <div class="year">2020</div>
-                            <div class="event">SpaceX Crew Dragon first crewed flight</div>
-                        </div>
+<?php
+
+$timeline = [
+    1958 => "NASA is established",
+    1961 => "First American in space: Alan Shepard",
+    1969 => "Apollo 11 moon landing",
+    1981 => "First Space Shuttle launch",
+    1990 => "Hubble Space Telescope launched",
+    1998 => "International Space Station construction begins",
+    2012 => "Curiosity rover lands on Mars",
+    2020 => "SpaceX Crew Dragon first crewed flight"
+];
+
+ksort($timeline);
+?>
+
+<section id="timeline">
+    <div class="container">
+        <h2 class="about-section-heading">NASA Timeline</h2>
+        <div class="border-line" style="margin-top: 27px; margin-bottom: 27px;"></div>
+        <div class="timeline">
+            <?php foreach ($timeline as $year => $event): ?>
+                <div class="timeline-item">
+                    <div class="content">
+                        <div class="year"><?= $year ?></div>
+                        <div class="event"><?= $event ?></div>
                     </div>
                 </div>
-            </div>
-        </section>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
 
         <section id="customer-reviews">
             <div class="container">
