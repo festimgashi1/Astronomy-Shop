@@ -124,7 +124,7 @@
             
             if ($this->loginIcon) {
                
-                echo '<li><a href="/WEB2_2025_GR12/login/login.php"><img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;"></a></li>';
+                echo '<li><a href="/WEB2_2025_GR12/login/login.html"><img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;"></a></li>';
             }
             
             echo '</ul>
