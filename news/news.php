@@ -190,6 +190,22 @@
                     "sourceUrl" => "https://science.nasa.gov/missions/davinci/davincis-many-firsts-at-venus/",
                     "date" => "2024-06-22"
                 ],
+                [
+                    "title" => "First Commercial Space Station Module Successfully Docked",
+                    "description" => "Axiom Space's first commercial module has successfully docked with the International Space Station, marking a new era in space commercialization.",
+                    "category1" => "Space Infrastructure",
+                    "image" => "https://www.digitaltrends.com/wp-content/uploads/2024/10/haven-2.jpeg?p=1",
+                    "sourceUrl" => "https://www.nasa.gov/news-release/nasa-selects-first-commercial-destination-module-for-international-space-station/",
+                    "date" => "2024-03-15"
+                ],
+                [
+                    "title" => "Breakthrough in Fusion Energy: Net Energy Gain Achieved in Space",
+                    "description" => "Scientists aboard the International Space Station have achieved a significant milestone in fusion research, demonstrating net energy gain in microgravity conditions.",
+                    "category1" => "Space Technology",
+                    "image" => "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-760w,f_auto,q_auto:best/rockcms/2022-12/221213-National-Ignition-Facility-X-rays-al-1030-1b2653.jpg",
+                    "sourceUrl" => "https://www.theguardian.com/environment/2023/aug/06/us-scientists-achieve-net-energy-gain-second-time-fusion-reaction",
+                    "date" => "2024-09-30"
+                ]
             ];
 
             
