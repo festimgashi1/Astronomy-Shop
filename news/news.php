@@ -44,7 +44,7 @@
             <div class="image-container">
                 <img src="https://www.nasa.gov/wp-content/uploads/2024/10/54050312989-7f2d600d29-o.jpg" alt="image" class="active">
                 <img src="https://www.nasa.gov/wp-content/uploads/2024/11/as12-46-6728orig.jpg" alt="image">
-                <img src="https://smd-cms.nasa.gov/wp-content/uploads/2023/12/nasa-mars-desktop-8k.jpg" alt="">
+                <img src="https://science.nasa.gov/wp-content/uploads/2023/12/nasa-mars-desktop-8k.jpg" alt="">
                 <img src="https://science.nasa.gov/wp-content/uploads/2023/06/solar-system-illustration-16x9-1.jpg" alt="">
                 <img src="https://www.nasa.gov/wp-content/uploads/2024/12/iss072e189028orig.jpg" alt="image">
                 <img src="https://www.nasa.gov/wp-content/uploads/2024/11/pia22081orig.jpg" alt="image">
@@ -92,103 +92,135 @@
         </thead>
         <tbody>
             <?php
-            // Të dhënat për lajmet hapësinore
-            $newsData = [
-                [
-                    'date' => '2025-04-18',
-                    'image' => 'images/news1.jpg',
-                    'title' => 'Lunar Base Announced',
-                    'description' => 'NASA and ESA reveal plans for a permanent lunar base.',
-                    'category' => 'Moon',
-                    'source' => '<a href="https://nasa.gov" target="_blank">NASA</a>'
-                ],
-                [
-                    'date' => '2025-04-10',
-                    'image' => 'images/news2.jpg',
-                    'title' => 'Asteroid Flyby Recorded',
-                    'description' => 'A near-Earth asteroid passed safely by Earth.',
-                    'category' => 'Asteroid',
-                    'source' => '<a href="https://esa.int" target="_blank">ESA</a>'
-                ],
-                [
-                        'date' => '2025-03-25',
-                    'image' => 'images/news3.jpg',
-                    'title' => 'Starship Test Successful',
-                    'description' => 'SpaceX completes a high-altitude flight with full recovery.',
-                    'category' => 'SpaceX',
-                    'source' => '<a href="https://spacex.com" target="_blank">SpaceX</a>'
-                ],
-                [
-                      'date'=> '2021-02-18',
-                    'title'=>"NASA's Perseverance Rover Discovers Ancient Delta on Mars",
-                    'image'=>"https://cdn.mos.cms.futurecdn.net/5boWV7QPgeCo4LaCNZHeDc.jpg",
-            'description'=> "The rover has found evidence of an ancient river delta in Jezero Crater, supporting the theory that Mars once had flowing water.",
-            'category'=> "Exploration",
-           'source'=> "https://www.nasa.gov/missions/mars-2020-perseverance/perseverance-rover/nasas-perseverance-rover-deciphers-ancient-history-of-martian-lake/",
             
-                ],
-
+            $spaceNews = [
                 [
-     'date' => '2025-03-25',
-                    'image' => 'images/news3.jpg',
-                    'title' => 'Starship Test Successful',
-                    'description' => 'SpaceX completes a high-altitude flight with full recovery.',
-                    'category' => 'SpaceX',
-                    'source' => '<a href="https://spacex.com" target="_blank">SpaceX</a>'
-                ],
-                [
-                    'date' => '2025-03-25',
-                    'image' => 'images/news3.jpg',
-                    'title' => 'Starship Test Successful',
-                    'description' => 'SpaceX completes a high-altitude flight with full recovery.',
-                    'category' => 'SpaceX',
-                    'source' => '<a href="https://spacex.com" target="_blank">SpaceX</a>'
+                    "title" => "SpaceX Starship Completes High-Altitude Test",
+                    "description" => "Elon Musk's spacecraft prototype achieves major milestone",
+                    "category1" => "Technology",
+                    "image" => "https://i.ytimg.com/vi/GwC0aLsG7Rc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAWTxxoPUSy6SlT9POCmGsuozo3AA",
+                    "sourceUrl" => "https://www.aljazeera.com/news/2024/6/7/spacex-rocket-completes-first-full-test-flight-after-surviving-re-entry",
+                    "date" => "2023-06-07"
                 ],
                 [
-'date' => '2025-03-25',
-                    'image' => 'images/news3.jpg',
-                    'title' => 'Starship Test Successful',
-                    'description' => 'SpaceX completes a high-altitude flight with full recovery.',
-                    'category' => 'SpaceX',
-                    'source' => '<a href="https://spacex.com" target="_blank">SpaceX</a>'
+                    "title" => "New Exoplanet Discovered in Habitable Zone",
+                    "description" => "Astronomers find Earth-like planet orbiting nearby star",
+                    "category1" => "Astronomy",
+                    "image" => "https://i.abcnewsfe.com/a/c04d41c8-a24f-422e-be1e-2a7aacc26285/Super-Earth-ht-er-240205_1707153488302_hpMain_16x9.jpg",
+                    "sourceUrl" => "https://science.nasa.gov/universe/exoplanets/discovery-alert-a-super-earth-in-the-habitable-zone/",
+                    "date" => "2024-02-05"
                 ],
                 [
-'date' => '2025-03-25',
-                    'image' => 'images/news3.jpg',
-                    'title' => 'Starship Test Successful',
-                    'description' => 'SpaceX completes a high-altitude flight with full recovery.',
-                    'category' => 'SpaceX',
-                    'source' => '<a href="https://spacex.com" target="_blank">SpaceX</a>'
+                    "title" => "James Webb Space Telescope Reveals Cosmic Secrets",
+                    "description" => "Revolutionary observatory provides unprecedented views of the universe",
+                    "category1" => "Science",
+                    "image" => "https://cdn.abcotvs.com/dip/images/12347150_101922-wls-pillars-of-creation-img.jpg",
+                    "sourceUrl" => "https://scitechdaily.com/webb-telescope-uncovers-bright-ancient-galaxies-that-challenge-cosmic-theories/",
+                    "date" => "2022-07-11"
                 ],
                 [
-'date' => '2025-03-25',
-                    'image' => 'images/news3.jpg',
-                    'title' => 'Starship Test Successful',
-                    'description' => 'SpaceX completes a high-altitude flight with full recovery.',
-                    'category' => 'SpaceX',
-                    'source' => '<a href="https://spacex.com" target="_blank">SpaceX</a>'
+                    "title" => "NASA's Perseverance Rover Discovers Ancient Delta on Mars",
+                    "description" => "The rover has found evidence of an ancient river delta in Jezero Crater, supporting the theory that Mars once had flowing water.",
+                    "category1" => "Exploration",
+                    "image" => "https://cdn.mos.cms.futurecdn.net/5boWV7QPgeCo4LaCNZHeDc.jpg",
+                    "sourceUrl" => "https://www.nasa.gov/missions/mars-2020-perseverance/perseverance-rover/nasas-perseverance-rover-deciphers-ancient-history-of-martian-lake/",
+                    "date" => "2021-02-18"
                 ],
                 [
-
+                    "title" => "SpaceX Successfully Launches Starlink Satellites",
+                    "description" => "SpaceX has launched another batch of Starlink satellites, expanding its global internet coverage network.",
+                    "category1" => "Technology",
+                    "image" => "https://satelliteprome.com/wp-content/uploads/2020/01/SpaceX.jpg",
+                    "sourceUrl" => "https://spaceflightnow.com/2024/12/03/live-coverage-spacex-to-launch-starlink-satellites-on-falcon-9-rocket-from-cape-canaveral-6/",
+                    "date" => "2024-12-03"
                 ],
-
-
+                [
+                    "title" => "China Announces Plans for Lunar Research Station",
+                    "description" => "China has revealed plans to build a permanent research station on the Moon's south pole by 2030.",
+                    "category1" => "Space Policy",
+                    "image" => "https://cdn.i-scmp.com/sites/default/files/styles/og_image_scmp_generic/public/d8/images/canvas/2024/09/09/f1fe71b8-95dc-44ec-909e-48fc6089aa90_cd9d588c.jpg?itok=vkb_rd9N&v=1725861205",
+                    "sourceUrl" => "https://english.www.gov.cn/news/202409/07/content_WS66dbeb9dc6d0868f4e8eab63.html",
+                    "date" => "2023-09-07"
+                ],
+                [
+                    "title" => "Astronomers Detect Mysterious Radio Signal from Distant Galaxy",
+                    "description" => "Scientists have picked up an unusual radio signal from a galaxy billions of light-years away, sparking curiosity about its origin.",
+                    "category1" => "Astrophysics",
+                    "image" => "https://static.techno-science.net/illustration/Source/PO/2024/11/11/russian-astronomers-di-1.jpg",
+                    "sourceUrl" => "https://www.space.com/radio-signal-ancient-galaxy-record-breaking-distance",
+                    "date" => "2024-11-11"
+                ],
+                [
+                    "title" => "NASA and ESA Collaborate on Mars Sample Return Mission",
+                    "description" => "The space agencies are working together to bring the first samples from Mars back to Earth for detailed study.",
+                    "category1" => "Exploration",
+                    "image" => "https://science.nasa.gov/wp-content/uploads/2023/06/msr-family-final-7-27-slidetorightforbetanasasite-2000px-cropped.jpg?w=4096&format=jpeg",
+                    "sourceUrl" => "https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/Exploration/Mars_sample_return",
+                    "date" => "2024-11-13"
+                ],
+                [
+                    "title" => "ESA's Gaia Mission Creates Most Detailed 3D Map of the Milky Way",
+                    "description" => "The European Space Agency's Gaia spacecraft releases the most comprehensive 3D map of our galaxy, providing positions and motions for nearly 2 billion stars.",
+                    "category1" => "Galactic Cartography",
+                    "image" => "https://scitechdaily.com/images/ESA-Gaia-Spacecraft-Prepares-for-Launch-777x515.jpg",
+                    "sourceUrl" => "https://www.azoquantum.com/Article.aspx?ArticleID=350",
+                    "date" => "2023-10-26"
+                ],
+                [
+                    "title" => "Hubble Telescope Observes Interstellar Comet 2I/Borisov",
+                    "description" => "The Hubble Space Telescope captures detailed images of 2I/Borisov, the second known interstellar object to visit our solar system.",
+                    "category1" => "Astronomy",
+                    "image" => "https://science.nasa.gov/wp-content/uploads/2019/10/stsci-h-p1953a-f-1106x1106-1.png",
+                    "sourceUrl" => "https://science.nasa.gov/missions/hubble/hubble-observes-1st-confirmed-interstellar-comet/",
+                    "date" => "2019-10-16"
+                ],
+                [
+                    "title" => "NASA's Artemis Program: The Next Giant Leap",
+                    "description" => "NASA's Artemis program aims to land the first woman and the next man on the Moon by 2024, paving the way for sustainable lunar exploration and eventual missions to Mars. This ambitious project represents the next era of human spaceflight and scientific discovery.",
+                    "category1" => "Astronomy",
+                    "image" => "https://i.ytimg.com/vi/9YDfmbmLxwc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBzW48f_aPClYW1FndH9jgcpRZwog",
+                    "sourceUrl" => "https://www.nasa.gov/news-release/nasa-publishes-artemis-plan-to-land-first-woman-next-man-on-moon-in-2024/",
+                    "date" => "2024-12-10"
+                ],
+                [
+                    "title" => "NASA's DAVINCI Mission Reveals Venus' Atmospheric Secrets",
+                    "description" => "The DAVINCI probe has successfully descended through Venus' atmosphere, providing unprecedented data about its composition and history.",
+                    "category1" => "Planetary Exploration",
+                    "image" => "https://ina.iq/eng/uploads/posts/2022-06/upload_1654365602_1888492882.jpg",
+                    "sourceUrl" => "https://science.nasa.gov/missions/davinci/davincis-many-firsts-at-venus/",
+                    "date" => "2024-06-22"
+                ],
+                [
+                    "title" => "First Commercial Space Station Module Successfully Docked",
+                    "description" => "Axiom Space's first commercial module has successfully docked with the International Space Station, marking a new era in space commercialization.",
+                    "category1" => "Space Infrastructure",
+                    "image" => "https://www.digitaltrends.com/wp-content/uploads/2024/10/haven-2.jpeg?p=1",
+                    "sourceUrl" => "https://www.nasa.gov/news-release/nasa-selects-first-commercial-destination-module-for-international-space-station/",
+                    "date" => "2024-03-15"
+                ],
+                [
+                    "title" => "Breakthrough in Fusion Energy: Net Energy Gain Achieved in Space",
+                    "description" => "Scientists aboard the International Space Station have achieved a significant milestone in fusion research, demonstrating net energy gain in microgravity conditions.",
+                    "category1" => "Space Technology",
+                    "image" => "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-760w,f_auto,q_auto:best/rockcms/2022-12/221213-National-Ignition-Facility-X-rays-al-1030-1b2653.jpg",
+                    "sourceUrl" => "https://www.theguardian.com/environment/2023/aug/06/us-scientists-achieve-net-energy-gain-second-time-fusion-reaction",
+                    "date" => "2024-09-30"
+                ]
             ];
 
-            // Sortimi i lajmeve sipas datës (më e reja e para)
-            usort($newsData, function($a, $b) {
+            
+            usort($spaceNews, function($a, $b) {
                 return strtotime($b['date']) - strtotime($a['date']);
             });
-
-            // Shfaqja e të dhënave në tabelë
-            foreach ($newsData as $news) {
+            
+            foreach ($spaceNews as $news) {
                 echo "<tr>";
                 echo "<td>{$news['date']}</td>";
                 echo "<td><img src='{$news['image']}' alt='news image' style='width: 100px; height: auto;'></td>";
                 echo "<td>{$news['title']}</td>";
                 echo "<td>{$news['description']}</td>";
-                echo "<td>{$news['category']}</td>";
-                echo "<td>{$news['source']}</td>";
+                echo "<td>{$news['category1']}</td>";
+                echo "<td><a href='{$news['sourceUrl']}' target='_blank'>Source</a></td>";
                 echo "</tr>";
             }
             ?>
