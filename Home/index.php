@@ -6,8 +6,12 @@
     <title>Space Exploration</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
+
 </head>
 <body>
+
+
+
     <style>
         .solar-system {
             background-color: #030619;
@@ -67,16 +71,17 @@
             color: #4a90e2;
         }
     </style>
-
+   
     <?php
    
     class Header {
         private $logo;
         private $navItems;
 
-        public function __construct($logo, $navItems) {
+        public function __construct($logo, $navItems, $loginIcon = '') {
             $this->logo = $logo;
             $this->navItems = $navItems;
+            $this->loginIcon = $loginIcon;
         }
 
         public function getLogo() {
@@ -94,7 +99,14 @@
         public function setNavItems($navItems) {
             $this->navItems = $navItems;
         }
-
+        public function getLoginIcon() {
+            return $this->loginIcon;
+        }
+    
+        public function setLoginIcon($loginIcon) {
+            $this->loginIcon = $loginIcon;
+        }
+    
         public function render() {
             echo '<header class="main-header">
                 <div class="container">
@@ -108,14 +120,17 @@
                 echo '<li><a href="'.$item['link'].'">'.$item['text'].'</a></li>';
             }
             
+            
+            if ($this->loginIcon) {
+                echo '<li class="login-item"><a href="/login/login.html"><img src="/login/login.png'.$this->loginIcon.'" class="login-icon"></a></li>';
+            }
+            
             echo '</ul>
                     </nav>
                 </div>
             </header>';
         }
     }
-
-   
     class HeroSection {
         private $title;
         private $description;
@@ -275,6 +290,7 @@
                 <p>Price: $'.$this->price.'</p>
                 <a href="'.$this->link.'" class="btn">Add to Cart</a>
             </div>';
+
         }
     }
 
@@ -324,8 +340,7 @@
                                 <li><a href="#about">About Us</a></li>
                                 <li><a href="#news">News</a></li>
                                 <li><a href="#shop">Shop</a></li>
-                                <li><a href="https://www.instagram.com/" target="_blank">Contact</a></li>
-                                 <li><a href="/login/login.html"><img src="/login/login.png"
+                                <li><a href="/login/login.html"><img src="/login/login.png"
                         style="width: 35px; height: 35px;"></a></li>
                             </ul>
                         </div>
@@ -362,14 +377,15 @@
 
     
     $navItems = [
-        ['text' => 'Home', 'link' => '/Home/nasahome.html'],
+        ['text' => 'Home', 'link' => '/Home/index.html'],
         ['text' => 'Events', 'link' => '/events/events.html'],
         ['text' => 'News', 'link' => '/news/news.html'],
         ['text' => 'Shop', 'link' => '/Shop/shop.html'],
         ['text' => 'About Us', 'link' => '/aboutus/aboutus.html'],
         ['text' => 'Play', 'link' => '/game/game.html']
+       
     ];
-    $header = new Header('./logo.png', $navItems);
+    $header = new Header('./logo.png', $navItems,'/login/login.png');
     $header->render();
 
     $hero = new HeroSection(
