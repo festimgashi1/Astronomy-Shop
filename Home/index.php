@@ -257,7 +257,7 @@
                 <h3>'.$this->title.'</h3>
                 <p>Date: '.$this->date.'</p>
                 <p>Location: '.$this->location.'</p>
-                <a href="'.$this->link.'" class="btn">Learn More</a>
+                <a href="/WEB2_2025_GR12/events/events.php" class="btn">Learn More</a>
             </div>';
         }
     }
@@ -269,7 +269,7 @@
                 <img src="'.$this->imageUrl.'" alt="'.$this->title.'">
                 <h3>'.$this->title.'</h3>
                 <p>'.$this->description.'</p>
-                <a href="'.$this->link.'" class="btn">Read More</a>
+                <a href="/WEB2_2025_GR12/news/news.php" class="btn">Read More</a>
             </div>';
         }
     }
@@ -288,7 +288,7 @@
                 <img src="'.$this->imageUrl.'" alt="'.$this->title.'">
                 <h3>'.$this->title.'</h3>
                 <p>Price: $'.$this->price.'</p>
-                <a href="'.$this->link.'" class="btn">Add to Cart</a>
+                <a href="/WEB2_2025_GR12/shop/shop.php" class="btn">Add to Cart</a>
             </div>';
 
         }
@@ -377,13 +377,16 @@
 
     
     $navItems = [
-        ['text' => 'Home', 'link' => '/Home/index.html'],
-        ['text' => 'Events', 'link' => '/events/events.html'],
-        ['text' => 'News', 'link' => '/news/news.html'],
-        ['text' => 'Shop', 'link' => '/Shop/shop.html'],
-        ['text' => 'About Us', 'link' => '/aboutus/aboutus.html'],
-        ['text' => 'Play', 'link' => '/game/game.html']
+        ['text' => 'Home', 'link' => '/WEB2_2025_GR12/Home/index.php'],
+        ['text' => 'Events', 'link' => '/WEB2_2025_GR12/events/events.php'],
+        ['text' => 'News', 'link' => '/WEB2_2025_GR12/news/news.php'],
+        ['text' => 'Shop', 'link' => '/WEB2_2025_GR12/Shop/shop.html'],
+        ['text' => 'About Us', 'link' => '/WEB2_2025_GR12/aboutus/aboutus.php'],
+        ['text' => 'Play', 'link' => '/WEB2_2025_GR12/game/game.php']
        
+        
+
+
     ];
     $header = new Header('./logo.png', $navItems,'/login/login.png');
     $header->render();
