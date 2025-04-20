@@ -158,7 +158,38 @@
                     "sourceUrl" => "https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/Exploration/Mars_sample_return",
                     "date" => "2024-11-13"
                 ],
-                
+                [
+                    "title" => "ESA's Gaia Mission Creates Most Detailed 3D Map of the Milky Way",
+                    "description" => "The European Space Agency's Gaia spacecraft releases the most comprehensive 3D map of our galaxy, providing positions and motions for nearly 2 billion stars.",
+                    "category1" => "Galactic Cartography",
+                    "image" => "https://scitechdaily.com/images/ESA-Gaia-Spacecraft-Prepares-for-Launch-777x515.jpg",
+                    "sourceUrl" => "https://www.azoquantum.com/Article.aspx?ArticleID=350",
+                    "date" => "2023-10-26"
+                ],
+                [
+                    "title" => "Hubble Telescope Observes Interstellar Comet 2I/Borisov",
+                    "description" => "The Hubble Space Telescope captures detailed images of 2I/Borisov, the second known interstellar object to visit our solar system.",
+                    "category1" => "Astronomy",
+                    "image" => "https://www.universetoday.com/wp-content/uploads/2019/10/Halleys_Comet_1910.jpg",
+                    "sourceUrl" => "https://science.nasa.gov/missions/hubble/hubble-observes-1st-confirmed-interstellar-comet/",
+                    "date" => "2019-10-16"
+                ],
+                [
+                    "title" => "NASA's Artemis Program: The Next Giant Leap",
+                    "description" => "NASA's Artemis program aims to land the first woman and the next man on the Moon by 2024, paving the way for sustainable lunar exploration and eventual missions to Mars. This ambitious project represents the next era of human spaceflight and scientific discovery.",
+                    "category1" => "Astronomy",
+                    "image" => "https://i.ytimg.com/vi/9YDfmbmLxwc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBzW48f_aPClYW1FndH9jgcpRZwog",
+                    "sourceUrl" => "https://www.nasa.gov/news-release/nasa-publishes-artemis-plan-to-land-first-woman-next-man-on-moon-in-2024/",
+                    "date" => "2024-12-10"
+                ],
+                [
+                    "title" => "NASA's DAVINCI Mission Reveals Venus' Atmospheric Secrets",
+                    "description" => "The DAVINCI probe has successfully descended through Venus' atmosphere, providing unprecedented data about its composition and history.",
+                    "category1" => "Planetary Exploration",
+                    "image" => "https://ina.iq/eng/uploads/posts/2022-06/upload_1654365602_1888492882.jpg",
+                    "sourceUrl" => "https://science.nasa.gov/missions/davinci/davincis-many-firsts-at-venus/",
+                    "date" => "2024-06-22"
+                ],
             ];
 
             
