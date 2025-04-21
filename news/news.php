@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space News Today</title>
-<<<<<<< HEAD
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.cssom/ajax/libs/font-awesome/6.2.1/css/all.min.css" 
-=======
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" 
->>>>>>> 045ba7a86c6be91a68d41bacace69bccd0ffc850
-    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-     crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" 
+
      <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="news.css">
     <link rel="stylesheet" href="news.js">
@@ -20,7 +20,7 @@
 
     <header class="main-header">
         <div class="container">
-<<<<<<< HEAD
+
             <div class="logo">
                 <img  src="./logo.png" alt="">
             </div>
@@ -36,7 +36,7 @@
                         style="width: 35px; height: 35px;"></a></li>
                 </ul>
             </div>
-=======
+
         <div class="logo">
             <img src="/WEB2_2025_GR12/aboutus/logo.png" alt="Logo" width="100">
             </div>
@@ -52,7 +52,7 @@
                 </ul>
             </nav>
         </div>
->>>>>>> 045ba7a86c6be91a68d41bacace69bccd0ffc850
+
         </div>
     </header>
 
@@ -66,11 +66,13 @@
             <div class="image-container">
                 <img src="https://www.nasa.gov/wp-content/uploads/2024/10/54050312989-7f2d600d29-o.jpg" alt="image" class="active">
                 <img src="https://www.nasa.gov/wp-content/uploads/2024/11/as12-46-6728orig.jpg" alt="image">
-<<<<<<< HEAD
+
                 <img src="https://smd-cms.nasa.gov/wp-content/uploads/2023/12/nasa-mars-desktop-8k.jpg" alt="">
-=======
+
                 <img src="https://science.nasa.gov/wp-content/uploads/2023/12/nasa-mars-desktop-8k.jpg" alt="">
->>>>>>> 045ba7a86c6be91a68d41bacace69bccd0ffc850
+
+                <img src="https://science.nasa.gov/wp-content/uploads/2023/12/nasa-mars-desktop-8k.jpg" alt="">
+
                 <img src="https://science.nasa.gov/wp-content/uploads/2023/06/solar-system-illustration-16x9-1.jpg" alt="">
                 <img src="https://www.nasa.gov/wp-content/uploads/2024/12/iss072e189028orig.jpg" alt="image">
                 <img src="https://www.nasa.gov/wp-content/uploads/2024/11/pia22081orig.jpg" alt="image">
@@ -86,11 +88,14 @@
             <p style="color: white; padding-left: 10px;" class="subtitle">Humanity's return to the Moon and beyond</p>
             <div class="article-content">
                 <div class="image-container1">
-<<<<<<< HEAD
+
                     <img src="https://i.ytimg.com/vi/9YDfmbmLxwc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBzW48f_aPClYW1FndH9jgcpRZwog0AgKJD&rs=AOn4CLBzW48f_aPC8f_aPClYW1FndH9jgcpRZwog" alt="Artemis mission concept art" id="featured-image">
-=======
+
                     <img src="https://i.ytimg.com/vi/9YDfmbmLxwc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBzW48f_aPClYW1FndH9jgcpRZwog" alt="Artemis mission concept art" id="featured-image">
->>>>>>> 045ba7a86c6be91a68d41bacace69bccd0ffc850
+
+
+                    <img src="https://i.ytimg.com/vi/9YDfmbmLxwc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBzW48f_aPClYW1FndH9jgcpRZwog" alt="Artemis mission concept art" id="featured-image">
+
                     <img src="https://media.licdn.com/dms/image/v2/D5612AQHtzNYRDIK61Q/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1702547652997?e=2147483647&v=beta&t=L6Bbn-Dbn_elKI8Hsrdw7lrBmCJkk1KIygB1qFzX5ng" alt="">
                     <img src="https://editverse.com/wp-content/uploads/2024/12/Space-Launch-System-SLS-1024x585.jpg" alt="">
                 </div>
@@ -106,7 +111,6 @@
             </audio>
         </article>
 
-<<<<<<< HEAD
         <hr color="#ffd700" style="margin-top: 20px;">
         <section id="latest-news">
             <h2 style="padding: 10px 10px 10px 0px; font-size: 36px; color: #4197ff; text-align: center;">Latest Space News</h2>
@@ -133,7 +137,8 @@
             </tbody>
         </table>
     </div>
-=======
+
+
         <hr color="#ffd700" style="margin-top: 10px;">
 <div class="container">
     <h1>Detailed Space News Timeline</h1>
@@ -285,7 +290,7 @@
         </tbody>
     </table>
 </div>
->>>>>>> 045ba7a86c6be91a68d41bacace69bccd0ffc850
+
 
     <footer class="main-footer">
         <div class="container">
