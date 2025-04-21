@@ -9,7 +9,7 @@
 
 </head>
 <body>
-
+  
 
 
     <style>
@@ -77,8 +77,9 @@
     class Header {
         private $logo;
         private $navItems;
+        private $loginIcon;
 
-        public function __construct($logo, $navItems, $loginIcon = '') {
+        public function __construct($logo, $navItems, $loginIcon = '/login/login.png') {
             $this->logo = $logo;
             $this->navItems = $navItems;
             $this->loginIcon = $loginIcon;
@@ -122,7 +123,8 @@
             
             
             if ($this->loginIcon) {
-                echo '  <li><a href="/login/login.html"><img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;"></a></li>';
+               
+                echo '<li><a href="/WEB2_2025_GR12/login/login.php"><img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;"></a></li>';
             }
             
             echo '</ul>
@@ -340,8 +342,9 @@
                                 <li><a href="#about">About Us</a></li>
                                 <li><a href="#news">News</a></li>
                                 <li><a href="#shop">Shop</a></li>
-                                <li><a href="/login/login.html"><img src="/login/login.png"
-                        style="width: 35px; height: 35px;"></a></li>
+                                <li><a hreaf="#login">Login</a></li>
+                                
+                               
                             </ul>
                         </div>
                         <div class="footer-section">
@@ -380,13 +383,10 @@
         ['text' => 'Home', 'link' => '/WEB2_2025_GR12/Home/index.php'],
         ['text' => 'Events', 'link' => '/WEB2_2025_GR12/events/events.php'],
         ['text' => 'News', 'link' => '/WEB2_2025_GR12/news/news.php'],
-        ['text' => 'Shop', 'link' => '/WEB2_2025_GR12/Shop/shop.html'],
+        ['text' => 'Shop', 'link' => '/WEB2_2025_GR12/Shop/shop.php'],
         ['text' => 'About Us', 'link' => '/WEB2_2025_GR12/aboutus/aboutus.php'],
-        ['text' => 'Play', 'link' => '/WEB2_2025_GR12/game/game.php']
+        ['text' => 'Play', 'link' => '/WEB2_2025_GR12/game/game.php'],
        
-        
-
-
     ];
     $header = new Header('./logo.png', $navItems,'/login/login.png');
     $header->render();
