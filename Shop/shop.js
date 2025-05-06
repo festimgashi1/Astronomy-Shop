@@ -27,12 +27,12 @@ const products = [
     { id: 26, name: "Observer's Handbook", price: 29.99, category: "books", image: "https://thespacestore.com/cdn/shop/files/89168.jpg?v=1724342987" },
     { id: 27, name: "Mercury Globe", price: 99.99, category: "models", image: "https://thespacestore.com/cdn/shop/files/mercuryglobe.png?v=1719340528" },
     { id: 28, name: "Venus Globe", price: 99.99, category: "models", image: "https://s.turbifycdn.com/aah/yhst-18011380714966/astronomy-magazine-io-globe-by-replogle-globes-33.gif" },
-    { id: 29, name: "Neptun Globe", price: 99.99, category: "models", image: "https://columbus-globus-shop.de/media/image/bd/4a/d3/8N4081-WebOmeQ9JcmOELGo_600x600.jpg" },
+    { id: 29, name: "Neptun Globe", price: 99.99, category: "models", image: "https://thespacestore.com/cdn/shop/files/Neptune_6_globe_black-removebg-preview.png?v=1724093660" },
     { id: 30, name: "Earth Globe", price: 49.99, category: "models", image: "https://m.media-amazon.com/images/I/91lGuDQMu7L._AC_UF1000,1000_QL80_.jpg" },
     { id: 31, name: "Moon Globe", price: 49.99, category: "models", image: "https://thespacestore.com/cdn/shop/files/moon6inch.png?v=1719341559" },
     { id: 32, name: "Mars Globe", price: 99.99, category: "models", image: "https://thespacestore.com/cdn/shop/files/mars6inch.png?v=1719346711" },
     { id: 33, name: "Saturn Globe", price: 119.99, category: "models", image: "https://img.freepik.com/premium-photo/immersive-3d-model-stunningly-realistic-oval-earth-globe-with-saturn-rings-white-background_983420-9630.jpg" },
-    { id: 34, name: "Uranus Globe", price: 99.99, category: "models", image: "https://columbus-globus-shop.de/media/image/81/96/91/8U4081-alternativ-WebQjiaZoMFREChg_600x600@2x.jpg" },
+    { id: 34, name: "Uranus Globe", price: 99.99, category: "models", image: "https://st2.depositphotos.com/8814058/11938/i/950/depositphotos_119387148-stock-photo-globe-map-of-uranus-3d.jpg" },
     { id: 35, name: "Jupiter Globe", price: 99.99, category: "models", image: "https://thespacestore.com/cdn/shop/files/jupiter6inch.png?v=1719341727" },
 ];
 let cart = [];
