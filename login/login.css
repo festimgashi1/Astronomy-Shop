@@ -149,7 +149,7 @@ input:focus {
     color: #ff6b6b;
     font-size: 0.875rem;
     margin-top: 0.25rem;
-    display: none;
+    display: block;
 }
 
 button {
@@ -204,7 +204,7 @@ button:disabled {
     color: #51cf66;
     text-align: center;
     margin-top: 1rem;
-    display: none;
+    display: block;
 }
 
 @media (max-width: 768px) {
@@ -230,4 +230,18 @@ button:disabled {
     .container-login {
         width: 95%;
     }
+}
+
+.success {
+    color: #51cf66;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.error {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-align: center;
 }
