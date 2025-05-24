@@ -72,6 +72,35 @@
 </head>
 <body>
 
+<?php
+include '../db/db.php';
+
+$userId = 1;
+
+$query = "SELECT name, surname, email FROM users WHERE id = ?";
+$stmt = $con->prepare($query);
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows === 1) {
+    $user = $result->fetch_assoc();
+    echo "
+    <div class='modal-overlay' id='modal'>
+        <div class='profile-modal'>
+            <button class='close-btn' onclick=\"document.getElementById('modal').style.display='none'\">&times;</button>
+            <h2>User Profile</h2>
+            <p><strong>Name:</strong> {$user['name']}</p>
+            <p><strong>Surname:</strong> {$user['surname']}</p>
+            <p><strong>Email:</strong> {$user['email']}</p>
+        </div>
+    </div>";
+} else {
+    echo "<p style='text-align:center;margin-top:20px;'>User not found.</p>";
+}
+$stmt->close();
+?>
+
 
 </body>
 </html>
