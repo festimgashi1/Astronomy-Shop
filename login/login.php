@@ -1,64 +1,6 @@
 <?php
-
 session_start();
 require_once("../db/db.php");
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $formType = $_POST["formType"] ?? "login";
-
-
-    if ($formType === "login") {
-        $loginEmail = $_POST["login_email"];
-        $loginPassword = $_POST["login_password"];
-
-         $stmt = mysqli_prepare($con, "SELECT id, full_name, email, phone ,password_hash FROM users WHERE email = ?");
-        mysqli_stmt_bind_param($stmt, "s", $loginEmail);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-
-
-        if ($row = mysqli_fetch_assoc($result)) {
-            if (password_verify($loginPassword, $row['password_hash'])) {
-                $_SESSION['user_id'] = $row['id'];
-                $_SESSION['user_name'] = $row['full_name'];
-                $_SESSION['user_email'] = $row['email'];
-
-
-                if ($row['email'] === 'admin@gmail.com') {
-                    header("Location: /WEB2_2025_GR12/login/customer_login.php");
-                } else {
-                    header("Location: /WEB2_2025_GR12/login/customer_login.php");
-                }
-                exit;
-            }
-        }
-        mysqli_stmt_close($stmt);
-
-
-    } elseif ($formType === "signup") {
-        $signupFullName = $_POST["signup_fullName"];
-        $signupEmail = $_POST["signup_email"];
-        $signupPhone = $_POST["signup_phone"];
-        $signupPassword = $_POST["signup_password"];
-
-
-        $stmt = mysqli_prepare($con, "SELECT id FROM users WHERE email = ?");
-        mysqli_stmt_bind_param($stmt, "s", $signupEmail);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_store_result($stmt);
-
-
-        if (mysqli_stmt_num_rows($stmt) === 0) {
-            $hashedPassword = password_hash($signupPassword, PASSWORD_DEFAULT);
-            $stmt = mysqli_prepare($con, "INSERT INTO users (full_name, email, phone, password_hash) VALUES (?, ?, ?, ?)");
-            mysqli_stmt_bind_param($stmt, "ssss", $signupFullName, $signupEmail, $signupPhone, $hashedPassword);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-        }
-    }
-}
-
-// aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 $signupFullName = $signupEmail = $signupPhone = $signupPassword = $signupConfirmPassword = "";
 $signupErrors = [];
@@ -99,22 +41,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($signupErrors)) {
             $hashedPassword = password_hash($signupPassword, PASSWORD_DEFAULT);
 
-            $stmt = mysqli_prepare($con, "INSERT INTO users (full_name, email , phone , password_hash) VALUES (?, ?,?,?)");
+            $checkStmt = mysqli_prepare($con, "SELECT id FROM users WHERE email = ?");
+            mysqli_stmt_bind_param($checkStmt, "s", $signupEmail);
+            mysqli_stmt_execute($checkStmt);
+            mysqli_stmt_store_result($checkStmt);
 
-            if ($stmt) {
-                mysqli_stmt_bind_param($stmt, "ssss", $signupFullName, $signupEmail,$signupPhone,$hashedPassword); 
-                if (mysqli_stmt_execute($stmt)) {
-                    $signupMessage = "<div class='success' style='display:block;'>Registration successful!</div>";
-                    $signupFullName = $signupEmail = $signupPhone = $signupPassword = $signupConfirmPassword = "";
-                } else {
-                    $signupMessage = "<div class='error' style='display:block;'>Database error during registration.</div>";
-                }
-                mysqli_stmt_close($stmt);
+            if (mysqli_stmt_num_rows($checkStmt) > 0) {
+                $signupMessage = "<div class='error'>Email already exists.</div>";
             } else {
-                $signupMessage = "<div class='error' style='display:block;'>Failed to prepare the statement.</div>";
+                $stmt = mysqli_prepare($con, "INSERT INTO users (full_name, email, phone, password_hash) VALUES (?, ?, ?, ?)");
+
+                if ($stmt) {
+                    mysqli_stmt_bind_param($stmt, "ssss", $signupFullName, $signupEmail, $signupPhone, $hashedPassword);
+                    if (mysqli_stmt_execute($stmt)) {
+                        $signupMessage = "<div class='success'>Registration successful!</div>";
+                        $signupFullName = $signupEmail = $signupPhone = $signupPassword = $signupConfirmPassword = "";
+                    } else {
+                        $signupMessage = "<div class='error'>Database error during registration.</div>";
+                    }
+                    mysqli_stmt_close($stmt);
+                } else {
+                    $signupMessage = "<div class='error'>Failed to prepare the statement.</div>";
+                }
             }
+            mysqli_stmt_close($checkStmt);
         } else {
-            $signupMessage = "<div class='error' style='display:block;'>Registration failed. Please fix the errors.</div>";
+            $signupMessage = "<div class='error'>Registration failed. Please fix the errors.</div>";
         }
     }
 
@@ -131,28 +83,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if (empty($loginErrors)) {
-            $stmt = mysqli_prepare($con, "SELECT password_hash FROM users WHERE email = ?");
-            mysqli_stmt_bind_param($stmt, "s", $loginEmail);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_bind_result($stmt, $hashedPasswordFromDB);
+            $stmt = mysqli_prepare($con, "SELECT id, full_name, email, phone, password_hash FROM users WHERE email = ?");
+            if ($stmt) {
+                mysqli_stmt_bind_param($stmt, "s", $loginEmail);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
 
-            if (mysqli_stmt_fetch($stmt)) {
-                if (password_verify($loginPassword, $hashedPasswordFromDB)) {
-                    $loginMessage = "<div class='success' style='display:block;'>Login successful! Welcome.</div>";
-                    $loginEmail = $loginPassword = "";
+                if ($row = mysqli_fetch_assoc($result)) {
+                    if (password_verify($loginPassword, $row['password_hash'])) {
+                        $_SESSION['user_id'] = $row['id'];
+                        $_SESSION['user_name'] = $row['full_name'];
+                        $_SESSION['user_email'] = $row['email'];
+
+                        header("Location: /WEB2_2025_GR12/login/customer_login.php");
+                        exit;
+                    } else {
+                        $loginErrors[] = "Incorrect password.";
+                        $loginMessage = "<div class='error'>Login failed. Invalid credentials.</div>";
+                    }
                 } else {
-                    $loginErrors[] = "Incorrect password.";
-                    $loginMessage = "<div class='error' style='display:block;'>Login failed. Invalid credentials.</div>";
+                    $loginErrors[] = "Email not found.";
+                    $loginMessage = "<div class='error'>Login failed. Invalid credentials.</div>";
                 }
+                mysqli_stmt_close($stmt);
             } else {
-                $loginErrors[] = "Email not found.";
-                $loginMessage = "<div class='error' style='display:block;'>Login failed. Invalid credentials.</div>";
+                $loginMessage = "<div class='error'>Failed to prepare the statement.</div>";
             }
-            mysqli_stmt_close($stmt);
         } else {
-            $loginMessage = "<div class='error' style='display:block;'>Login failed. Please fix the errors.</div>";
+            $loginMessage = "<div class='error'>Login failed. Please fix the errors.</div>";
         }
     }
+
     mysqli_close($con);
 }
 ?>
