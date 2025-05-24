@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space News Today</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.cssom/ajax/libs/font-awesome/6.2.1/css/all.min.css" 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.cssom/ajax/libs/font-awesome/6.2.1/css/all.min.css" >
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" >
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" >
 
      <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="news.css">
@@ -20,35 +20,19 @@
 
     <header class="main-header">
         <div class="container">
-
             <div class="logo">
                 <img  src="./logo.png" alt="">
             </div>
-            <div class="main-nav">
-                <ul>
-                    <li><a href="/Home/index.html" >Home</a></li>
-                    <li><a href="/events/events.html" >Events</a></li>
-                    <li><a href="/news/news.html" >News</a></li>
-                    <li><a href="/Shop/shop.html" >Shop</a></li>
-                    <li><a href="/aboutus/aboutus.html" >About Us</a></li>
-                    <li><a href="/game/game.html">Play</a></li>
-                    <li><a href="/login/login.html"><img src="/login/login.png"
-                        style="width: 35px; height: 35px;"></a></li>
-                </ul>
-            </div>
-
-        <div class="logo">
-            <img src="/WEB2_2025_GR12/aboutus/logo.png" alt="Logo" width="100">
-            </div>
             <nav class="main-nav">
                 <ul>
-                    <li><a href='/WEB2_2025_GR12/Home/index.php' >Home</a></li>
+                    <li><a href="/WEB2_2025_GR12/Home/index.php" >Home</a></li>
                     <li><a href="/WEB2_2025_GR12/events/events.php" >Events</a></li>
                     <li><a href="/WEB2_2025_GR12/news/news.php" >News</a></li>
-                    <li><a href="/WEB2_2025_GR12/Shop/shop.html" >Shop</a></li>
+                    <li><a href="/WEB2_2025_GR12/Shop/shop.php" >Shop</a></li>
                     <li><a href="/WEB2_2025_GR12/aboutus/aboutus.php" >About Us</a></li>
                     <li><a href="/WEB2_2025_GR12/game/game.php">Play</a></li>
-                    <li><a href="/WEB2_2025_GR12/login/login.php"><img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;"></a></li>
+                    <li><a href="/WEB2_2025_GR12/login/login.php"><img src="/WEB2_2025_GR12/login/login.png"
+                        style="width: 35px; height: 35px;"></a></li>
                 </ul>
             </nav>
         </div>

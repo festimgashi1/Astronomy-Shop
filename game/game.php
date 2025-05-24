@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,10 +16,10 @@
             </div>
             <div class="main-nav">
                 <ul>
-                <li><a href='/WEB2_2025_GR12/Home/index.php' >Home</a></li>
+                     <li><a href='/WEB2_2025_GR12/Home/index.php' >Home</a></li>
                     <li><a href="/WEB2_2025_GR12/events/events.php" >Events</a></li>
                     <li><a href="/WEB2_2025_GR12/news/news.php" >News</a></li>
-                    <li><a href="/WEB2_2025_GR12/Shop/shop.html" >Shop</a></li>
+                    <li><a href="/WEB2_2025_GR12/Shop/shop.php" >Shop</a></li>
                     <li><a href="/WEB2_2025_GR12/aboutus/aboutus.php" >About Us</a></li>
                     <li><a href="/WEB2_2025_GR12/game/game.php">Play</a></li>
                     <li><a href="/WEB2_2025_GR12/login/login.php"><img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;"></a></li>
@@ -31,7 +32,7 @@
         <div class="game-area">
             <div id="planetSelection" class="planet-selection"></div>
             <div id="solarSystem" class="solar-system">
-                <div class="sun"> <img alt="Sun" src="/game/planets/sun.png" style="height: 100px; width: 100px;"> </div>
+                <div class="sun"> <img alt="Sun" src="/WEB2_2025_GR12/game/planets/sun.png" style="height: 100px; width: 100px;"> </div>
             </div>
         </div>
         

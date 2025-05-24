@@ -1,12 +1,13 @@
+
 const planets = [
-    { name: 'Mercury', image: '/game/planets/mercury.png', orbitRadius: 100, size: 50 },
-    { name: 'Venus', image: '/game/planets/venus.png', orbitRadius: 140, size: 40 },
-    { name: 'Earth', image: '/game/planets/earth.png', orbitRadius: 180, size: 45 },
-    { name: 'Mars', image: '/game/planets/mars.png', orbitRadius: 220, size: 35 },
-    { name: 'Jupiter', image: '/game/planets/jupiter.png', orbitRadius: 280, size: 80 },
-    { name: 'Saturn', image: '/game/planets/saturn.png', orbitRadius: 340, size: 70 },
-    { name: 'Uranus', image: '/game/planets/uranus.png', orbitRadius: 400, size: 60 },
-    { name: 'Neptune', image: '/game/planets/neptun.png', orbitRadius: 460, size: 55 },
+    { name: 'Mercury', image: '/WEB2_2025_GR12/game/planets/mercury.png', orbitRadius: 100, size: 50 },
+    { name: 'Venus', image: '/WEB2_2025_GR12/game/planets/venus.png', orbitRadius: 140, size: 40 },
+    { name: 'Earth', image: '/WEB2_2025_GR12/game/planets/earth.png', orbitRadius: 180, size: 45 },
+    { name: 'Mars', image: '/WEB2_2025_GR12/game/planets/mars.png', orbitRadius: 220, size: 35 },
+    { name: 'Jupiter', image: '/WEB2_2025_GR12/game/planets/jupiter.png', orbitRadius: 280, size: 80 },
+    { name: 'Saturn', image: '/WEB2_2025_GR12/game/planets/saturn.png', orbitRadius: 340, size: 70 },
+    { name: 'Uranus', image: '/WEB2_2025_GR12/game/planets/uranus.png', orbitRadius: 400, size: 60 },
+    { name: 'Neptune', image: '/WEB2_2025_GR12/game/planets/neptun.png', orbitRadius: 460, size: 55 },
 ];
 
 const planetSelection = document.getElementById('planetSelection');
