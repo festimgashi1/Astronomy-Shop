@@ -145,6 +145,26 @@ function debugGlobals() {
 ?>
 
 <?php
+include '../db/db.php';
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST['name'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $rating = $_POST['rating'] ?? 0;
+    $reviewText = $_POST['reviewText'] ?? '';
+    $image = $_POST['image'] ?? 'https://via.placeholder.com/80';
+
+    $stmt = $con->prepare("INSERT INTO reviews (name, email, rating, message, image) VALUES (?, ?, ?, ?, ?)");
+    if ($stmt === false) {
+        die("Prepare failed: " . $con->error);
+    }
+    $stmt->bind_param("ssiss", $name, $email, $rating, $reviewText, $image);
+    if (!$stmt->execute()) {
+        die("Execute failed: " . $stmt->error);
+    }
+    $stmt->close();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
 $site_name = "NASA Explorers";
 
 
@@ -157,7 +177,7 @@ $filename_to_title = [
     "news.php" => "News",
     "shop.php" => "Shop",
     "aboutus.php" => "About Us",
-    "game.php" => "Play"
+    "game.php" =>   "Play"
 ];
 
 $page_descriptions = [
@@ -173,6 +193,19 @@ $page_descriptions = [
 $current_page = $filename_to_title[$current_file] ?? "Home";
 $page_title = $current_page;
 $page_description = $page_descriptions[$page_title] ?? "";
+
+$result = mysqli_query($con, "SELECT * FROM reviews ORDER BY created_at DESC");
+$allReviews = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $allReviews[] = [
+        "name" => $row['name'],
+        "image" => $row['image'] ?: 'https://via.placeholder.com/80',
+        "stars" => $row['rating'],
+        "text" => $row['message'],
+        "created_at" => date("F j, Y", strtotime($row['created_at']))
+    ];
+}
+
 ?>
 
 
@@ -371,7 +404,7 @@ ksort($timeline);
     </div>
 </section>
 
-        <section id="customer-reviews">
+        <!-- <section id="customer-reviews">
             <div class="container">
                 <h2 class="about-section-heading">Customer Reviews</h2>
                 <div class="border-line"></div>
@@ -442,7 +475,51 @@ ksort($timeline);
                     </div>
                 </div>
         </section>
-    </section>
+    </section> -->
+
+    <section id="customer-reviews">
+    <div class="container">
+        <h2 class="about-section-heading">Customer Reviews</h2>
+        <div class="border-line"></div>
+        <div class="review-container" id="reviewContainer"></div>
+        <div class="review-buttons">
+            <button id="prevReview" class="review-btn">Previous</button>
+            <button id="nextReview" class="review-btn">Next</button>
+        </div>
+
+        <div class="center-container">
+            <div class="submit-review">
+                <h3>Leave Your Review</h3>
+                <form id="reviewForm" method="POST" action="">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Your Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="stars">Your Rating:</label>
+                    <div class="stars">
+                        <input type="radio" id="star5" name="rating" value="5"><label for="star5">★★★★★</label>
+                        <input type="radio" id="star4" name="rating" value="4"><label for="star4">★★★★☆</label>
+                        <input type="radio" id="star3" name="rating" value="3"><label for="star3">★★★☆☆</label>
+                        <input type="radio" id="star2" name="rating" value="2"><label for="star2">★★☆☆☆</label>
+                        <input type="radio" id="star1" name="rating" value="1"><label for="star1">★☆☆☆☆</label>
+                    </div>
+
+                    <label for="reviewText">Your Review:</label>
+                    <textarea id="reviewText" name="reviewText" rows="4" required></textarea>
+
+                    <label for="image">Image URL:</label>
+                    <input type="url" id="image" name="image" placeholder="https://example.com/image.jpg">
+
+                    <button type="submit" class="review-btn">Submit Review</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 
     
     
@@ -510,74 +587,77 @@ document.querySelectorAll(".about-founders-box").forEach(function(box) {
      
      ////
 
-     const reviews = [
-            {
-                name: "Sarah Johnson",
-                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnvTbL5WSUuKYddpZI-SXU6JbudFjCtFCGuw&s",
-                stars: 5,
-                text: "The space exploration event I attended was mind-blowing! The virtual reality tour of Mars was so realistic, I felt like I was actually there. Can't wait for the next event!"
-            },
-            {
-                name: "Mike Chen",
-                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm0isAZwcyx-H1UVScRALSRfJ-BrHo5euFzA&s",
-                stars: 4,
-                text: "I love the weekly space news updates. They keep me informed about the latest discoveries and missions. The articles are easy to understand even for a space novice like me."
-            },
-            {
-                name: "Emily Rodriguez",
-                image: "https://miro.medium.com/v2/resize:fit:1400/1*hATEYt0u5wpq4VqRjsXfhQ.png",
-                stars: 5,
-                text: "The NASA merchandise in the shop is top-notch! I bought a model of the James Webb Space Telescope, and it's now the centerpiece of my living room. Great quality and fast shipping!"
-            },
-            {
-                name: "Alex Thompson",
-                image: "https://cdn.prod.website-files.com/65b930adeca3cfaea4f78aab/65d6b33c2abedc84c2ae7317_Alex-Thompson-full.jpg",
-                stars: 5,
-                text: "The live stream of the rocket launch was incredible! The commentary was informative, and the HD video quality made me feel like I was right there at the launch site."
-            },
-            {
-                name: "Olivia Parker",
-                image: "https://static.wikia.nocookie.net/alex-gilbert-series/images/2/21/118500916_340783543953850_2544225655675891_n.jpg/revision/latest?cb=20201019030934",
-                stars: 4,
-                text: "I attended the 'Introduction to Astrophotography' workshop, and it was fantastic! The instructor was knowledgeable, and I left with some great tips for capturing night sky images."
-            }
-        ];
+    //  const reviews = [
+    //         {
+    //             name: "Sarah Johnson",
+    //             image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnvTbL5WSUuKYddpZI-SXU6JbudFjCtFCGuw&s",
+    //             stars: 5,
+    //             text: "The space exploration event I attended was mind-blowing! The virtual reality tour of Mars was so realistic, I felt like I was actually there. Can't wait for the next event!"
+    //         },
+    //         {
+    //             name: "Mike Chen",
+    //             image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm0isAZwcyx-H1UVScRALSRfJ-BrHo5euFzA&s",
+    //             stars: 4,
+    //             text: "I love the weekly space news updates. They keep me informed about the latest discoveries and missions. The articles are easy to understand even for a space novice like me."
+    //         },
+    //         {
+    //             name: "Emily Rodriguez",
+    //             image: "https://miro.medium.com/v2/resize:fit:1400/1*hATEYt0u5wpq4VqRjsXfhQ.png",
+    //             stars: 5,
+    //             text: "The NASA merchandise in the shop is top-notch! I bought a model of the James Webb Space Telescope, and it's now the centerpiece of my living room. Great quality and fast shipping!"
+    //         },
+    //         {
+    //             name: "Alex Thompson",
+    //             image: "https://cdn.prod.website-files.com/65b930adeca3cfaea4f78aab/65d6b33c2abedc84c2ae7317_Alex-Thompson-full.jpg",
+    //             stars: 5,
+    //             text: "The live stream of the rocket launch was incredible! The commentary was informative, and the HD video quality made me feel like I was right there at the launch site."
+    //         },
+    //         {
+    //             name: "Olivia Parker",
+    //             image: "https://static.wikia.nocookie.net/alex-gilbert-series/images/2/21/118500916_340783543953850_2544225655675891_n.jpg/revision/latest?cb=20201019030934",
+    //             stars: 4,
+    //             text: "I attended the 'Introduction to Astrophotography' workshop, and it was fantastic! The instructor was knowledgeable, and I left with some great tips for capturing night sky images."
+    //         }
+    //     ];
 
-        let currentIndex = 0; 
-        const reviewsContainer = document.getElementById("reviewContainer");
-        const prevButton = document.getElementById("prevReview");
-        const nextButton = document.getElementById("nextReview");
+        // let currentIndex = 0; 
+        // const reviewsContainer = document.getElementById("reviewContainer");
+        // const prevButton = document.getElementById("prevReview");
+        // const nextButton = document.getElementById("nextReview");
+const reviews = <?php echo json_encode($allReviews, JSON_HEX_TAG); ?>;
+let currentIndex = 0;
+const reviewsContainer = document.getElementById("reviewContainer");
+const prevButton = document.getElementById("prevReview");
+const nextButton = document.getElementById("nextReview");
 
-        function displayReviews() {
-            reviewsContainer.innerHTML = ""; 
+function displayReviews() {
+    reviewsContainer.innerHTML = "";
+    for (let i = currentIndex; i < currentIndex + 3; i++) {
+        const review = reviews[i % reviews.length];
+        const reviewCard = document.createElement("div");
+        reviewCard.classList.add("review-card");
+        reviewCard.innerHTML = `
+            <img src="${review.image}" alt="${review.name}">
+            <h3>${review.name}</h3>
+            <div class="stars">${"★".repeat(review.stars)}${"☆".repeat(5 - review.stars)}</div>
+            <p>"${review.text}"</p>
+            <p style='font-size: 12px; color: gray;'>Posted on: ${review.created_at}</p>
+        `;
+        reviewsContainer.appendChild(reviewCard);
+    }
+}
 
-            for (let i = currentIndex; i < currentIndex + 3; i++) {
-                const review = reviews[i % reviews.length]; 
+prevButton.addEventListener("click", () => {
+    currentIndex = (currentIndex - 3 + reviews.length) % reviews.length;
+    displayReviews();
+});
 
-                const reviewCard = document.createElement("div");
-                reviewCard.classList.add("review-card");
-                reviewCard.innerHTML = `
-                    <img src="${review.image}" alt="${review.name}">
-                    <h3>${review.name}</h3>
-                    <div class="stars">${"★".repeat(review.stars)}${"☆".repeat(5 - review.stars)}</div>
-                    <p>${review.text}</p>
-                `;
-                reviewsContainer.appendChild(reviewCard);
-            }
-        }
+nextButton.addEventListener("click", () => {
+    currentIndex = (currentIndex + 3) % reviews.length;
+    displayReviews();
+});
 
-        prevButton.addEventListener("click", () => {
-            currentIndex = (currentIndex - 3 + reviews.length) % reviews.length; 
-            displayReviews();
-        });
-
-        nextButton.addEventListener("click", () => {
-            currentIndex = (currentIndex + 3) % reviews.length; 
-            displayReviews();
-        });
-
-        
-        displayReviews();
+displayReviews();
 </script>
 
 <footer class="main-footer">
