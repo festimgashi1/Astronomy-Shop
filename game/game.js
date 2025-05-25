@@ -129,6 +129,7 @@ initGame();
 
 let startTime;
 let timerInterval;
+let hasStarted = false;
 
 function startTimer() {
     startTime = Date.now();
@@ -141,7 +142,6 @@ function startTimer() {
 function stopTimer() {
     clearInterval(timerInterval);
     const finalTime = ((Date.now() - startTime) / 1000).toFixed(2);
-    // Dërgo kohën në server me AJAX
     saveCompletionTime(finalTime);
 }
 
@@ -153,4 +153,6 @@ function saveCompletionTime(time) {
         },
         body: 'completionTime=' + encodeURIComponent(time)
     });
+}
+
 }
