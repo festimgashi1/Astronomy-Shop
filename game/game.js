@@ -126,3 +126,31 @@ document.getElementById('reset-button').addEventListener('click', () => {
 
 
 initGame();
+
+let startTime;
+let timerInterval;
+
+function startTimer() {
+    startTime = Date.now();
+    timerInterval = setInterval(() => {
+        const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+        document.getElementById("time").textContent = elapsed;
+    }, 100);
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
+    const finalTime = ((Date.now() - startTime) / 1000).toFixed(2);
+    // Dërgo kohën në server me AJAX
+    saveCompletionTime(finalTime);
+}
+
+function saveCompletionTime(time) {
+    fetch('save_time.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'completionTime=' + encodeURIComponent(time)
+    });
+}

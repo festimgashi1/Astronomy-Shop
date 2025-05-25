@@ -11,6 +11,7 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    
     <header class="main-header">
         <div class="head">
             <div class="logo">
@@ -24,7 +25,6 @@ session_start();
                     <li><a href="/WEB2_2025_GR12/Shop/shop.php" >Shop</a></li>
                     <li><a href="/WEB2_2025_GR12/aboutus/aboutus.php" >About Us</a></li>
                     <li><a href="/WEB2_2025_GR12/game/game.php">Play</a></li>
-                    <li><a href="/WEB2_2025_GR12/login/login.php"><img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;"></a></li>
                     <li>
     <a href="<?php echo isset($_SESSION['user_id']) ? '/WEB2_2025_GR12/login/customer_login.php' : '/WEB2_2025_GR12/login/login.php'; ?>">
         <img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;">
@@ -51,6 +51,21 @@ session_start();
             <button id="reset-button">Reset Game</button>
         </div>
     </div>
-    <script src="game.js"></script>
+    <script src="game.js"></script>'
+    
+    <div id="timer" class="timer">Time: <span id="time">0.00</span> seconds</div>
+
+    
+    <?php
+session_start();
+
+if (isset($_POST['completionTime'])) {
+    $time = floatval($_POST['completionTime']);
+    if (!isset($_SESSION['best_time']) || $time < $_SESSION['best_time']) {
+        $_SESSION['best_time'] = $time;
+    }
+}
+?>
+
 </body>
 </html>

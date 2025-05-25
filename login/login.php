@@ -1,127 +1,137 @@
 <?php
 session_start();
-include '../db/db.php';
+require_once("../db/db.php");
 
-$loginEmail = $loginPassword = "";
-$signupFullName = $signupEmail = $signupPassword = $signupConfirmPassword = $signupPhone = "";
-$loginErrors = [];
+$signupFullName = $signupEmail = $signupPhone = $signupPassword = $signupConfirmPassword = "";
 $signupErrors = [];
-$loginMessage = "";
 $signupMessage = "";
-
-function test_input($data) {
-    return htmlspecialchars(stripslashes(trim($data)));
-}
-
-$formType = $_POST["formType"] ?? "login";
-$isValid = true;
+$loginEmail = $loginPassword = "";
+$loginErrors = [];
+$loginMessage = "";
+$formType = $_POST["formType"] ?? "signup";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if ($formType === "login") {
-        $loginEmail = test_input($_POST["login_email"]);
-        $loginPassword = test_input($_POST["login_password"]);
-
-        if (!filter_var($loginEmail, FILTER_VALIDATE_EMAIL)) {
-            $loginErrors[] = "Invalid email format.";
-            $isValid = false;
-        }
-
-        if (strlen($loginPassword) < 8) {
-            $loginErrors[] = "Password must be at least 8 characters.";
-            $isValid = false;
-        }
-
-        if ($isValid) {
-            $stmt = mysqli_prepare($con, "SELECT id, full_name, email, password_hash FROM users WHERE email = ?");
-            mysqli_stmt_bind_param($stmt, "s", $loginEmail);
-            mysqli_stmt_execute($stmt);
-            $result = mysqli_stmt_get_result($stmt);
-
-            if ($row = mysqli_fetch_assoc($result)) {
-                if (password_verify($loginPassword, $row['password_hash'])) {
-                    $_SESSION['user_id'] = $row['id'];
-                    $_SESSION['user_name'] = $row['full_name'];
-                    $_SESSION['user_email'] = $row['email'];
-
-                    if ($row['email'] === 'admin@gmail.com') {
-                        header("Location: /WEB2_2025_GR12/admin/admin.php");
-                    } else {
-                        header("Location: /WEB2_2025_GR12/login/customer_login.php");
-                    }
-                    exit;
-                } else {
-                    $loginErrors[] = "Incorrect password.";
-                    $loginMessage = "<div class='error' style='display:block;'>Login failed. Invalid credentials.</div>";
-                }
-            } else {
-                $loginErrors[] = "Email not found.";
-                $loginMessage = "<div class='error' style='display:block;'>Login failed. Invalid credentials.</div>";
-            }
-
-            mysqli_stmt_close($stmt);
-        } else {
-            $loginMessage = "<div class='error' style='display:block;'>Login failed. Please fix the errors.</div>";
-        }
-    }
-
-    elseif ($formType === "signup") {
-        $signupFullName = test_input($_POST["signup_fullName"]);
-        $signupEmail = test_input($_POST["signup_email"]);
-        $signupPhone = test_input($_POST["signup_phone"]);
-        $signupPassword = test_input($_POST["signup_password"]);
-        $signupConfirmPassword = test_input($_POST["signup_confirmPassword"]);
+    if ($formType === "signup") {
+        $signupFullName = htmlspecialchars(trim($_POST['signup_fullName']));
+        $signupEmail = htmlspecialchars(trim($_POST['signup_email']));
+        $signupPhone = htmlspecialchars(trim($_POST['signup_phone']));
+        $signupPassword = $_POST['signup_password'];
+        $signupConfirmPassword = $_POST['signup_confirmPassword'];
 
         if (empty($signupFullName) || !preg_match("/^[a-zA-Z ]*$/", $signupFullName)) {
             $signupErrors[] = "Only letters and white space allowed in full name.";
-            $isValid = false;
         }
 
         if (!filter_var($signupEmail, FILTER_VALIDATE_EMAIL)) {
             $signupErrors[] = "Invalid email format.";
-            $isValid = false;
         }
 
         if (!preg_match("/^\\+383\\d{8}$/", $signupPhone)) {
             $signupErrors[] = "Invalid phone number format.";
-            $isValid = false;
         }
 
         if (strlen($signupPassword) < 8) {
             $signupErrors[] = "Password must be at least 8 characters.";
-            $isValid = false;
         }
 
         if ($signupPassword !== $signupConfirmPassword) {
             $signupErrors[] = "Passwords do not match.";
-            $isValid = false;
         }
 
-        if ($isValid) {
-            $stmt = mysqli_prepare($con, "SELECT id FROM users WHERE email = ?");
-            mysqli_stmt_bind_param($stmt, "s", $signupEmail);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_store_result($stmt);
+        if (empty($signupErrors)) {
+            $hashedPassword = password_hash($signupPassword, PASSWORD_DEFAULT);
 
-            if (mysqli_stmt_num_rows($stmt) > 0) {
-                $signupErrors[] = "Email is already registered.";
-                $signupMessage = "<div class='error' style='display:block;'>Email already exists.</div>";
+            $checkStmt = mysqli_prepare($con, "SELECT id FROM users WHERE email = ?");
+            mysqli_stmt_bind_param($checkStmt, "s", $signupEmail);
+            mysqli_stmt_execute($checkStmt);
+            mysqli_stmt_store_result($checkStmt);
+
+            if (mysqli_stmt_num_rows($checkStmt) > 0) {
+                $signupMessage = "<div class='error'>Email already exists.</div>";
             } else {
-                $hashedPassword = password_hash($signupPassword, PASSWORD_DEFAULT);
                 $stmt = mysqli_prepare($con, "INSERT INTO users (full_name, email, phone, password_hash) VALUES (?, ?, ?, ?)");
-                mysqli_stmt_bind_param($stmt, "ssss", $signupFullName, $signupEmail, $signupPhone, $hashedPassword);
-                if (mysqli_stmt_execute($stmt)) {
-                    $signupMessage = "<div class='success' style='display:block;'>Registration successful!</div>";
-                    $signupFullName = $signupEmail = $signupPhone = $signupPassword = $signupConfirmPassword = "";
+
+                if ($stmt) {
+                    mysqli_stmt_bind_param($stmt, "ssss", $signupFullName, $signupEmail, $signupPhone, $hashedPassword);
+                    if (mysqli_stmt_execute($stmt)) {
+                        $signupMessage = "<div class='success'>Registration successful!</div>";
+                        $signupFullName = $signupEmail = $signupPhone = $signupPassword = $signupConfirmPassword = "";
+                    } else {
+                        $signupMessage = "<div class='error'>Database error during registration.</div>";
+                    }
+                    mysqli_stmt_close($stmt);
                 } else {
-                    $signupMessage = "<div class='error' style='display:block;'>Database error during registration.</div>";
+                    $signupMessage = "<div class='error'>Failed to prepare the statement.</div>";
                 }
             }
-
-            mysqli_stmt_close($stmt);
+            mysqli_stmt_close($checkStmt);
         } else {
-            $signupMessage = "<div class='error' style='display:block;'>Registration failed. Please fix the errors.</div>";
+            $signupMessage = "<div class='error'>Registration failed. Please fix the errors.</div>";
         }
     }
+
+if ($formType === "login") {
+    $loginEmail = htmlspecialchars(trim($_POST['login_email']));
+    $loginPassword = $_POST['login_password'];
+
+    if (!filter_var($loginEmail, FILTER_VALIDATE_EMAIL)) {
+        $loginErrors[] = "Invalid email format.";
+    }
+
+    if (strlen($loginPassword) < 8) {
+        $loginErrors[] = "Password must be at least 8 characters.";
+    }
+
+    if (empty($loginErrors)) {
+        $stmtAdmin = mysqli_prepare($con, "SELECT fullname, email, hashpassword FROM admin WHERE email = ?");
+        mysqli_stmt_bind_param($stmtAdmin, "s", $loginEmail);
+        mysqli_stmt_execute($stmtAdmin);
+        $resultAdmin = mysqli_stmt_get_result($stmtAdmin);
+
+        if ($adminRow = mysqli_fetch_assoc($resultAdmin)) {
+            if (password_verify($loginPassword, $adminRow['hashpassword'])) {
+                $_SESSION['admin_email'] = $adminRow['email'];
+                $_SESSION['admin_fullname'] = $adminRow['fullname'];
+                header("Location: /WEB2_2025_GR12/admin/admin.php");
+                exit;
+            } else {
+                $loginErrors[] = "Incorrect password for admin.";
+                $loginMessage = "<div class='error'>Login failed. Invalid credentials.</div>";
+            }
+        }
+         else {
+            $stmt = mysqli_prepare($con, "SELECT id, full_name, email, phone, password_hash FROM users WHERE email = ?");
+            if ($stmt) {
+                mysqli_stmt_bind_param($stmt, "s", $loginEmail);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
+
+                if ($row = mysqli_fetch_assoc($result)) {
+                    if (password_verify($loginPassword, $row['password_hash'])) {
+                        $_SESSION['user_id'] = $row['id'];
+                        $_SESSION['user_name'] = $row['full_name'];
+                        $_SESSION['user_email'] = $row['email'];
+
+                        header("Location: /WEB2_2025_GR12/login/customer_login.php");
+                        exit;
+                    } else {
+                        $loginErrors[] = "Incorrect password.";
+                        $loginMessage = "<div class='error'>Login failed. Invalid credentials.</div>";
+                    }
+                } else {
+                    $loginErrors[] = "Email not found.";
+                    $loginMessage = "<div class='error'>Login failed. Invalid credentials.</div>";
+                }
+                mysqli_stmt_close($stmt);
+            } else {
+                $loginMessage = "<div class='error'>Failed to prepare the user statement.</div>";
+            }
+        }
+        mysqli_stmt_close($stmtAdmin);
+    } else {
+        $loginMessage = "<div class='error'>Login failed. Please fix the errors.</div>";
+    }
+}
 
     mysqli_close($con);
 }
