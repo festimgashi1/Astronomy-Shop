@@ -1,5 +1,22 @@
 <?php
 session_start();
+
+
+function customErrorHandler($errno, $errstr, $errfile, $errline) {
+    echo "<div style='color:red; font-weight:bold;'>Gabim [$errno]: $errstr<br>";
+    echo "Ndodhi në rreshtin $errline në fajllin $errfile</div>";
+}
+set_error_handler("customErrorHandler");
+
+
+try {
+    if (isset($_GET['provoko'])) {
+        throw new Exception("Gabim i qëllimshëm për testim!");
+    }
+} catch (Exception $e) {
+    echo "<div style='color:orange;'>Përjashtim: " . $e->getMessage() . "</div>";
+}
+
 ?>
 
 <!DOCTYPE html>
