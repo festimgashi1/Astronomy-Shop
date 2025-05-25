@@ -10,7 +10,7 @@ if (isset($_GET['theme'])) {
 $currentTheme = isset($_COOKIE['site_theme']) ? $_COOKIE['site_theme'] : 'dark';
 ?>
 
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
