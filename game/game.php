@@ -57,6 +57,8 @@ session_start();
 
     
     <?php
+session_unset(); 
+session_destroy();
 session_start();
 
 if (isset($_POST['completionTime'])) {
@@ -66,6 +68,53 @@ if (isset($_POST['completionTime'])) {
     }
 }
 ?>
+//Lidhja me databaze
+    <?php
+session_start();
+require '../db_connect.php'; // Lidhja me databazën
+
+if (!isset($_SESSION['user_id'])) {
+    http_response_code(403);
+    echo "Duhet të jeni të kyçur për të ruajtur rekordin.";
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['completionTime'])) {
+    $user_id = $_SESSION['user_id'];
+    $completion_time = floatval($_POST['completionTime']);
+
+    $stmt = $conn->prepare("INSERT INTO game_records (user_id, completion_time) VALUES (?, ?)");
+    $stmt->bind_param("id", $user_id, $completion_time);
+
+    if ($stmt->execute()) {
+        echo "Rekordi u ruajt me sukses!";
+    } else {
+        echo "Gabim gjatë ruajtjes: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conn->close();
+} else {
+    echo "Kërkesë e pavlefshme.";
+}
+
+$bestTime = null;
+if (isset($_SESSION['user_id'])) {
+    require '../db_connect.php';
+    $user_id = $_SESSION['user_id'];
+    
+    $stmt = $conn->prepare("SELECT MIN(completion_time) as best FROM game_records WHERE user_id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $stmt->bind_result($bestTime);
+    $stmt->fetch();
+    $stmt->close();
+    $conn->close();
+}
+ if ($bestTime !== null): ?>
+    <div class="best-time">Rekordi yt më i mirë: <?php echo number_format($bestTime, 2); ?> sekonda</div>
+?>
+
 
 </body>
 </html>
