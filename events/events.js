@@ -70,103 +70,106 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-
-    const map = L.map('map', { zoomControl: false }).setView([0, 0], 2); 
-
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-
-    const eventCards = Array.from(document.getElementsByClassName('event-card'));
-
-    eventCards.forEach(card => {
-        const title = card.querySelector('h3').textContent;
-        const description = card.getAttribute('data-description');
-        const lat = parseFloat(card.getAttribute('data-lat')); 
-        const lng = parseFloat(card.getAttribute('data-lng')); 
-
-        if (lat && lng) {
-
-            const marker = L.marker([lat, lng]).addTo(map);
-            marker.bindPopup(`<b>${title}</b><br>`);
-        }
-    });
-
-
-    const markers = eventCards
-        .map(card => [
-            parseFloat(card.getAttribute('data-lat')),
-            parseFloat(card.getAttribute('data-lng'))
-        ])
-        .filter(coords => coords[0] && coords[1]); 
-
-    if (markers.length > 0) {
-        const bounds = L.latLngBounds(markers);
-        map.fitBounds(bounds, { padding: [20, 20] });
-    }
-});
-
-document.addEventListener('DOMContentLoaded', function () {
     const eventsContainer = document.getElementById('events-container');
     const favoriteCheckbox = document.getElementById('show-favorites'); 
-    const favoriteEvents = JSON.parse(localStorage.getItem('favorites')) || [];
+    let favoriteEvents = [];
 
-
-    function filterFavorites() {
-        const eventCards = Array.from(eventsContainer.getElementsByClassName('event-card'));
-
-        eventCards.forEach(card => {
-            const title = card.querySelector('h3').textContent;
-            if (favoriteEvents.includes(title)) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = favoriteCheckbox.checked ? 'none' : 'block';
+    fetch('get_favorites.php')
+        .then(res => res.json())
+        .then(response => {
+            if (response.success) {
+                favoriteEvents = response.favorites;
+                updateFavoritesUI(); 
             }
         });
-    }
 
-
-    function toggleFavorite(eventCard) {
-        const title = eventCard.querySelector('h3').textContent;
-
-
-        const index = favoriteEvents.indexOf(title);
-        if (index === -1) {
-            favoriteEvents.push(title);
-            eventCard.querySelector('.favorite-btn').textContent = '❤️'; 
-        } else {
-            favoriteEvents.splice(index, 1);
-            eventCard.querySelector('.favorite-btn').textContent = '⭐'; 
+   
+        function updateFavoritesUI() {
+            const eventCards = Array.from(eventsContainer.getElementsByClassName('event-card'));
+        
+            eventCards.forEach(card => {
+                const title = card.querySelector('h3').textContent;
+                const btn = card.querySelector('.favorite-btn');
+                if (!btn) return;
+        
+               
+                if (favoriteEvents.includes(title)) {
+                    btn.textContent = '❤️';
+                } else {
+                    btn.textContent = '⭐';
+                }
+        
+               
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+        
+                    const data = {
+                        title: title,
+                        date: card.querySelectorAll('.event-time')[0].textContent.replace('Date: ', ''),
+                        time: card.querySelectorAll('.event-time')[1].textContent.replace('Time: ', ''),
+                        region: card.dataset.region,
+                        description: card.dataset.description,
+                        image_url: card.querySelector('img').src
+                    };
+        
+                    const index = favoriteEvents.indexOf(data.title);
+                    if (index === -1) {
+                        fetch('save_favorite.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data)
+                        })
+                        .then(res => res.json())
+                        .then(response => {
+                            if (response.success) {
+                                favoriteEvents.push(data.title);
+                                btn.textContent = '❤️';
+                                filterFavorites();
+                            } else {
+                                alert("❌ Error: " + response.message);
+                            }
+                        });
+                    } else {
+                        fetch('remove_favorite.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ title: data.title })
+                        })
+                        .then(res => res.json())
+                        .then(response => {
+                            if (response.success) {
+                                favoriteEvents.splice(index, 1);
+                                btn.textContent = '⭐';
+                                filterFavorites();
+                            } else {
+                                alert("❌ Error: " + response.message);
+                            }
+                        });
+                    }
+                });
+            });
+        
+            
+            filterFavorites();
         }
-
-
-        localStorage.setItem('favorites', JSON.stringify(favoriteEvents));
-        filterFavorites(); 
-    }
-
-
-    Array.from(eventsContainer.getElementsByClassName('event-card')).forEach(card => {
-        const title = card.querySelector('h3').textContent;
-
-
-        if (favoriteEvents.includes(title)) {
-            card.querySelector('.favorite-btn').textContent = '❤️'; 
+        
+       
+        function filterFavorites() {
+            const eventCards = Array.from(eventsContainer.getElementsByClassName('event-card'));
+        
+            eventCards.forEach(card => {
+                const title = card.querySelector('h3').textContent;
+                if (favoriteCheckbox.checked) {
+                    card.style.display = favoriteEvents.includes(title) ? 'block' : 'none';
+                } else {
+                    card.style.display = 'block';
+                }
+            });
         }
-
-
-        card.querySelector('.favorite-btn').addEventListener('click', (e) => {
-            e.stopPropagation(); 
-            toggleFavorite(card);
-        });
-    });
-
-
-    favoriteCheckbox.addEventListener('change', filterFavorites);
-
-
-    filterFavorites();
+        
+        
+        favoriteCheckbox.addEventListener('change', filterFavorites);
+        
 });
 
 
