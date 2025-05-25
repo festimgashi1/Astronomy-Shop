@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <?php 
 class Event {
     protected $title;
@@ -115,6 +119,11 @@ class SpecialEvent extends Event {
                     <li><a href="/WEB2_2025_GR12/aboutus/aboutus.php" >About Us</a></li>
                     <li><a href="/WEB2_2025_GR12/game/game.php">Play</a></li>
                     <li><a href="/WEB2_2025_GR12/login/login.php"><img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;"></a></li>
+                    <li>
+    <a href="<?php echo isset($_SESSION['user_id']) ? '/WEB2_2025_GR12/login/customer_login.php' : '/WEB2_2025_GR12/login/login.php'; ?>">
+        <img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;">
+    </a>
+</li>
                 </ul>
             </nav>
             

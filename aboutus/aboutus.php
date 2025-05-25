@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -145,25 +149,33 @@ function debugGlobals() {
 ?>
 
 <?php
-include '../db/db.php';
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $rating = $_POST['rating'] ?? 0;
-    $reviewText = $_POST['reviewText'] ?? '';
-    $image = $_POST['image'] ?? 'https://via.placeholder.com/80';
 
-    $stmt = $con->prepare("INSERT INTO reviews (name, email, rating, message, image) VALUES (?, ?, ?, ?, ?)");
+require_once("../db/db.php");
+
+if (isset($_POST['submit'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $rating = $_POST['rating'];
+    $message = $_POST['reviewText'];
+    $image = !empty($_POST['image']) ? $_POST['image'] : 'https://via.placeholder.com/80';
+
+    $sql = "INSERT INTO reviews (name, email, rating, message, image) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $con->prepare($sql);
+
     if ($stmt === false) {
-        die("Prepare failed: " . $con->error);
+        echo "Prepare failed: " . $con->error;
+    } else {
+        $stmt->bind_param("ssiss", $name, $email, $rating, $message, $image);
+
+        if ($stmt->execute()) {
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
+        } else {
+            echo "Execute failed: " . $stmt->error;
+        }
+
+        $stmt->close();
     }
-    $stmt->bind_param("ssiss", $name, $email, $rating, $reviewText, $image);
-    if (!$stmt->execute()) {
-        die("Execute failed: " . $stmt->error);
-    }
-    $stmt->close();
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit();
 }
 $site_name = "NASA Explorers";
 
@@ -225,6 +237,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <li><a href="/WEB2_2025_GR12/aboutus/aboutus.php" >About Us</a></li>
                     <li><a href="/WEB2_2025_GR12/game/game.php">Play</a></li>
                     <li><a href="/WEB2_2025_GR12/login/login.php"><img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;"></a></li>
+                    <li>
+    <a href="<?php echo isset($_SESSION['user_id']) ? '/WEB2_2025_GR12/login/customer_login.php' : '/WEB2_2025_GR12/login/login.php'; ?>">
+        <img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;">
+    </a>
+</li>
                 </ul>
             </nav>
         </div>
@@ -511,8 +528,7 @@ ksort($timeline);
 
                     <label for="image">Image URL:</label>
                     <input type="url" id="image" name="image" placeholder="https://example.com/image.jpg">
-
-                    <button type="submit" class="review-btn">Submit Review</button>
+                     <button type="submit" name="submit" class="review-btn">Submit Review</button>
                 </form>
             </div>
         </div>
