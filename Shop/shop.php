@@ -1,6 +1,37 @@
 <?php
 session_start();
+require_once("../db/db.php");
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submitButton'])) {
+    $userid = $_SESSION['user_id'];
+    $address = trim($_POST['address']);
+    $payment = trim($_POST['payment']);
+    $productNames = $_POST['product_name'] ?? [];
+    $productQtys = $_POST['product_qty'] ?? [];
+    $productPrices = $_POST['product_price'] ?? [];
+
+    if ($address && $payment && !empty($productNames)) {
+        $stmt = $con->prepare("INSERT INTO orders (userid, address, payment) VALUES (?, ?, ?)");
+        $stmt->bind_param("iss", $userid, $address, $payment);
+        $stmt->execute();
+        $orderId = $stmt->insert_id;
+        $stmt->close();
+
+        $stmtItem = $con->prepare("INSERT INTO order_items (order_id, product_name, quantity, price) VALUES (?, ?, ?, ?)");
+        for ($i = 0; $i < count($productNames); $i++) {
+            $stmtItem->bind_param("isid", $orderId, $productNames[$i], $productQtys[$i], $productPrices[$i]);
+            $stmtItem->execute();
+        }
+        $stmtItem->close();
+
+        $successMessage = "Order placed successfully!";
+        unset($_SESSION['cart']);
+    } else {
+        $errorMessage = "Please fill all fields and select at least one product.";
+    }
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,16 +44,18 @@ session_start();
     <link rel="stylesheet" href="shop.css">
     <style>
         .social-icons a {
-        display: inline;
-    }
-    .social-icons a img {
-        width: 60px;
-        height: 60px;
-        margin-right: 5px;
-    }
-    .social-icons a:hover {
-        color: #4a90e2;
-    }
+            display: inline;
+        }
+
+        .social-icons a img {
+            width: 60px;
+            height: 60px;
+            margin-right: 5px;
+        }
+
+        .social-icons a:hover {
+            color: #4a90e2;
+        }
     </style>
 </head>
 
@@ -34,22 +67,22 @@ session_start();
             </div>
             <div class="main-nav">
                 <ul>
-                    <li><a href='/WEB2_2025_GR12/Home/index.php' >Home</a></li>
-                    <li><a href="/WEB2_2025_GR12/events/events.php" >Events</a></li>
-                    <li><a href="/WEB2_2025_GR12/news/news.php" >News</a></li>
-                    <li><a href="/WEB2_2025_GR12/Shop/shop.php" >Shop</a></li>
-                    <li><a href="/WEB2_2025_GR12/aboutus/aboutus.php" >About Us</a></li>
+                    <li><a href='/WEB2_2025_GR12/Home/index.php'>Home</a></li>
+                    <li><a href="/WEB2_2025_GR12/events/events.php">Events</a></li>
+                    <li><a href="/WEB2_2025_GR12/news/news.php">News</a></li>
+                    <li><a href="/WEB2_2025_GR12/Shop/shop.php">Shop</a></li>
+                    <li><a href="/WEB2_2025_GR12/aboutus/aboutus.php">About Us</a></li>
                     <li><a href="/WEB2_2025_GR12/game/game.php">Play</a></li>
                     <li>
-    <a href="<?php echo isset($_SESSION['user_id']) ? '/WEB2_2025_GR12/login/customer_login.php' : '/WEB2_2025_GR12/login/login.php'; ?>">
-        <img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;">
-    </a>
-</li>
+                        <a href="<?php echo isset($_SESSION['user_id']) ? '/WEB2_2025_GR12/login/customer_login.php' : '/WEB2_2025_GR12/login/login.php'; ?>">
+                            <img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;">
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </header>
-<header>
+    <header>
         <div class="header">
             <h1><b>Space Shop </b></h1>
             <button class="gomain" onclick="document.getElementById('main').scrollIntoView({behavior: 'smooth'})">
@@ -68,21 +101,44 @@ session_start();
         </nav>
         <br>
         <div id="product-grid">
+            <?php
+            $query = "SELECT * FROM products";
+            $result = mysqli_query($con, $query);
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<div class='product-card'>";
+                echo "<h3>" . htmlspecialchars($row['name']) . "</h3>";
+                echo "<p>Category: " . htmlspecialchars($row['category']) . "</p>";
+                echo "<p>Price: $" . htmlspecialchars($row['price']) . "</p>";
+                echo "<button onclick=\"addToCart('" . addslashes($row['name']) . "', " . $row['price'] . ")\">Add to Cart</button>";
+                echo "</div>";
+            }
+            ?>
         </div>
 
         <div id="popup">
             <span id="closeButton">&times;</span>
             <div>
                 <br>
-                <fieldset id="emailFieldset">
-                    <legend>Email:</legend>
-                    <input type="email" id="email" style="width: 350px;" placeholder="example@blla.com" required>
-                </fieldset>
-                <p id="message2" class="message2"></p>
+                <?php if (isset($_SESSION['email'])): ?>
+                    <fieldset id="emailFieldset">
+                        <legend>Email:</legend>
+                        <input type="email" id="email" value="<?php echo htmlspecialchars($_SESSION['email']); ?>" readonly style="width: 350px; background-color: #f0f0f0;">
+                    </fieldset>
+                    <p id="message2" class="message2"></p>
+                <?php else: ?>
+                    <fieldset id="emailFieldset">
+                        <legend>Email:</legend>
+                        <p style="color: red;">You must <a href="/WEB2_2025_GR12/login/login.php" style="color: blue; text-decoration: underline;">log in</a> to place an order.</p>
+                    </fieldset>
+                <?php endif; ?>
                 <br>
-                <fieldset id="phoneFieldset">
-                    <legend>Phone number:</legend>
+               <fieldset id="phoneFieldset">
+                 <legend>Phone number:</legend>
+                    <?php if (isset($_SESSION['phone'])): ?>
+                    <input type="tel" id="phone" value="<?php echo htmlspecialchars($_SESSION['phone']); ?>" readonly style="width: 350px; background-color: #f0f0f0;">
+                    <?php else: ?>
                     <input type="tel" id="phone" style="width: 350px;" placeholder="+383 4x xxx xxx" required>
+                    <?php endif; ?>
                 </fieldset>
                 <p id="message1" class="message1"></p>
                 <br>
@@ -93,37 +149,40 @@ session_start();
                 <p id="message3" style=" color: red;" class="message3"></p>                
                 <br>
                 <fieldset id="paymentFieldset">
-                    <legend>Payment method:</legend>
-                    <label>
-                        <input type="radio" checked="checked" name="radio">
-                        Cash
-                    </label>
-                    <label>
-                        <input type="radio" name="radio">
-                        VISA card
-                    </label>
-                    <label>
-                        <input type="radio" name="radio">
-                        PayPal
-                    </label> 
-                    <label>
-                        <input type="radio" name="radio">
-                        Mastercard
-                    </label>
-                </fieldset>
-                <button type="button" id="submitButton" onclick="handleButtonClick()" class="done-btn">Submit</button>
+    <legend>Payment method:</legend>
+    <label>
+        <input type="radio" checked="checked" name="radio" value="Cash"> Cash
+    </label>
+    <label>
+        <input type="radio" name="radio" value="VISA"> VISA card
+    </label>
+    <label>
+        <input type="radio" name="radio" value="PayPal"> PayPal
+    </label> 
+    <label>
+        <input type="radio" name="radio" value="Mastercard"> Mastercard
+    </label>
+</fieldset>
+
+<form method="POST" id="orderForm">
+    <input type="hidden" name="address" id="addressHidden">
+    <input type="hidden" name="payment" id="paymentHidden">
+    <div id="hiddenProducts"></div>
+<button type="submit" name="submitButton" id="submitButton" class="done-btn">Submit</button>
+</form>
                 <p id="message" style="font-weight: bold;" class="message"></p>
             </div>
         </div>         
     </main>
 
-    <aside id="cart">
+<aside id="cart">
         <button id="close-cart" aria-label="Close cart">&times;</button>
         <h2>Cart:</h2>
         <div id="cart-items"></div>
         <div id="cart-total">Total: $0.00</div>
         <button id="checkout-btn">Checkout</button>
     </aside>
+
 
     <footer class="main-footer">
         <div class="container-foot">
@@ -138,10 +197,10 @@ session_start();
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="/events/events.html">Events</a></li>
-                        <li><a href="/aboutus/aboutus.html">About Us</a></li>
-                        <li><a href="/news/news.html">News</a></li>
-                        <li><a href="/Shop/shop.html">Shop</a></li>
+                        <li><a href="/events/events.php">Events</a></li>
+                        <li><a href="/aboutus/aboutus.php">About Us</a></li>
+                        <li><a href="/news/news.php">News</a></li>
+                        <li><a href="/Shop/shop.php">Shop</a></li>
                         <li><a href="https://www.instagram.com/" target="_blank">Contact</a></li>
                     </ul>
                 </div>
@@ -172,120 +231,46 @@ session_start();
         </div>
     </footer>
 
+<script>
 
-    <script>
-       const openButton = document.getElementById('checkout-btn');
-const popup = document.getElementById('popup');
-const closeButton = document.getElementById('closeButton');
+document.getElementById("submitButton").addEventListener("click", (e) => {
+    const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]"); 
+    const address = document.getElementById("address").value;
+    const payment = document.querySelector("input[name='radio']:checked").value;
 
-openButton.addEventListener('click', () => {
-    resetForm(); 
-    popup.style.display = 'block';
-});
+    if (!address) return alert("Address is required");
+    if (cartItems.length === 0) return alert("Cart is empty");
 
-closeButton.addEventListener('click', () => {
-    popup.style.display = 'none';
-});
+    document.getElementById("addressHidden").value = address;
+    document.getElementById("paymentHidden").value = payment;
 
-window.addEventListener('click', (event) => {
-    if (event.target === popup) {
-        popup.style.display = 'none';
-    }
-});
+    const hiddenProductsDiv = document.getElementById("hiddenProducts");
+    hiddenProductsDiv.innerHTML = "";
 
-document.getElementById('email').addEventListener('input', () => clearError('message2'));
-document.getElementById('phone').addEventListener('input', () => clearError('message1'));
-document.getElementById('address').addEventListener('input', () => clearError('message3'));
-
-function validateEmail() {
-    const email = document.getElementById('email').value;
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailPattern.test(email);
-}
-
-function validatePhoneNumber() {
-    const phoneNumber = document.getElementById('phone').value;
-    const phonePattern = /^\+383 4\d \d{3} \d{3}$/;
-    return phonePattern.test(phoneNumber);
-}
-
-function validateAddress() {
-    const address = document.getElementById('address').value.trim();
-    return address.length > 0;
-}
-
-function clearError(messageId) {
-    const message = document.getElementById(messageId);
-    message.textContent = '';
-}
-
-function handleButtonClick() {
-    const emailValid = validateEmail();
-    const phoneValid = validatePhoneNumber();
-    const addressValid = validateAddress();
-
-    const message = document.getElementById('message');
-    const emailMessage = document.getElementById('message2');
-    const phoneMessage = document.getElementById('message1');
-    const addressMessage = document.getElementById('message3');
-
-    let allValid = true;
-
-    emailMessage.textContent = '';
-    phoneMessage.textContent = '';
-    addressMessage.textContent = '';
-
-    if (!emailValid) {
-        emailMessage.textContent = "Email is not valid!";
-        emailMessage.style.color = "red";
-        allValid = false;
-    }
-
-    if (!phoneValid) {
-        phoneMessage.textContent = "Phone number is not valid!";
-        phoneMessage.style.color = "red";
-        allValid = false;
-    }
-
-    if (!addressValid) {
-        addressMessage.textContent = "Address is required!";
-        addressMessage.style.color = "red";
-        allValid = false;
-    }
-
-    if (allValid) {
-        message.textContent = "Order is on the way";
-        message.style.color = "green";
-
-        popup.style.width = '600px';
-        popup.style.height = '400px';
-
-        document.querySelectorAll('#emailFieldset, #phoneFieldset, #addressFieldset, #paymentFieldset, #submitButton').forEach(function(element) {
-            element.style.display = 'none';
-        });
-
-        setTimeout(function() {
-            popup.style.display = 'none';  
-            resetForm(); 
-        }, 5000);
-    } else {
-        message.textContent = '';
-    }
-}
-function resetForm() {
-    document.querySelector('#email').value = '';
-    document.querySelector('#phone').value = '';
-    document.querySelector('#address').value = '';
-
-    document.querySelectorAll('#emailFieldset, #phoneFieldset, #addressFieldset, #paymentFieldset, #submitButton').forEach(function(element) {
-        element.style.display = 'block';
+    cartItems.forEach(item => {
+        hiddenProductsDiv.innerHTML += `
+            <input type='hidden' name='product_name[]' value='${item.name}'>
+            <input type='hidden' name='product_qty[]' value='${item.qty}'>
+            <input type='hidden' name='product_price[]' value='${item.price}'>
+        `;
     });
 
-    const message = document.getElementById('message');
-    message.textContent = '';
-}
+    // ✅ Show message, clear cart, close cart
+    alert("✅ The order is on the way!");
 
-    </script>
-    <script src="shop.js"></script>
+    // Clear and close
+    localStorage.removeItem("cartItems");
+    document.getElementById("cart").classList.remove("open");
+    document.body.classList.remove("cart-open");
+    renderCart();
+
+    // Submit form
+    document.getElementById("orderForm").submit();
+});
+
+ window.isLoggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
+</script>
+
+<script src="shop.js"></script>
 </body>
 </html>
