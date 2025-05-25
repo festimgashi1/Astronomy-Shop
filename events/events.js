@@ -16,6 +16,30 @@ document.addEventListener('DOMContentLoaded', function () {
     function showModal(eventCard) {
         const imgSrc = eventCard.querySelector('img').src;
         const title = eventCard.querySelector('h3').textContent;
+
+        function showModal(eventCard) {
+            const imgSrc = eventCard.querySelector('img').src;
+            const title = eventCard.querySelector('h3').textContent;
+            const date = eventCard.querySelector('.event-time:nth-child(3)').textContent;
+            const time = eventCard.querySelector('.event-time:nth-child(4)').textContent;
+            const description = eventCard.getAttribute('data-description'); 
+        
+          
+            fetch('log_event_click.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title: title })
+            });
+        
+            modalImage.src = imgSrc;
+            modalTitle.textContent = title;
+            modalDate.textContent = date;
+            modalTime.textContent = time;
+            modalDescription.textContent = description; 
+            modal.classList.add('active');
+        }
+        
+
         const date = eventCard.querySelector('.event-time:nth-child(3)').textContent;
         const time = eventCard.querySelector('.event-time:nth-child(4)').textContent;
         const description = eventCard.getAttribute('data-description'); 
@@ -203,3 +227,4 @@ document.getElementById('fact-button').addEventListener('click', () => {
     const fact = getRandomFact();
     document.getElementById('fact-display').innerText = fact;
 });
+
