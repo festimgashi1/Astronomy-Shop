@@ -98,6 +98,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['completionTime'])) {
     echo "Kërkesë e pavlefshme.";
 }
 
+$bestTime = null;
+if (isset($_SESSION['user_id'])) {
+    require '../db_connect.php';
+    $user_id = $_SESSION['user_id'];
+    
+    $stmt = $conn->prepare("SELECT MIN(completion_time) as best FROM game_records WHERE user_id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $stmt->bind_result($bestTime);
+    $stmt->fetch();
+    $stmt->close();
+    $conn->close();
+}
+ if ($bestTime !== null): ?>
+    <div class="best-time">Rekordi yt më i mirë: <?php echo number_format($bestTime, 2); ?> sekonda</div>
+?>
+
 
 </body>
 </html>
