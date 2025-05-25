@@ -143,6 +143,31 @@ try {
             transform: translateY(-3px);
             box-shadow: 0 6px 18px rgba(101, 134, 255, 0.6);
         }
+
+        .explore-btn {
+    padding: 12px 28px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-size: 16px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(101, 134, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.explore-btn:hover {
+    background: linear-gradient(to right, #2575fc, #6a11cb);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(101, 134, 255, 0.5);
+}
+
+.explore-btn {
+    display: inline-block;
+    margin-top: 30px;
+}
     </style>
 </head>
 <body>
@@ -304,6 +329,23 @@ while ($row = mysqli_fetch_assoc($result)) {
      With a strong focus on space exploration, technology, and research, we aim to connect with people of all ages and backgrounds, encouraging them to dream big and look up at the stars.
       Through our efforts, we hope to ignite the spark of discovery in the hearts of future space explorers. 🚀
      </p>
+     <?php
+     $galleryImages = [];
+$result = mysqli_query($con, "SELECT url FROM gallery_image");
+while ($row = mysqli_fetch_assoc($result)) {
+    $galleryImages[] = $row['url'];
+}
+
+?>
+
+     <button class="explore-btn" onclick="openGallery()">Explore Our Work 🪐</button>
+
+<div id="photoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.85); z-index:9999;">
+    <span onclick="closeGallery()" style="position:absolute; top:20px; right:40px; font-size:35px; color:white; cursor:pointer;">&times;</span>
+    <div style="display:flex; justify-content:center; align-items:center; height:100%;">
+        <img id="galleryImage" src="" style="max-width:80%; max-height:80%; border-radius:10px; box-shadow:0 0 20px rgba(255,255,255,0.4); transition: opacity 0.5s ease;">
+    </div>
+</div>
         </div>
         <div id="about-section2">
             <div class="about-section2-text">
@@ -619,6 +661,33 @@ window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/l
         console.error('jQuery is not loaded');
     }
 });
+
+const images = <?php echo json_encode($galleryImages); ?>;
+let current = 0;
+let galleryInterval;
+
+function openGallery() {
+    document.getElementById("photoModal").style.display = "block";
+    showImage(current);
+    galleryInterval = setInterval(() => {
+        current = (current + 1) % images.length;
+        showImage(current);
+    }, 3000);
+}
+
+function closeGallery() {
+    document.getElementById("photoModal").style.display = "none";
+    clearInterval(galleryInterval);
+}
+
+function showImage(index) {
+    const img = document.getElementById("galleryImage");
+    img.style.opacity = 0;
+    setTimeout(() => {
+        img.src = images[index];
+        img.style.opacity = 1;
+    }, 300);
+}
 
 document.querySelectorAll(".about-founders-box").forEach(function(box) {
     box.addEventListener("click", function() {
