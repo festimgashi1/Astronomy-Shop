@@ -70,19 +70,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    if ($formType === "login") {
-        $loginEmail = htmlspecialchars(trim($_POST['login_email']));
-        $loginPassword = $_POST['login_password'];
+if ($formType === "login") {
+    $loginEmail = htmlspecialchars(trim($_POST['login_email']));
+    $loginPassword = $_POST['login_password'];
 
-        if (!filter_var($loginEmail, FILTER_VALIDATE_EMAIL)) {
-            $loginErrors[] = "Invalid email format.";
+    if (!filter_var($loginEmail, FILTER_VALIDATE_EMAIL)) {
+        $loginErrors[] = "Invalid email format.";
+    }
+
+    if (strlen($loginPassword) < 8) {
+        $loginErrors[] = "Password must be at least 8 characters.";
+    }
+
+    if (empty($loginErrors)) {
+        $stmtAdmin = mysqli_prepare($con, "SELECT fullname, email, hashpassword FROM admin WHERE email = ?");
+        mysqli_stmt_bind_param($stmtAdmin, "s", $loginEmail);
+        mysqli_stmt_execute($stmtAdmin);
+        $resultAdmin = mysqli_stmt_get_result($stmtAdmin);
+
+        if ($adminRow = mysqli_fetch_assoc($resultAdmin)) {
+            if (password_verify($loginPassword, $adminRow['hashpassword'])) {
+                $_SESSION['admin_email'] = $adminRow['email'];
+                $_SESSION['admin_fullname'] = $adminRow['fullname'];
+                header("Location: /WEB2_2025_GR12/login/admin.php");
+                exit;
+            } else {
+                $loginErrors[] = "Incorrect password for admin.";
+                $loginMessage = "<div class='error'>Login failed. Invalid credentials.</div>";
+            }
         }
-
-        if (strlen($loginPassword) < 8) {
-            $loginErrors[] = "Password must be at least 8 characters.";
-        }
-
-        if (empty($loginErrors)) {
+         else {
             $stmt = mysqli_prepare($con, "SELECT id, full_name, email, phone, password_hash FROM users WHERE email = ?");
             if ($stmt) {
                 mysqli_stmt_bind_param($stmt, "s", $loginEmail);
@@ -107,12 +124,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
                 mysqli_stmt_close($stmt);
             } else {
-                $loginMessage = "<div class='error'>Failed to prepare the statement.</div>";
+                $loginMessage = "<div class='error'>Failed to prepare the user statement.</div>";
             }
-        } else {
-            $loginMessage = "<div class='error'>Login failed. Please fix the errors.</div>";
         }
+        mysqli_stmt_close($stmtAdmin);
+    } else {
+        $loginMessage = "<div class='error'>Login failed. Please fix the errors.</div>";
     }
+}
 
     mysqli_close($con);
 }
