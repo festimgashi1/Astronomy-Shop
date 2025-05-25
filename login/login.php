@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include '../db/db.php';
 
 $loginEmail = $loginPassword = "";
@@ -32,15 +32,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if ($isValid) {
-            $stmt = mysqli_prepare($con, "SELECT password_hash FROM users WHERE email = ?");
+            $stmt = mysqli_prepare($con, "SELECT id, full_name, email, password_hash FROM users WHERE email = ?");
             mysqli_stmt_bind_param($stmt, "s", $loginEmail);
             mysqli_stmt_execute($stmt);
-            mysqli_stmt_bind_result($stmt, $hashedPasswordFromDB);
+            $result = mysqli_stmt_get_result($stmt);
 
-            if (mysqli_stmt_fetch($stmt)) {
-                if (password_verify($loginPassword, $hashedPasswordFromDB)) {
-                    $loginMessage = "<div class='success' style='display:block;'>Login successful! Welcome.</div>";
-                    $loginEmail = $loginPassword = ""; 
+            if ($row = mysqli_fetch_assoc($result)) {
+                if (password_verify($loginPassword, $row['password_hash'])) {
+                    $_SESSION['user_id'] = $row['id'];
+                    $_SESSION['user_name'] = $row['full_name'];
+                    $_SESSION['user_email'] = $row['email'];
+
+                    if ($row['email'] === 'admin@gmail.com') {
+                        header("Location: /WEB2_2025_GR12/admin/admin.php");
+                    } else {
+                        header("Location: /WEB2_2025_GR12/login/customer_login.php");
+                    }
+                    exit;
                 } else {
                     $loginErrors[] = "Incorrect password.";
                     $loginMessage = "<div class='error' style='display:block;'>Login failed. Invalid credentials.</div>";
@@ -73,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $isValid = false;
         }
 
-        if (!preg_match("/^\+383\d{8}$/", $signupPhone)) {
+        if (!preg_match("/^\\+383\\d{8}$/", $signupPhone)) {
             $signupErrors[] = "Invalid phone number format.";
             $isValid = false;
         }
@@ -118,6 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_close($con);
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
