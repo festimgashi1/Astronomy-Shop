@@ -1,7 +1,7 @@
 <?php
 session_start();
 header('Content-Type: application/json');
-require_once("../db/db.php"); // lidhja me DB
+require_once("../db/db.php");
 
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['success' => false, 'message' => 'User not logged in']);
@@ -22,6 +22,17 @@ $time = $data['time'] ?? null;
 $region = $data['region'] ?? null;
 $description = $data['description'] ?? null;
 $imageUrl = $data['image_url'] ?? null;
+
+
+$check = $con->prepare("SELECT id FROM user_favorites WHERE user_id = ? AND event_title = ?");
+$check->bind_param("is", $userId, $title);
+$check->execute();
+$check->store_result();
+
+if ($check->num_rows > 0) {
+    echo json_encode(['success' => true, 'message' => 'Already exists']);
+    exit;
+}
 
 $stmt = $con->prepare("INSERT INTO user_favorites (user_id, event_title, event_date, event_time, event_region, event_description, event_image_url) VALUES (?, ?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("issssss", $userId, $title, $date, $time, $region, $description, $imageUrl);
