@@ -8,6 +8,16 @@ function customErrorHandler($errno, $errstr, $errfile, $errline) {
 }
 set_error_handler("customErrorHandler");
 
+$ipAddress = $_SERVER['REMOTE_ADDR'];
+$emri = isset($_POST['name']) ? $_POST['name'] : 'Anonim';
+
+if (!is_dir("logs")) {
+    mkdir("logs", 0777, true);
+}
+
+$logFile = "logs/aboutus.txt";
+$logText = "Vizitë më: " . date("Y-m-d H:i:s") . " | IP: $ipAddress | Emër: $emri\n";
+file_put_contents($logFile, $logText, FILE_APPEND);
 
 try {
     if (isset($_GET['provoko'])) {
