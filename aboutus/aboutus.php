@@ -340,43 +340,52 @@ Join us on this journey as we explore the unknown, share knowledge, and spark th
         </div>
 
         <?php
-$founders = [
-    [
-        "id" => "festim",
-        "name" => "Festim Gashi",
-        "position" => "Aerospace Engineering",
-        "image" => "https://images.squarespace-cdn.com/content/v1/5f61676ab765cc4f9c9ecc02/68b67fc4-3e76-4238-b545-f6b844fe3d9c/AlvinDrew.jpg",
-        "bio" => "Festim Gashi is a seasoned aerospace engineer specializing in space technologies.With years of experience working on high-profile NASA projects, he is passionate about advancing human capabilities in space exploration."
-    ],
-    [
-        "id" => "getoar",
-        "name" => "Getoar Hoxha",
-        "position" => "Director of Research at Quilty Analytics",
-        "image" => "https://images.squarespace-cdn.com/content/v1/5f61676ab765cc4f9c9ecc02/44ff8118-0b16-4007-85db-e56620de2fa4/CalebHenry.jpg?format=500w",
-        "bio" => "Getoar Hoxha is an expert in satellite communications and research analysis.As the Director of Research at Quilty Analytics, he has pioneered numerous studies focusing on improving global connectivity through advanced satellite networks."
-    ],
-    [
-        "id" => "grese",
-        "name" => "Grese Ferataj",
-        "position" => "Computer Engineering",
-        "image" => "https://t3.ftcdn.net/jpg/05/68/84/94/360_F_568849416_oxmxa6E2NrlRWLXxBFRJtrwEYettyhdH.jpg",
-        "bio" => "Grese Ferataj is a visionary computer engineer with expertise in AI and software.She has contributed to creating cutting-edge applications in healthcare and education, leveraging AI to solve complex real-world problems."
-    ],
-    [
-        "id" => "jon",
-        "name" => "Jon Jashari",
-        "position" => "Manager",
-        "image" => "https://pbs.twimg.com/media/GcsrV9VWkAAaTq_?format=jpg&name=4096x4096",
-        "bio" => "Jon Jashari is a dynamic leader with experience in team and project management.With a strong background in operations and logistics, Jon ensures seamless execution of initiatives."
-    ],
-    [
-        "id" => "gresa",
-        "name" => "Gresa Thaci",
-        "position" => "The Leader",
-        "image" => "https://cdn.azeusconvene.com/wp-content/uploads/Women-CEOs-and-Business-Leaders_banner.jpg",
-        "bio" => "Gresa Thaci is a charismatic and results-driven leader who inspires her team.As the driving force behind the organization, she excels in strategic planning, team building, and innovation."
-    ]
-];
+// $founders = [
+//     [
+//         "id" => "festim",
+//         "name" => "Festim Gashi",
+//         "position" => "Aerospace Engineering",
+//         "image" => "https://images.squarespace-cdn.com/content/v1/5f61676ab765cc4f9c9ecc02/68b67fc4-3e76-4238-b545-f6b844fe3d9c/AlvinDrew.jpg",
+//         "bio" => "Festim Gashi is a seasoned aerospace engineer specializing in space technologies.With years of experience working on high-profile NASA projects, he is passionate about advancing human capabilities in space exploration."
+//     ],
+//     [
+//         "id" => "getoar",
+//         "name" => "Getoar Hoxha",
+//         "position" => "Director of Research at Quilty Analytics",
+//         "image" => "https://images.squarespace-cdn.com/content/v1/5f61676ab765cc4f9c9ecc02/44ff8118-0b16-4007-85db-e56620de2fa4/CalebHenry.jpg?format=500w",
+//         "bio" => "Getoar Hoxha is an expert in satellite communications and research analysis.As the Director of Research at Quilty Analytics, he has pioneered numerous studies focusing on improving global connectivity through advanced satellite networks."
+//     ],
+//     [
+//         "id" => "grese",
+//         "name" => "Grese Ferataj",
+//         "position" => "Computer Engineering",
+//         "image" => "https://t3.ftcdn.net/jpg/05/68/84/94/360_F_568849416_oxmxa6E2NrlRWLXxBFRJtrwEYettyhdH.jpg",
+//         "bio" => "Grese Ferataj is a visionary computer engineer with expertise in AI and software.She has contributed to creating cutting-edge applications in healthcare and education, leveraging AI to solve complex real-world problems."
+//     ],
+//     [
+//         "id" => "jon",
+//         "name" => "Jon Jashari",
+//         "position" => "Manager",
+//         "image" => "https://pbs.twimg.com/media/GcsrV9VWkAAaTq_?format=jpg&name=4096x4096",
+//         "bio" => "Jon Jashari is a dynamic leader with experience in team and project management.With a strong background in operations and logistics, Jon ensures seamless execution of initiatives."
+//     ],
+//     [
+//         "id" => "gresa",
+//         "name" => "Gresa Thaci",
+//         "position" => "The Leader",
+//         "image" => "https://cdn.azeusconvene.com/wp-content/uploads/Women-CEOs-and-Business-Leaders_banner.jpg",
+//         "bio" => "Gresa Thaci is a charismatic and results-driven leader who inspires her team.As the driving force behind the organization, she excels in strategic planning, team building, and innovation."
+//     ]
+// ];
+
+require_once("../db/db.php"); 
+
+$founders = [];
+$result = mysqli_query($con, "SELECT * FROM founders");
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $founders[] = $row;
+}
 ?>
 
 <div id="about-section3">
