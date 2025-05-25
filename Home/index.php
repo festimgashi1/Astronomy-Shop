@@ -1,5 +1,15 @@
 <?php
 session_start();
+
+if (isset($_GET['theme'])) {
+    $theme = $_GET['theme'];
+    setcookie("site_theme", $theme, time() + (86400 * 30), "/"); 
+    header("Location: index.php");
+    exit();
+}
+$currentTheme = isset($_COOKIE['site_theme']) ? $_COOKIE['site_theme'] : 'dark';
+?>
+
 ?>
 
 <!DOCTYPE html>
