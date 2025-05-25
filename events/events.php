@@ -102,6 +102,7 @@ class SpecialEvent extends Event {
     <script defer src="events.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="comment.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
@@ -361,6 +362,18 @@ class SpecialEvent extends Event {
         const nextEventDate = new Date('2025-01-18T15:00:00');  
         updateCountdown(nextEventDate);  
     </script> 
+
+<div class="comment-section" style="margin-top: 60px; padding: 20px; background: #111; color: #fff;">
+    <h3>Leave a Comment</h3>
+    <form id="comment-form" style="display: flex; flex-direction: column; gap: 10px;">
+        <input type="hidden" id="comment-user-id" value="<?php echo $_SESSION['user_id']; ?>">
+        <input type="text" id="comment-event-title" placeholder="Event Title" required style="padding: 8px;">
+        <textarea id="comment-text" placeholder="Your comment..." required style="padding: 8px;"></textarea>
+        <button type="submit" style="padding: 8px; background: #4CAF50; border: none; color: white;">Submit</button>
+    </form>
+    <div id="comments-container" style="margin-top: 20px;"></div>
+</div>
+
     
     <footer class="main-footer">
         <div class="container">
