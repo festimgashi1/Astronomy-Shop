@@ -154,5 +154,84 @@ function saveCompletionTime(time) {
         body: 'completionTime=' + encodeURIComponent(time)
     });
 }
+let startTime;
+let timerInterval;
+let hasStarted = false;
+let placedPlanets = 0;
+const totalPlanets = 8; // Përshtate sipas sa planetë ke
+
+function startTimer() {
+    startTime = Date.now();
+    timerInterval = setInterval(() => {
+        const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
+        document.getElementById("time").textContent = elapsed;
+    }, 100);
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
+    const finalTime = ((Date.now() - startTime) / 1000).toFixed(2);
+    saveCompletionTime(finalTime);
+    showCongratulations();
+}
+
+function saveCompletionTime(time) {
+    fetch('save_time.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'completionTime=' + encodeURIComponent(time)
+    });
+}
+
+function showCongratulations() {
+    document.getElementById('congratulations').classList.remove('hidden');
+}
+
+
+const planets = document.querySelectorAll('.planet');
+const solarSystem = document.getElementById('solarSystem');
+
+planets.forEach(planet => {
+    planet.setAttribute('draggable', true);
+
+    planet.addEventListener('dragstart', () => {
+        if (!hasStarted) {
+            startTimer();
+            hasStarted = true;
+        }
+    });
+});
+
+solarSystem.addEventListener('dragover', (e) => {
+    e.preventDefault();
+});
+
+solarSystem.addEventListener('drop', (e) => {
+    e.preventDefault();
+    
+    const draggedPlanet = document.querySelector('.dragging');
+    if (draggedPlanet) {
+        solarSystem.appendChild(draggedPlanet);
+        draggedPlanet.classList.remove('dragging');
+        
+        placedPlanets++;
+        if (placedPlanets === totalPlanets) {
+            stopTimer();
+        }
+    }
+});
+
+// Ndihmon që elementi të dihet cili është duke u tërhequr
+planets.forEach(planet => {
+    planet.addEventListener('dragstart', () => {
+        planet.classList.add('dragging');
+    });
+
+    planet.addEventListener('dragend', () => {
+        planet.classList.remove('dragging');
+    });
+});
 
 }
