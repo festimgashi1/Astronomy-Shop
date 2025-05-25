@@ -233,5 +233,15 @@ planets.forEach(planet => {
         planet.classList.remove('dragging');
     });
 });
+function saveCompletionTime(time) {
+    fetch('save_time.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'completionTime=' + encodeURIComponent(time)
+    });
+}
+
 
 }
