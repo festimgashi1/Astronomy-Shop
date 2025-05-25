@@ -93,6 +93,7 @@ if ($formType === "login") {
                 $_SESSION['admin_email'] = $adminRow['email'];
                 $_SESSION['admin_fullname'] = $adminRow['fullname'];
                 header("Location: /WEB2_2025_GR12/admin/admin.php");
+                $_SESSION['email'] = $row['email'];
                 exit;
             } else {
                 $loginErrors[] = "Incorrect password for admin.";
@@ -111,8 +112,11 @@ if ($formType === "login") {
                         $_SESSION['user_id'] = $row['id'];
                         $_SESSION['user_name'] = $row['full_name'];
                         $_SESSION['user_email'] = $row['email'];
+                        $_SESSION['email'] = $row['email'];
+                        $_SESSION['phone'] = $row['phone'];
 
                         header("Location: /WEB2_2025_GR12/login/customer_login.php");
+
                         exit;
                     } else {
                         $loginErrors[] = "Incorrect password.";
@@ -240,6 +244,7 @@ if ($formType === "login") {
             </div>
         </div>
     </main>
+    
 
     <script src="login.js"></script>
 </body>
