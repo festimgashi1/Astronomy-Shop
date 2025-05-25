@@ -68,6 +68,36 @@ if (isset($_POST['completionTime'])) {
     }
 }
 ?>
+//Lidhja me databaze
+    <?php
+session_start();
+require '../db_connect.php'; // Lidhja me databazën
+
+if (!isset($_SESSION['user_id'])) {
+    http_response_code(403);
+    echo "Duhet të jeni të kyçur për të ruajtur rekordin.";
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['completionTime'])) {
+    $user_id = $_SESSION['user_id'];
+    $completion_time = floatval($_POST['completionTime']);
+
+    $stmt = $conn->prepare("INSERT INTO game_records (user_id, completion_time) VALUES (?, ?)");
+    $stmt->bind_param("id", $user_id, $completion_time);
+
+    if ($stmt->execute()) {
+        echo "Rekordi u ruajt me sukses!";
+    } else {
+        echo "Gabim gjatë ruajtjes: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conn->close();
+} else {
+    echo "Kërkesë e pavlefshme.";
+}
+
 
 </body>
 </html>
