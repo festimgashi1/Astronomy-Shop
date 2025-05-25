@@ -20,9 +20,98 @@ $currentTheme = isset($_COOKIE['site_theme']) ? $_COOKIE['site_theme'] : 'dark';
     <title>Space Exploration</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
+<style>
+    body.dark-theme {
+    background-color: #030619;
+    color: #fff;
+}
+
+
+
+body.light-theme .main-header,
+body.light-theme .hero,
+body.light-theme .planet-item,
+body.light-theme .footer-section,
+body.light-theme .event-item,
+body.light-theme .news-item,
+body.light-theme .product-item {
+    background-color: #fff !important;
+    color: #111 !important;
+    border: 1px solid #ddd;
+}
+
+body.light-theme .planet-item h3,
+body.light-theme .planet-item p,
+body.light-theme .footer-section h3,
+body.light-theme .footer-section p,
+body.light-theme .footer-section a {
+    color: #111 !important;
+}
+
+body.light-theme .planet-item {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+body.light-theme .main-footer {
+    background-color: #f0f0f0;
+    color: #111;
+}
+
+body.light-theme .main-nav a {
+    color: #111;
+}
+
+body.dark-theme .main-header,
+body.dark-theme .hero,
+body.dark-theme .planet-item,
+body.dark-theme .footer-section {
+    background-color: #111 !important;
+    color: #fff !important;
+}
+
+.theme-switcher {
+    position: fixed;
+    top: 12px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    gap: 5px;
+}
+
+.theme-switcher a {
+    padding: 6px 14px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 13px;
+    font-family: 'Orbitron', sans-serif;
+    transition: 0.3s ease;
+    border: 1px solid #888;
+}
+
+.theme-switcher a.light {
+    background: #fff;
+    color: #000;
+}
+
+.theme-switcher a.dark {
+    background: #000;
+    color: #fff;
+}
+
+</style>
+
+
 
 </head>
-<body>
+
+    <body class="<?php echo $currentTheme === 'light' ? 'light-theme' : ''; ?>">
+
+
+  <div class="theme-switcher">
+    <a href="?theme=dark" class="dark">🌙 Dark Mode</a>
+    <a href="?theme=light" class="light">☀️ Light Mode</a>
+</div>
   
 
 
