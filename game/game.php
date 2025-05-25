@@ -11,6 +11,7 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    
     <header class="main-header">
         <div class="head">
             <div class="logo">
@@ -50,6 +51,21 @@ session_start();
             <button id="reset-button">Reset Game</button>
         </div>
     </div>
-    <script src="game.js"></script>
+    <script src="game.js"></script>'
+    
+    <div id="timer" class="timer">Time: <span id="time">0.00</span> seconds</div>
+
+    
+    <?php
+session_start();
+
+if (isset($_POST['completionTime'])) {
+    $time = floatval($_POST['completionTime']);
+    if (!isset($_SESSION['best_time']) || $time < $_SESSION['best_time']) {
+        $_SESSION['best_time'] = $time;
+    }
+}
+?>
+
 </body>
 </html>
