@@ -194,3 +194,11 @@ transition: background-color 0.3s, color 0.3s;
 button{
     font-family: 'Orbitron', sans-serif;
 }
+
+.timer, .record {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: #fff;
+    text-align: center;
+}
