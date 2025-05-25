@@ -62,11 +62,11 @@ $admin = $result->fetch_assoc();
 <body>
     <div class="sidebar">
         <h2>Admin Panel</h2>
-        <a href="#">Profile</a>
-        <a href="#">News</a>
-        <a href="#">Events</a>
-        <a href="#">Products</a>
-        <a href="#">Team</a>
+        <a href="/WEB2_2025_GR12/admin/admin.php">Profile</a>
+        <a href="/WEB2_2025_GR12/admin/admin_news.php">News</a>
+        <a href="/WEB2_2025_GR12/admin/admin_events.php">Events</a>
+        <a href="/WEB2_2025_GR12/admin/products.php">Products</a>
+        <a href="/WEB2_2025_GR12/admin/admin_team.php">Team</a>
         <a href="../logout.php" class="signout">Sign Out</a>
     </div>
 

@@ -92,7 +92,7 @@ if ($formType === "login") {
             if (password_verify($loginPassword, $adminRow['hashpassword'])) {
                 $_SESSION['admin_email'] = $adminRow['email'];
                 $_SESSION['admin_fullname'] = $adminRow['fullname'];
-                header("Location: /WEB2_2025_GR12/login/admin.php");
+                header("Location: /WEB2_2025_GR12/admin/admin.php");
                 exit;
             } else {
                 $loginErrors[] = "Incorrect password for admin.";
