@@ -57,6 +57,8 @@ session_start();
 
     
     <?php
+session_unset(); 
+session_destroy();
 session_start();
 
 if (isset($_POST['completionTime'])) {
