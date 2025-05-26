@@ -55,20 +55,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     mysqli_stmt_bind_param($stmt, "ssss", $signupFullName, $signupEmail, $signupPhone, $hashedPassword);
                     if (mysqli_stmt_execute($stmt)) {
                         $signupMessage = "<div class='success'>Registration successful!</div>";
-                       require_once("../send_email.php");
+                       // Registration successful
+require_once("../send_email.php");
 
-                $emailToSend = filter_var($signupEmail, FILTER_VALIDATE_EMAIL);
-                if ($emailToSend) {
-                    if (sendWelcomeEmail($emailToSend, $signupFullName)) {
-                        $signupMessage .= "<div class='success'>A welcome email has been sent to your inbox.</div>";
-                    } else {
-                        $signupMessage .= "<div class='error'>Email sending failed, but registration was successful.</div>";
-                    }
-                } else {
-                    $signupMessage .= "<div class='error'>Signup complete, but email address was invalid.</div>";
-                }
+$emailToSend = filter_var($signupEmail, FILTER_VALIDATE_EMAIL);
+if ($emailToSend) {
+    sendWelcomeEmail($emailToSend, $signupFullName); // we don’t need to show the message anymore
+}
 
-                                        $signupFullName = $signupEmail = $signupPhone = $signupPassword = $signupConfirmPassword = "";
+// ✅ Automatically log the user in
+$newUserId = mysqli_insert_id($con);
+$_SESSION['user_id'] = $newUserId;
+$_SESSION['user_name'] = $signupFullName;
+$_SESSION['user_email'] = $signupEmail;
+$_SESSION['email'] = $signupEmail;
+$_SESSION['phone'] = $signupPhone;
+
+// ✅ Redirect to profile
+header("Location: /WEB2_2025_GR12/login/customer_login.php");
+exit;
+
 
                     } else {
                         $signupMessage = "<div class='error'>Database error during registration.</div>";
