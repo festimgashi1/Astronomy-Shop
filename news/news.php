@@ -72,9 +72,9 @@ session_start();
                 <img src="https://science.nasa.gov/wp-content/uploads/2024/05/europa-clipper-16x9-1.jpg?w=4096&format=jpeg" alt="">
             </div>            
         </div>
-        <hr color="#ffd700" style="margin-top: 20px;"
+        <hr color="#ffd700" style="margin-top: 20px;">
         <article id="featured-article">
-            <h1 style="font-size: 36px; padding-top: 10px; text-align: left; padding-left: 10px;">The Latest Space News</h1>
+            <h1 style="font-size: 36px; padding-top: 10px; text-align: left; padding-left: 10px;">Space News</h1>
             <h2 style="padding: 10px 10px 0px 0px; color: white; padding-left: 10px;">NASA's Artemis Program: The Next Giant Leap</h2>
             <p style="color: white; padding-left: 10px;" class="subtitle">Humanity's return to the Moon and beyond</p>
             <div class="article-content">
@@ -104,14 +104,14 @@ session_start();
 
         <hr color="#ffd700" style="margin-top: 20px;">
         <section id="latest-news">
-            <h2 style="padding: 10px 10px 10px 0px; font-size: 36px; color: #4197ff; text-align: center;">Latest Space News</h2>
+            <h2 style="padding: 10px 10px 10px 0px; font-size: 36px; color: #4197ff; text-align: center;">Space News</h2>
             <div id="news-grid"></div>
         </section>
     </main>
     
     <hr color="#ffd700" style="margin-top: 10px;">
     <div class="container">
-        <h1>Detailed Space News Timeline</h1>
+        <h1>Latest Added News </h1>
         <table id="spaceNewsTable">
             <thead>
                 <tr>
