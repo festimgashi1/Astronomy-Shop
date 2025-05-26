@@ -10,7 +10,21 @@ if (!isset($_SESSION['admin_email'])) {
 $successMessage = "";
 $errorMessage = "";
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['delete_id'])) {
+    $deleteId = (int)$_POST['delete_id'];
+    $stmt = $con->prepare("DELETE FROM events WHERE id = ?");
+    $stmt->bind_param("i", $deleteId);
+    $stmt->execute();
+    $stmt->close();
+   
+    header("Location: admin_events.php");
+    exit();
+}
+
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['title'])) {
     $title = trim($_POST["title"]);
     $description = trim($_POST["description"]);
     $date = trim($_POST["date"]);
@@ -20,10 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $latitude = trim($_POST["latitude"]);
     $longitude = trim($_POST["longitude"]);
 
-    if ($title && $description && $date && $region && $time && $image) {
+    if ($title && $description && $date && $region && $time && $image && $latitude && $longitude) {
         $stmt = $con->prepare("INSERT INTO events (title, description, date, region, time, image, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssssdd", $title, $description, $date, $region, $time, $image, $latitude, $longitude);
-
         if ($stmt->execute()) {
             $successMessage = "Event added successfully!";
         } else {
@@ -34,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $errorMessage = "Please fill all fields.";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -186,6 +200,42 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </div>
                 <button type="submit">Add Event</button>
             </form>
+
+ <hr><h3 style="margin-top:40px;">All Events</h3>
+<table style="margin-top: 20px; width: 100%; border-collapse: collapse; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+    <thead>
+        <tr style="background-color: #2c3e50; color: white;">
+            <th style="padding: 10px; border: 1px solid #ccc;">ID</th>
+            <th style="padding: 10px; border: 1px solid #ccc;">Title</th>
+            <th style="padding: 10px; border: 1px solid #ccc;">Date</th>
+            <th style="padding: 10px; border: 1px solid #ccc;">Region</th>
+            <th style="padding: 10px; border: 1px solid #ccc;">Time</th>
+            <th style="padding: 10px; border: 1px solid #ccc;">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $res = $con->query("SELECT * FROM events ORDER BY id DESC");
+        while ($row = $res->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td style='padding: 8px; border: 1px solid #ccc;'>{$row['id']}</td>";
+            echo "<td style='padding: 8px; border: 1px solid #ccc;'>".htmlspecialchars($row['title'])."</td>";
+            echo "<td style='padding: 8px; border: 1px solid #ccc;'>{$row['date']}</td>";
+            echo "<td style='padding: 8px; border: 1px solid #ccc;'>{$row['region']}</td>";
+            echo "<td style='padding: 8px; border: 1px solid #ccc;'>{$row['time']}</td>";
+            echo "<td style='padding: 8px; border: 1px solid #ccc;'>
+                    <form method='POST' style='display:inline;'>
+                        <input type='hidden' name='delete_id' value='{$row['id']}'>
+                        <button type='submit' style='background-color:#e74c3c; color:white; border:none; padding:6px 12px; border-radius:5px; cursor:pointer;' onclick='return confirm(\"Are you sure?\")'>Delete</button>
+                    </form>
+                </td>";
+            echo "</tr>";
+        }
+        ?>
+    </tbody>
+</table>
+
+
 
             <?php if ($successMessage): ?>
                 <div class="message"><?php echo $successMessage; ?></div>
