@@ -185,8 +185,10 @@ if ($result && $result->num_rows > 0) {
         $image = htmlspecialchars($row['image']);
         $region = htmlspecialchars($row['region']);
         $time = htmlspecialchars($row['time']);
+        $lat = htmlspecialchars($row['latitude']);
+        $lng = htmlspecialchars($row['longitude']);
 
-        echo '<div class="event-card" data-region="'.$region.'" data-time="'.$time.'" data-description="'.$description.'">';
+        echo '<div class="event-card" data-region="'.$region.'" data-time="'.$time.'" data-description="'.$description.'" data-lat="'.$lat.'" data-lng="'.$lng.'">';
         echo '<img src="'.$image.'" alt="Event Image">';
         echo '<h3>'.$title.'</h3>';
         echo '<p class="event-time">Date: '.$date.'</p>';
