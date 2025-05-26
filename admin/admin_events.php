@@ -17,10 +17,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $region = trim($_POST["region"]);
     $time = trim($_POST["time"]);
     $image = trim($_POST["image"]);
+    $latitude = trim($_POST["latitude"]);
+    $longitude = trim($_POST["longitude"]);
 
     if ($title && $description && $date && $region && $time && $image) {
-        $stmt = $con->prepare("INSERT INTO events (title, description, date, region, time, image) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssss", $title, $description, $date, $region, $time, $image);
+        $stmt = $con->prepare("INSERT INTO events (title, description, date, region, time, image, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssdd", $title, $description, $date, $region, $time, $image, $latitude, $longitude);
+
         if ($stmt->execute()) {
             $successMessage = "Event added successfully!";
         } else {
@@ -170,6 +173,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div class="form-group">
                     <label>Image URL*</label>
                     <input type="text" name="image" required>
+                </div>
+
+                <div class="form-group">
+                     <label>Latitude*</label>
+                    <input type="text" name="latitude" placeholder="e.g. 40.7128" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Longitude*</label>
+                    <input type="text" name="longitude" placeholder="e.g. -74.0060" required>
                 </div>
                 <button type="submit">Add Event</button>
             </form>
