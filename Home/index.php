@@ -10,8 +10,6 @@ if (isset($_GET['theme'])) {
 $currentTheme = isset($_COOKIE['site_theme']) ? $_COOKIE['site_theme'] : 'dark';
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -224,11 +222,15 @@ body.dark-theme .footer-section {
                 echo '<li><a href="'.$item['link'].'">'.$item['text'].'</a></li>';
             }
             
-            
             if ($this->loginIcon) {
-               
-                echo '<li><a href="/WEB2_2025_GR12/login/login.php"><img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;"></a></li>';
+            $loginLink = '/WEB2_2025_GR12/login/login.php';
+            if (isset($_SESSION['user_id'])) {
+                $loginLink = '/WEB2_2025_GR12/login/customer_login.php';
+            } elseif (isset($_SESSION['admin_email'])) {
+                $loginLink = '/WEB2_2025_GR12/admin/admin.php';
             }
+            echo '<li><a href="' . $loginLink . '"><img src="/WEB2_2025_GR12/login/login.png" style="width: 35px; height: 35px;"></a></li>';
+        }
             
             echo '</ul>
                     </nav>
