@@ -6,15 +6,13 @@ require_once __DIR__ . '/send_mail/PHPMailer-master/src/PHPMailer.php';
 require_once __DIR__ . '/send_mail/PHPMailer-master/src/SMTP.php';
 require_once __DIR__ . '/send_mail/PHPMailer-master/src/Exception.php';
 
-var_dump($signupEmail); 
-
 function sendWelcomeEmail($to, $name) {
     $mail = new PHPMailer(true);
 
     try {
         // $mail->SMTPDebug = 2;
         // $mail->Debugoutput = 'html';
-         
+
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
