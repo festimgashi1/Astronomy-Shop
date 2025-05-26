@@ -54,11 +54,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['title'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
     <title>Admin Events</title>
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Orbitron', sans-serif;
             display: flex;
             background-color: #f4f4f4;
         }
@@ -97,12 +98,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['title'])) {
             flex-grow: 1;
             padding: 40px;
         }
-
         .form-container {
             background-color: white;
             padding: 25px;
             border-radius: 10px;
-            max-width: 500px;
+            /* max-width: 500px; REMOVE THIS LINE */
+            width: 100%; /* ADD THIS */
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
