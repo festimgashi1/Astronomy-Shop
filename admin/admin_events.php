@@ -56,99 +56,152 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['title'])) {
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
     <title>Admin Events</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Orbitron', sans-serif;
-            display: flex;
-            background-color: #f4f4f4;
-        }
+<style>
+    body {
+        margin: 0;
+        font-family: 'Orbitron', sans-serif;
+        display: flex;
+        background-color: #ecf0f1;
+    }
 
-        .sidebar {
-            width: 220px;
-            background-color: #2c3e50;
-            padding: 20px;
-            height: 100vh;
-            color: white;
-        }
+    .sidebar {
+        width: 220px;
+        background-color: #2c3e50;
+        padding: 20px;
+        min-height: 100vh;
+        color: white;
+        position: sticky;
+        top: 0;
+    }
 
-        .sidebar h2 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
 
-        .sidebar a {
-            display: block;
-            color: white;
-            padding: 10px;
-            text-decoration: none;
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
+    .sidebar h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
 
-        .sidebar a:hover {
-            background-color: #34495e;
-        }
+    .sidebar a {
+        display: block;
+        color: white;
+        padding: 10px;
+        text-decoration: none;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
 
-        .signout {
-            background-color: #e74c3c;
-        }
+    .sidebar a:hover {
+        background-color: #1abc9c;
+    }
 
-        .main {
-            flex-grow: 1;
-            padding: 40px;
-        }
-        .form-container {
-            background-color: white;
-            padding: 25px;
-            border-radius: 10px;
-            /* max-width: 500px; REMOVE THIS LINE */
-            width: 100%; /* ADD THIS */
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
+    .signout {
+        background-color: #e74c3c;
+    }
 
-        .form-container h2 {
-            margin-bottom: 20px;
-        }
+    .main {
+        flex-grow: 1;
+        padding: 40px;
+    }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
+    .form-container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 12px;
+        width: 100%;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
 
-        input[type="text"],
-        input[type="date"] {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
+    .form-container h2 {
+        margin-bottom: 25px;
+        color: #2c3e50;
+    }
 
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            resize: vertical;
-        }
+    .form-group {
+        margin-bottom: 20px;
+    }
 
-        button {
-            padding: 10px 20px;
-            background-color: #2ecc71;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    input[type="text"],
+    input[type="date"],
+    textarea {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #bdc3c7;
+        box-sizing: border-box;
+        transition: border 0.2s ease-in-out;
+    }
 
-        .message {
-            margin-top: 10px;
-            color: green;
-        }
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #3498db;
+    }
 
-        .error {
-            color: red;
-        }
-    </style>
+    button {
+        padding: 12px 20px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+        background-color: #2980b9;
+    }
+
+    .message {
+        margin-top: 15px;
+        color: #27ae60;
+    }
+
+    .error {
+        color: #e74c3c;
+    }
+
+    table {
+        margin-top: 30px;
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 10px;
+        overflow: hidden;
+        background: white;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    thead {
+        background-color: #34495e;
+        color: white;
+    }
+
+    th, td {
+        padding: 14px 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .delete-button {
+        background-color: #e74c3c;
+        color: white;
+        padding: 6px 14px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .delete-button:hover {
+        background-color: #c0392b;
+    }
+</style>
+
 </head>
 <body>
     <div class="sidebar">
