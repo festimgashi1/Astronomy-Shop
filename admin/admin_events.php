@@ -14,11 +14,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $title = trim($_POST["title"]);
     $description = trim($_POST["description"]);
     $date = trim($_POST["date"]);
+    $region = trim($_POST["region"]);
+    $time = trim($_POST["time"]);
     $image = trim($_POST["image"]);
 
-    if ($title && $description && $date && $image) {
-        $stmt = $con->prepare("INSERT INTO events (title, description, date, image) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $title, $description, $date, $image);
+    if ($title && $description && $date && $region && $time && $image) {
+        $stmt = $con->prepare("INSERT INTO events (title, description, date, region, time, image) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssss", $title, $description, $date, $region, $time, $image);
         if ($stmt->execute()) {
             $successMessage = "Event added successfully!";
         } else {
@@ -156,6 +158,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div class="form-group">
                     <label>Date*</label>
                     <input type="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label>Region*</label>
+                    <input type="text" name="region" placeholder="e.g. USA, Europe, Global" required>
+                </div>
+                <div class="form-group">
+                    <label>Time*</label>
+                    <input type="text" name="time" placeholder="e.g. 2:00 PM EST" required>
                 </div>
                 <div class="form-group">
                     <label>Image URL*</label>
