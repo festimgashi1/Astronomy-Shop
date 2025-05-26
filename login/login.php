@@ -55,7 +55,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     mysqli_stmt_bind_param($stmt, "ssss", $signupFullName, $signupEmail, $signupPhone, $hashedPassword);
                     if (mysqli_stmt_execute($stmt)) {
                         $signupMessage = "<div class='success'>Registration successful!</div>";
-                        $signupFullName = $signupEmail = $signupPhone = $signupPassword = $signupConfirmPassword = "";
+                       require_once("../send_email.php");
+
+                $emailToSend = filter_var($signupEmail, FILTER_VALIDATE_EMAIL);
+                if ($emailToSend) {
+                    if (sendWelcomeEmail($emailToSend, $signupFullName)) {
+                        $signupMessage .= "<div class='success'>A welcome email has been sent to your inbox.</div>";
+                    } else {
+                        $signupMessage .= "<div class='error'>Email sending failed, but registration was successful.</div>";
+                    }
+                } else {
+                    $signupMessage .= "<div class='error'>Signup complete, but email address was invalid.</div>";
+                }
+
+                                        $signupFullName = $signupEmail = $signupPhone = $signupPassword = $signupConfirmPassword = "";
+
                     } else {
                         $signupMessage = "<div class='error'>Database error during registration.</div>";
                     }
