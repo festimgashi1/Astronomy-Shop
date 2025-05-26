@@ -1,4 +1,3 @@
-
 const planets = [
     { name: 'Mercury', image: '/WEB2_2025_GR12/game/planets/mercury.png', orbitRadius: 100, size: 50 },
     { name: 'Venus', image: '/WEB2_2025_GR12/game/planets/venus.png', orbitRadius: 140, size: 40 },
@@ -7,7 +6,7 @@ const planets = [
     { name: 'Jupiter', image: '/WEB2_2025_GR12/game/planets/jupiter.png', orbitRadius: 280, size: 80 },
     { name: 'Saturn', image: '/WEB2_2025_GR12/game/planets/saturn.png', orbitRadius: 340, size: 70 },
     { name: 'Uranus', image: '/WEB2_2025_GR12/game/planets/uranus.png', orbitRadius: 400, size: 60 },
-    { name: 'Neptune', image: '/WEB2_2025_GR12/game/planets/neptun.png', orbitRadius: 460, size: 55 },
+    { name: 'Neptune', image: '/WEB2_2025_GR12/game/planets/neptune.png', orbitRadius: 460, size: 55 },
 ];
 
 const planetSelection = document.getElementById('planetSelection');
@@ -126,122 +125,3 @@ document.getElementById('reset-button').addEventListener('click', () => {
 
 
 initGame();
-
-let startTime;
-let timerInterval;
-let hasStarted = false;
-
-function startTimer() {
-    startTime = Date.now();
-    timerInterval = setInterval(() => {
-        const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
-        document.getElementById("time").textContent = elapsed;
-    }, 100);
-}
-
-function stopTimer() {
-    clearInterval(timerInterval);
-    const finalTime = ((Date.now() - startTime) / 1000).toFixed(2);
-    saveCompletionTime(finalTime);
-}
-
-function saveCompletionTime(time) {
-    fetch('save_time.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: 'completionTime=' + encodeURIComponent(time)
-    });
-}
-let startTime;
-let timerInterval;
-let hasStarted = false;
-let placedPlanets = 0;
-const totalPlanets = 8; // Përshtate sipas sa planetë ke
-
-function startTimer() {
-    startTime = Date.now();
-    timerInterval = setInterval(() => {
-        const elapsed = ((Date.now() - startTime) / 1000).toFixed(2);
-        document.getElementById("time").textContent = elapsed;
-    }, 100);
-}
-
-function stopTimer() {
-    clearInterval(timerInterval);
-    const finalTime = ((Date.now() - startTime) / 1000).toFixed(2);
-    saveCompletionTime(finalTime);
-    showCongratulations();
-}
-
-function saveCompletionTime(time) {
-    fetch('save_time.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: 'completionTime=' + encodeURIComponent(time)
-    });
-}
-
-function showCongratulations() {
-    document.getElementById('congratulations').classList.remove('hidden');
-}
-
-
-const planets = document.querySelectorAll('.planet');
-const solarSystem = document.getElementById('solarSystem');
-
-planets.forEach(planet => {
-    planet.setAttribute('draggable', true);
-
-    planet.addEventListener('dragstart', () => {
-        if (!hasStarted) {
-            startTimer();
-            hasStarted = true;
-        }
-    });
-});
-
-solarSystem.addEventListener('dragover', (e) => {
-    e.preventDefault();
-});
-
-solarSystem.addEventListener('drop', (e) => {
-    e.preventDefault();
-    
-    const draggedPlanet = document.querySelector('.dragging');
-    if (draggedPlanet) {
-        solarSystem.appendChild(draggedPlanet);
-        draggedPlanet.classList.remove('dragging');
-        
-        placedPlanets++;
-        if (placedPlanets === totalPlanets) {
-            stopTimer();
-        }
-    }
-});
-
-// Ndihmon që elementi të dihet cili është duke u tërhequr
-planets.forEach(planet => {
-    planet.addEventListener('dragstart', () => {
-        planet.classList.add('dragging');
-    });
-
-    planet.addEventListener('dragend', () => {
-        planet.classList.remove('dragging');
-    });
-});
-function saveCompletionTime(time) {
-    fetch('save_time.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: 'completionTime=' + encodeURIComponent(time)
-    });
-}
-
-
-}

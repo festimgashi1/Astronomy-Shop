@@ -205,6 +205,13 @@ function debugGlobals() {
 require_once("../db/db.php");
 
 if (isset($_POST['submit'])) {
+     if (!isset($_SESSION['user_id'])) {
+        echo "<script>
+            alert('You need to be logged in to submit a review.');
+            window.location.href = '../login/login.php';
+        </script>";
+        exit;
+     }
     $name = $_POST['name'];
     $email = $_POST['email'];
     $rating = $_POST['rating'];

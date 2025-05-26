@@ -133,10 +133,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeButton = document.getElementById("closeButton");
 
     if (openButton) {
-        openButton.addEventListener("click", () => {
-            popup.style.display = "block";
-        });
-    }
+    openButton.addEventListener("click", () => {
+        if (!window.isLoggedIn) {
+            alert("⚠️ You must log in to proceed to checkout.");
+            return;
+        }
+        popup.style.display = "block";
+    });
+}
+
 
     if (closeButton) {
         closeButton.addEventListener("click", () => {

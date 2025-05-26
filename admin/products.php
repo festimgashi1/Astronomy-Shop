@@ -2,7 +2,6 @@
 session_start();
 require_once("../db/db.php");
 
-// kontrollo nese admini eshte i kyçur
 if (!isset($_SESSION['admin_email'])) {
     header("Location: ../login/login.php");
     exit();
@@ -11,7 +10,18 @@ if (!isset($_SESSION['admin_email'])) {
 $successMessage = "";
 $errorMessage = "";
 
-// Shto produktin në databazë kur forma dërgohet
+if (isset($_GET['delete'])) {
+    $deleteId = intval($_GET['delete']);
+    $deleteStmt = $con->prepare("DELETE FROM products WHERE id = ?");
+    $deleteStmt->bind_param("i", $deleteId);
+    if ($deleteStmt->execute()) {
+        $successMessage = "Product deleted successfully!";
+    } else {
+        $errorMessage = "Failed to delete product.";
+    }
+    $deleteStmt->close();
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = trim($_POST["name"]);
     $price = floatval($_POST["price"]);
@@ -32,6 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $errorMessage = "Please fill all required fields.";
     }
 }
+
+$products = $con->query("SELECT * FROM products");
 ?>
 
 <!DOCTYPE html>
@@ -44,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             margin: 0;
             font-family: Arial, sans-serif;
             display: flex;
+            min-height: 100vh;
             background-color: #f4f4f4;
         }
 
@@ -51,8 +64,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             width: 220px;
             background-color: #2c3e50;
             padding: 20px;
-            height: 100vh;
             color: white;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
         }
 
         .sidebar h2 {
@@ -78,8 +95,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         .main {
-            flex-grow: 1;
+            margin-left: 240px;
             padding: 40px;
+            flex-grow: 1;
+            width: calc(100% - 240px);
         }
 
         .form-container {
@@ -88,6 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             border-radius: 10px;
             max-width: 500px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
         }
 
         .form-container h2 {
@@ -122,6 +142,46 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         .error {
             color: red;
+        }
+
+        table {
+            width: 100%;
+            background-color: white;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+            table-layout: fixed;
+            font-size: 15px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+
+        td img {
+            width: 50px;
+            height: auto;
+        }
+
+        .delete-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background: #c0392b;
         }
     </style>
 </head>
@@ -158,13 +218,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </div>
                 <button type="submit">Add Product</button>
             </form>
-
             <?php if ($successMessage): ?>
-                <div class="message"><?php echo $successMessage; ?></div>
+                <div class="message"><?= $successMessage ?></div>
             <?php elseif ($errorMessage): ?>
-                <div class="error"><?php echo $errorMessage; ?></div>
+                <div class="error"><?= $errorMessage ?></div>
             <?php endif; ?>
         </div>
+
+        <h2>All Products</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price (€)</th>
+                <th>Category</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+            <?php while ($row = $products->fetch_assoc()): ?>
+                <tr>
+                    <td><?= htmlspecialchars($row['id']) ?></td>
+                    <td><?= htmlspecialchars($row['name']) ?></td>
+                    <td><?= number_format($row['price'], 2) ?></td>
+                    <td><?= htmlspecialchars($row['category']) ?></td>
+                    <td><img src="<?= htmlspecialchars($row['image']) ?>" alt="Product"></td>
+                    <td><a class="delete-btn" href="?delete=<?= $row['id'] ?>" onclick="return confirm('Delete this product?')">Delete</a></td>
+                </tr>
+            <?php endwhile; ?>
+        </table>
     </div>
 </body>
 </html>

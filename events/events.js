@@ -273,3 +273,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const map = L.map('map').setView([20, 0], 2); // qendër globale fillestare
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const eventCards = document.querySelectorAll('.event-card');
+
+    eventCards.forEach(card => {
+        const lat = parseFloat(card.getAttribute('data-lat'));
+        const lng = parseFloat(card.getAttribute('data-lng'));
+        const title = card.querySelector('h3')?.textContent;
+
+        if (!isNaN(lat) && !isNaN(lng)) {
+            L.marker([lat, lng])
+                .addTo(map)
+                .bindPopup(title || 'Event');
+        }
+    });
+});

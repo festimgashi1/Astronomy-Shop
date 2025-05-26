@@ -233,7 +233,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submitButton'])) {
 
 <script>
 
+     window.isLoggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
+
+document.getElementById("checkout-btn").addEventListener("click", function (e) {
+    if (!window.isLoggedIn) {
+        alert("⚠️ You must log in to proceed to checkout.");
+        return false; 
+    }
+
+    document.getElementById("cart").classList.add("open");
+    document.body.classList.add("cart-open");
+});
+
+
+
 document.getElementById("submitButton").addEventListener("click", (e) => {
+    if (!window.isLoggedIn) {
+        e.preventDefault(); 
+        alert("⚠️ You must log in before placing an order.");
+        return;
+    }
+
     const cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]"); 
     const address = document.getElementById("address").value;
     const payment = document.querySelector("input[name='radio']:checked").value;
@@ -255,20 +275,17 @@ document.getElementById("submitButton").addEventListener("click", (e) => {
         `;
     });
 
-    // ✅ Show message, clear cart, close cart
     alert("✅ The order is on the way!");
 
-    // Clear and close
     localStorage.removeItem("cartItems");
     document.getElementById("cart").classList.remove("open");
     document.body.classList.remove("cart-open");
     renderCart();
 
-    // Submit form
     document.getElementById("orderForm").submit();
 });
 
- window.isLoggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
+
 </script>
 
 <script src="shop.js"></script>
