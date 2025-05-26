@@ -170,6 +170,7 @@ class SpecialEvent extends Event {
             </div> 
     
         </div>
+
 <div id="events-container">
 <?php
 require_once("../db/db.php");
@@ -182,12 +183,14 @@ if ($result && $result->num_rows > 0) {
         $description = htmlspecialchars($row['description']);
         $date = htmlspecialchars($row['date']);
         $image = htmlspecialchars($row['image']);
+        $region = htmlspecialchars($row['region']);
+        $time = htmlspecialchars($row['time']);
 
-        echo '<div class="event-card" data-region="Global" data-time="future" data-description="'.$description.'">';
+        echo '<div class="event-card" data-region="'.$region.'" data-time="'.$time.'" data-description="'.$description.'">';
         echo '<img src="'.$image.'" alt="Event Image">';
         echo '<h3>'.$title.'</h3>';
         echo '<p class="event-time">Date: '.$date.'</p>';
-        echo '<p class="event-time">Time: unknown</p>';
+        echo '<p class="event-time">Time: '.$time.'</p>';
         echo '<button class="favorite-btn">⭐</button>';
         echo '</div>';
     }
@@ -195,6 +198,7 @@ if ($result && $result->num_rows > 0) {
     echo "<p style='text-align:center;'>No events found.</p>";
 }
 ?>
+</div>
 </div>
     </main>
     
