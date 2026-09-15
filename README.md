@@ -73,11 +73,6 @@ An admin panel to manage the site's content
 AJAX-style JSON endpoints consumed by frontend JavaScript
 Email integration via PHPMailer
 A bonus interactive game page
-Notes / Known Issues
-A few things worth cleaning up before treating this as production-ready:
 
-db/db.php:5 uses the default local MySQL credentials (root / empty password) - fine for local dev, but should come from environment variables/config before any real deployment
-login/login.php:115 redirects the admin to admin.php but then references $row['email'] right after (a variable that belongs to the customer branch, not the admin one) - worth double-checking that block
-Login/sign-up paths are hardcoded as /WEB2_2025_GR12/..., so the project needs to live at that exact folder name under your web root for the redirects to work
-aboutus/logs/ looks like a debug/log folder that ended up committed - probably safe to remove or gitignore
-Created by Festim Gashi Contact: festimi2005gashi@gmail.com
+Created by Festim Gashi 
+Contact: festimi2005gashi@gmail.com
